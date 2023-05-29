@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pegawai;
+use App\Models\Bendera;
 use Illuminate\Http\Request;
 
-class PegawaiController extends Controller
+class BenderaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class PegawaiController extends Controller
     public function index()
     {
         // hubungkan data migration
-        $pegawai = Pegawai::all();
+        $bendera = Bendera::all();
 
-        return view('backend.pegawai.index', compact('pegawai'));
+        return view('backend.bendera.index', compact('bendera'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('backend.pegawai.create');
+        return view('backend.bendera.create');
     }
 
     /**
@@ -39,23 +39,23 @@ class PegawaiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|unique:pegawai',
-            'nip' => 'required|unique:pegawai',
-            'gol' => 'required',
+            'nama' => 'required|unique:bendera',
+            'kode' => 'required|unique:bendera',
+
         ]);
 
-        Pegawai::create($validatedData);
+        Bendera::create($validatedData);
 
-        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil ditambah.');
+        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil ditambah.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bendera  $bendera
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Bendera $bendera)
     {
         //
     }
@@ -63,62 +63,60 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bendera  $bendera
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $pegawai = Pegawai::find($id);
+        $bendera = Bendera::find($id);
 
-        if (!$pegawai) {
+        if (!$bendera) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
-        return view('backend.pegawai.edit', compact('pegawai'));
+        return view('backend.bendera.edit', compact('bendera'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Bendera  $bendera
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $pegawai = Pegawai::find($id);
+        $bendera = Bendera::find($id);
 
-        if (!$pegawai) {
+        if (!$bendera) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
         $request->validate([
             'nama' => 'required',
-            'nip' => 'required',
-            'gol' => 'required',
+            'kode' => 'required',
         ]);
 
-        $pegawai->nama = $request->nama;
-        $pegawai->nip = $request->nip;
-        $pegawai->gol = $request->gol;
-        $pegawai->save();
+        $bendera->nama = $request->nama;
+        $bendera->kode = $request->kode;
+        $bendera->save();
 
-        return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil diperbarui.');
+        return redirect()->route('bendera.index')->with('success', 'bendera berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Bendera  $bendera
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $pegawai = Pegawai::findOrFail($id);
-        $pegawai->delete();
+        $bendera = Bendera::findOrFail($id);
+        $bendera->delete();
 
-        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil dihapus.');
+        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus.');
     }
 }

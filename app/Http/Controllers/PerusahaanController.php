@@ -14,7 +14,10 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-        //
+        // hubungkan data migration
+        $perusahaan = Perusahaan::all();
+
+        return view('backend.perusahaan.index', compact('perusahaan'));
     }
 
     /**
@@ -24,7 +27,7 @@ class PerusahaanController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.perusahaan.create');
     }
 
     /**
@@ -35,7 +38,18 @@ class PerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|unique:perusahaan',
+            'status' => 'required|unique:perusahaan',
+            'alamat' => 'required|unique:perusahaan',
+            'telepon' => 'required|unique:perusahaan',
+            'email' => 'required|unique:perusahaan',
+
+        ]);
+
+        Perusahaan::create($validatedData);
+
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil ditambah.');
     }
 
     /**
@@ -55,9 +69,16 @@ class PerusahaanController extends Controller
      * @param  \App\Models\Perusahaan  $perusahaan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Perusahaan $perusahaan)
+    public function edit($id)
     {
-        //
+        $perusahaan = Perusahaan::find($id);
+
+        if (!$perusahaan) {
+            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
+            abort(404);
+        }
+
+        return view('backend.perusahaan.edit', compact('perusahaan'));
     }
 
     /**
@@ -67,9 +88,31 @@ class PerusahaanController extends Controller
      * @param  \App\Models\Perusahaan  $perusahaan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Perusahaan $perusahaan)
+    public function update(Request $request, $id)
     {
-        //
+        $perusahaan = Perusahaan::find($id);
+
+        if (!$perusahaan) {
+            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
+            abort(404);
+        }
+
+        $request->validate([
+            'nama' => 'required',
+            'status' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+            'email' => 'required',
+        ]);
+
+        $perusahaan->nama = $request->nama;
+        $perusahaan->status = $request->status;
+        $perusahaan->alamat = $request->alamat;
+        $perusahaan->telepon = $request->telepon;
+        $perusahaan->email = $request->email;
+        $perusahaan->save();
+
+        return redirect()->route('perusahaan.index')->with('success', 'perusahaan berhasil diperbarui.');
     }
 
     /**
@@ -78,8 +121,11 @@ class PerusahaanController extends Controller
      * @param  \App\Models\Perusahaan  $perusahaan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Perusahaan $perusahaan)
+    public function destroy($id)
     {
-        //
+        $perusahaan = Perusahaan::findOrFail($id);
+        $perusahaan->delete();
+
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil dihapus.');
     }
 }

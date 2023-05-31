@@ -31,33 +31,35 @@
                 <div class="card-body">
                     <a href="{{ route('bendera.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i>
                         Tambah</a>
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama Bendera</th>
-                                <th>Kode</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bendera as $data)
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->kode }}</td>
-                                    <td>
-                                        <a href="{{ route('bendera.edit', $data) }}" class="btn btn-primary btn-sm"><i
-                                                class="fa fa-pen"></i>
-                                            Edit</a>
-                                        <a href="{{ route('bendera.destroy', $data) }}" class="btn btn-danger btn-sm"><i
-                                                class="fas fa-trash-alt">
-                                            </i> Hapus</a>
-                                    </td>
+                                    <th>No.</th>
+                                    <th>Nama Bendera</th>
+                                    <th>Kode</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($bendera as $data)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->nama }}</td>
+                                        <td>{{ $data->kode }}</td>
+                                        <td>
+                                            <a href="{{ route('bendera.edit', $data) }}" class="btn btn-primary btn-sm"><i
+                                                    class="fa fa-pen"></i>
+                                                Edit</a>
+                                            <a href="{{ route('bendera.destroy', $data) }}" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-trash-alt">
+                                                </i> Hapus</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

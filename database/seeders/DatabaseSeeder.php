@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PegawaiSeeder::class,
             BenderaSeeder::class,
+            Tipe_kapalSeeder::class,
         ]);
     }
 }

@@ -7,5 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perusahaan extends Model
 {
-    use HasFactory;
+    protected $table = 'perusahaan';
+
+    protected $fillable = [
+        'nama',
+        'status',
+        'alamat',
+        'telepon',
+        'email',
+    ];
+
+    public function kapal()
+    {
+        return $this->hasMany(Kapal::class, 'perusahaan_id');
+    }
 }

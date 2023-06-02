@@ -81,9 +81,15 @@ class KapalController extends Controller
      * @param  \App\Models\Kapal  $kapal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kapal $kapal)
+    public function edit($id)
     {
-        //
+        $kapal = Kapal::findOrFail($id);
+        $perusahaan = Perusahaan::all();
+        $tipe_kapal = Tipe_kapal::all();
+        $bendera = Bendera::all();
+
+
+        return view('backend.kapal.edit', compact('kapal', 'perusahaan', 'tipe_kapal', 'bendera'));
     }
 
     /**
@@ -93,9 +99,40 @@ class KapalController extends Controller
      * @param  \App\Models\Kapal  $kapal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kapal $kapal)
+    public function update(Request $request, $id)
     {
-        //
+        // Validasi data input
+        $request->validate([
+            'nama' => 'required',
+            'call_sign' => 'required',
+            'bendera_id' => 'required',
+            'tipe_kapal_id' => 'required',
+            // 'gt' => 'required',
+            // 'dwt' => 'required',
+            // 'loa' => 'required',
+            'kapasitas' => 'required',
+            'perusahaan_id' => 'required',
+            'thn_produksi' => 'required',
+            'tgl_docking' => 'required',
+        ]);
+
+        $kapal = Kapal::findOrFail($id);
+
+        $kapal->nama = $request->nama;
+        $kapal->call_sign = $request->call_sign;
+        $kapal->bendera_id = $request->bendera_id;
+        $kapal->tipe_kapal_id = $request->tipe_kapal_id;
+        $kapal->gt = $request->gt;
+        $kapal->dwt = $request->dwt;
+        $kapal->loa = $request->loa;
+        $kapal->kapasitas = $request->kapasitas;
+        $kapal->perusahaan_id = $request->perusahaan_id;
+        $kapal->thn_produksi = $request->thn_produksi;
+        $kapal->tgl_docking = $request->tgl_docking;
+
+        $kapal->save();
+
+        return redirect()->route('kapal.index')->with('success', 'Data kapal berhasil diperbarui.');
     }
 
     /**
@@ -104,8 +141,24 @@ class KapalController extends Controller
      * @param  \App\Models\Kapal  $kapal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kapal $kapal)
+    public function destroy($id)
     {
-        //
+
+        $kapal = Kapal::findOrFail($id);
+
+        $kapal->delete();
+
+        return redirect()->route('kapal.index')->with('success', 'Data kapal berhasil dihapus.');
+    }
+
+    // fungsi ambil data javascript
+    public function getData($kapal_id)
+    {
+        $kapal = Kapal::findOrFail($kapal_id);
+        $bendera = $kapal->bendera->nama;
+        $perusahaan = $kapal->perusahaan->nama;
+        $tipe_kapal = $kapal->tipe_kapal->nama;
+
+        return response()->json(['bendera' => $bendera, 'perusahaan' => $perusahaan, 'tipe_kapal' => $tipe_kapal]);
     }
 }

@@ -37,4 +37,9 @@ class Kapal extends Model
     {
         return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
     }
+
+    public function spb()
+    {
+        return $this->hasMany(Spb::class, 'kapal_id');
+    }
 }

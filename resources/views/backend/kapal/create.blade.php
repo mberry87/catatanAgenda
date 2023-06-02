@@ -146,10 +146,10 @@
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
-                                        @error('tgl_docking')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
+                                    @error('tgl_docking')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <a href="{{ route('kapal.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                                 <button class="btn btn-info btn-sm" type="reset">Reset</button>

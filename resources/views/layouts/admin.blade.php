@@ -212,11 +212,32 @@
                         </li>
                         <li
                             class="
-                        nav-item {{ Request::is('bendera') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('perusahaan') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('kapal') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('tipe_kapal') ? 'menu-open' : '' }}
-                        ">
+                            nav-item {{ Request::is('spb') ? 'menu-open' : '' }}
+                            ">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    JENIS SURAT
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('spb.index') }}"
+                                        class="nav-link {{ Request::is('spb') ? 'active' : '' }}">
+                                        <i class="fas fa-file nav-icon"></i>
+                                        <p>Persetujuan Berlayar</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li
+                            class="
+                            nav-item {{ Request::is('bendera') ? 'menu-open' : '' }}
+                            nav-item {{ Request::is('perusahaan') ? 'menu-open' : '' }}
+                            nav-item {{ Request::is('kapal') ? 'menu-open' : '' }}
+                            nav-item {{ Request::is('tipe_kapal') ? 'menu-open' : '' }}
+                            ">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-anchor"></i>
                                 <p>
@@ -247,6 +268,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
+                                    <a href="{{ route('pelabuhan.index') }}"
+                                        class="nav-link {{ Request::is('pelabuhan') ? 'active' : '' }}">
+                                        <i class="fas fa-suitcase-rolling nav-icon"></i>
+                                        <p>Pelabuhan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
                                     <a href="{{ route('perusahaan.index') }}"
                                         class="nav-link {{ Request::is('perusahaan') ? 'active' : '' }}">
                                         <i class="fas fa-building nav-icon"></i>
@@ -257,8 +285,8 @@
                         </li>
                         <li
                             class="
-                        nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
-                        ">
+                            nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
+                            ">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
                                 <p>
@@ -321,6 +349,7 @@
     </div>
 
     <script src="{{ asset('template') }}/plugins/jquery/jquery.min.js"></script>
+
     <script src="{{ asset('template') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('template') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -510,3 +539,37 @@
         }
         // DropzoneJS Demo Code End
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#kapal_id').change(function() {
+                var kapalId = $(this).val();
+                if (kapalId !== '') {
+                    $.ajax({
+                        url: '/get-data/' + kapalId,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#bendera').val(response.bendera);
+                            $('#perusahaan').val(response.perusahaan);
+                            $('#tipe_kapal').val(response.tipe_kapal);
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                } else {
+                    $('#bendera').val('');
+                    $('#perusahaan').val('');
+                    $('#tipe_kapal').val('');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>

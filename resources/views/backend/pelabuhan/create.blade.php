@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Bendera')
+@section('title', 'Tambah Pelabuhan')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Tambah Bendera</h4>
+            <h4 class="m-0">Tambah Pelabuhan</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item active">Tambah Bendera</li>
+                <li class="breadcrumb-item active">Tambah Pelabuhan</li>
             </ol>
         </div>
     </div>
@@ -24,11 +24,11 @@
                     <h5 class="m-0">Tambah Data</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('bendera.store') }}" class="form-horizontal form-label-left" method="POST">
+                    <form action="{{ route('pelabuhan.store') }}" class="form-horizontal form-label-left" method="POST">
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama">Nama Bendera</label>
+                            <label for="nama">Nama Pelabuhan</label>
                             <input type="text" name="nama" id="nama"
                                 class="form-control  @error('nama') is-invalid @enderror" value="{{ old('nama') }}">
                             @error('nama')
@@ -43,7 +43,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <a href="{{ route('bendera.index') }}" class="btn btn-warning btn-sm">Kembali</a>
+                        <a href="{{ route('pelabuhan.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button class="btn btn-info btn-sm" type="reset">Reset</button>
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                     </form>

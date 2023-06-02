@@ -28,20 +28,29 @@
 
                         <div class="form-group">
                             <label for="nama">Nama Pegawai</label>
-                            <input type="text" class="form-control" id="nama" name="nama"
-                                value="{{ old('nama', $pegawai->nama) }}">
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                name="nama" value="{{ old('nama', $pegawai->nama) }}">
+                            @error('nama')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="nip">NIP</label>
-                            <input type="text" class="form-control" id="nip" name="nip"
-                                value="{{ old('nip', $pegawai->nip) }}">
+                            <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip"
+                                name="nip" value="{{ old('nip', $pegawai->nip) }}">
+                            @error('nip')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="gol">Golongan</label>
-                            <input type="text" class="form-control" id="gol" name="gol"
-                                value="{{ old('gol', $pegawai->gol) }}">
+                            <input type="text" class="form-control @error('gol') is-invalid @enderror"id="gol"
+                                name="gol" value="{{ old('gol', $pegawai->gol) }}">
+                            @error('gol')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <a href="{{ route('pegawai.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>

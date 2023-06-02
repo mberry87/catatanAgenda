@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Pegawai')
+@section('title', 'Tipe Kapal')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Pegawai</h4>
+            <h4 class="m-0">Tipe Kapal</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item active">Pegawai</li>
+                <li class="breadcrumb-item active">Tipe Kapal</li>
             </ol>
         </div>
     </div>
@@ -29,32 +29,31 @@
                     <h5 class="m-0">Tabel Data</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i>
+                    <a href="{{ route('tipe_kapal.create') }}" class="btn btn-primary btn-sm mb-3"><i
+                            class="fa fa-plus"></i>
                         Tambah</a>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Pegawai</th>
-                                    <th>NIP</th>
-                                    <th>Golongan</th>
+                                    <th>Tipe Kapal</th>
+                                    <th>Kode</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pegawai as $data)
+                                @foreach ($tipe_kapal as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nama }}</td>
-                                        <td>{{ $data->nip }}</td>
-                                        <td>{{ $data->gol }}</td>
+                                        <td>{{ $data->kode }}</td>
                                         <td>
-                                            <a href="{{ route('pegawai.edit', $data) }}" class="btn btn-primary btn-sm"><i
-                                                    class="fa fa-pen"></i>
+                                            <a href="{{ route('tipe_kapal.edit', $data) }}"
+                                                class="btn btn-primary btn-sm"><i class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <a href="{{ route('pegawai.destroy', $data) }}" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt">
+                                            <a href="{{ route('tipe_kapal.destroy', $data) }}"
+                                                class="btn btn-danger btn-sm"><i class="fas fa-trash-alt">
                                                 </i> Hapus</a>
                                         </td>
                                     </tr>

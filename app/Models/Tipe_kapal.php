@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bendera extends Model
+class Tipe_kapal extends Model
 {
-    protected $table = 'bendera';
+    protected $table = 'tipe_kapal';
 
     protected $fillable = ['nama', 'kode'];
 
     public function kapal()
     {
-        return $this->hasMany(Kapal::class, 'bendera_id');
+        return $this->hasMany(Kapal::class, 'tipe_kapal_id');
     }
 }

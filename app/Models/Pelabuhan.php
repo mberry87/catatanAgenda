@@ -9,5 +9,13 @@ class Pelabuhan extends Model
 {
     protected $table = 'pelabuhan';
 
-    protected $fillable = ['nama', 'kode'];
+    protected $fillable = [
+        'nama',
+        'kode'
+    ];
+
+    public function spb()
+    {
+        return $this->hasMany(Spb::class, 'pelabuhan_id');
+    }
 }

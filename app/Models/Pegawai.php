@@ -11,4 +11,9 @@ class Pegawai extends Model
     protected $table = 'pegawai';
 
     protected $fillable = ['nama', 'nip', 'gol'];
+
+    public function spb()
+    {
+        return $this->hasMany(Spb::class, 'pegawai_id');
+    }
 }

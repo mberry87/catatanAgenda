@@ -141,7 +141,8 @@
                                     <label for="tgl_docking">Tanggal Docking</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="tgl_docking" id="tgl_docking"
-                                            class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                            class="form-control datetimepicker-input @error('tgl_docking') is-invalid @enderror"
+                                            data-target="#reservationdate" value="{{ old('tgl_docking') }}" />
                                         <div class="input-group-append" data-target="#reservationdate"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -151,11 +152,11 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <a href="{{ route('kapal.index') }}" class="btn btn-warning btn-sm">Kembali</a>
-                                <button class="btn btn-info btn-sm" type="reset">Reset</button>
-                                <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                             </div>
                         </div>
+                        <a href="{{ route('kapal.index') }}" class="btn btn-warning btn-sm">Kembali</a>
+                        <button class="btn btn-info btn-sm" type="reset">Reset</button>
+                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                     </form>
                 </div>
             </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kapal;
+use App\Models\Pegawai;
+use App\Models\Pelabuhan;
 use App\Models\Spb;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,9 @@ class SpbController extends Controller
     public function create()
     {
         $kapal = Kapal::all();
-        return view('backend.spb.create', compact('kapal'));
+        $pelabuhan = Pelabuhan::all();
+        $petugas = Pegawai::all();
+        return view('backend.spb.create', compact('kapal', 'pelabuhan', 'petugas'));
     }
 
     /**

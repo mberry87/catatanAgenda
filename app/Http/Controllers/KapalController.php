@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bendera;
 use App\Models\Kapal;
 use App\Models\Perusahaan;
+use App\Models\Spb;
 use App\Models\Tipe_kapal;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class KapalController extends Controller
 {
@@ -50,9 +52,9 @@ class KapalController extends Controller
             'call_sign' => 'required|unique:kapal',
             'bendera_id' => 'required',
             'tipe_kapal_id' => 'required',
-            // 'gt' => 'required',
-            // 'dwt' => 'required',
-            // 'loa' => 'required',
+            'gt' => 'required',
+            'dwt' => 'required',
+            'loa' => 'required',
             'kapasitas' => 'required',
             'perusahaan_id' => 'required',
             'thn_produksi' => 'required',
@@ -158,7 +160,11 @@ class KapalController extends Controller
         $bendera = $kapal->bendera->nama;
         $perusahaan = $kapal->perusahaan->nama;
         $tipe_kapal = $kapal->tipe_kapal->nama;
+        $gt = $kapal->gt;
+        $call_sign = $kapal->call_sign;
 
-        return response()->json(['bendera' => $bendera, 'perusahaan' => $perusahaan, 'tipe_kapal' => $tipe_kapal]);
+
+
+        return response()->json(['bendera' => $bendera, 'perusahaan' => $perusahaan, 'tipe_kapal' => $tipe_kapal, 'gt' => $gt, 'call_sign' => $call_sign]);
     }
 }

@@ -17,7 +17,8 @@ class SpbController extends Controller
      */
     public function index()
     {
-        $spb = Spb::with('spb')->get();
+        $spb = Spb::all();
+
         return view('backend.spb.index', compact('spb'));
     }
 
@@ -30,8 +31,15 @@ class SpbController extends Controller
     {
         $kapal = Kapal::all();
         $pelabuhan = Pelabuhan::all();
-        $petugas = Pegawai::all();
-        return view('backend.spb.create', compact('kapal', 'pelabuhan', 'petugas'));
+        $pegawai = Pegawai::all();
+
+        // generate nomor
+        $spb = new Spb();
+        $no_surat = $spb->generateNomorSurat();
+        $no_regis = $spb->generateNomorRegis();
+
+
+        return view('backend.spb.create', compact('kapal', 'pelabuhan', 'pegawai', 'no_surat', 'no_regis'));
     }
 
     /**
@@ -42,7 +50,31 @@ class SpbController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'no_regis' => 'required',
+            'no_surat' => 'required',
+            'tgl_surat' => 'required',
+            'pemohon' => 'required',
+            'kapal_id' => 'required',
+            'bendera' => 'required',
+            'tipe_kapal' => 'required',
+            'gt' => 'required',
+            'call_sign' => 'required|unique:spb',
+            'perusahaan' => 'required',
+
+            'pelabuhan_id' => 'required',
+            'pegawai_id' => 'required',
+
+
+        ]);
+
+        // generate nomor
+        $spb = new Spb($validatedData);
+        $spb->no_surat = $spb->generateNomorSurat();
+        $spb->no_regis = $spb->generateNomorRegis();
+        $spb->save();
+
+        return redirect()->route('spb.index')->with('success', 'Data SPB berhasil ditambah.');
     }
 
     /**

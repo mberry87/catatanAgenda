@@ -39,7 +39,7 @@ class PelabuhanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|unique:pelabuhan',
+            'nama' => 'required',
             'kode' => 'required|unique:pelabuhan',
 
         ]);

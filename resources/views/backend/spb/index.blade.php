@@ -18,7 +18,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-md-6">
+        <div class="col col-md-12">
             @if (session('success'))
                 <div class="alert alert-success" role="alert" style="width: 50%">
                     {{ session('success') }}
@@ -36,8 +36,18 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Bendera</th>
+                                    <th>No.Regis</th>
+                                    <th>No.Surat</th>
+                                    <th>Tanggal</th>
+                                    <th>Pemohon</th>
+                                    <th>Nama Kapal</th>
                                     <th>Bendera</th>
+                                    <th>Tipe Kapal</th>
+                                    <th>GT</th>
+                                    <th>Call Sign</th>
+                                    <th>Agen</th>
+                                    <th>Pelabuhan</th>
+                                    <th>Petugas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -45,13 +55,24 @@
                                 @foreach ($spb as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->no_regis }}</td>
+                                        <td>{{ $data->no_surat }}</td>
+                                        <td>{{ $data->tgl_surat }}</td>
+                                        <td>{{ $data->pemohon }}</td>
                                         <td>{{ $data->kapal->nama }}</td>
-                                        <td>{{ $data->bendera->nama }}</td>
+                                        <td>{{ $data->bendera }}</td>
+                                        <td>{{ $data->tipe_kapal }}</td>
+                                        <td>{{ $data->gt }}</td>
+                                        <td>{{ $data->call_sign }}</td>
+                                        <td>{{ $data->perusahaan }}</td>
+                                        <td>{{ $data->pelabuhan->nama }}</td>
+                                        <td>{{ $data->pegawai->nama }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i>
-                                                Edit</a>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt">
-                                                </i> Hapus</a>
+                                            <a href="#" class="btn btn-primary btn-sm "><i
+                                                    class="fa
+                                                fa-pen"></i></a>
+                                            <a href="#" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

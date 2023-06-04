@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('call_sign');
             $table->unsignedBigInteger('bendera_id')->nullable();
             $table->unsignedBigInteger('tipe_kapal_id')->nullable();
-            $table->float('gt')->nullable();
-            $table->float('dwt')->nullable();
-            $table->float('loa')->nullable();
+            $table->string('gt')->nullable();
+            $table->string('dwt')->nullable();
+            $table->string('loa')->nullable();
             $table->string('kapasitas');
             $table->unsignedBigInteger('perusahaan_id')->nullable();
             $table->integer('thn_produksi');

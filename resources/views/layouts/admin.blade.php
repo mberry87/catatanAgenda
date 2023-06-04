@@ -383,8 +383,22 @@
             format: 'L'
         });
 
-        //Date and time picker
+        //Date and time picker1
         $('#reservationdatetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        });
+
+        //Date and time picker2
+        $('#reservationdatetime2').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        });
+
+        //Date and time picker3
+        $('#reservationdatetime3').datetimepicker({
             icons: {
                 time: 'far fa-clock'
             }
@@ -405,6 +419,7 @@
                             $('#tipe_kapal').val(response.tipe_kapal);
                             $('#gt').val(response.gt);
                             $('#call_sign').val(response.call_sign);
+                            $('#thn_produksi').val(response.thn_produksi);
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
@@ -416,6 +431,7 @@
                     $('#tipe_kapal').val('');
                     $('#gt').val('');
                     $('#call_sign').val('');
+                    $('#thn_produksi').val('');
                 }
             });
         });

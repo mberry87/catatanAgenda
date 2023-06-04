@@ -162,9 +162,10 @@ class KapalController extends Controller
         $tipe_kapal = $kapal->tipe_kapal->nama;
         $gt = $kapal->gt;
         $call_sign = $kapal->call_sign;
+        $thn_produksi = $kapal->thn_produksi;
 
 
 
-        return response()->json(['bendera' => $bendera, 'perusahaan' => $perusahaan, 'tipe_kapal' => $tipe_kapal, 'gt' => $gt, 'call_sign' => $call_sign]);
+        return response()->json(['bendera' => $bendera, 'perusahaan' => $perusahaan, 'tipe_kapal' => $tipe_kapal, 'gt' => $gt, 'call_sign' => $call_sign, 'thn_produksi' => $thn_produksi]);
     }
 }

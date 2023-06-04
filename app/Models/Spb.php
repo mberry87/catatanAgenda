@@ -23,6 +23,17 @@ class Spb extends Model
         'perusahaan',
         'pelabuhan_id',
         'pegawai_id',
+        'no_imo',
+        'thn_produksi',
+        'nakhoda',
+        'waktu_nakhoda',
+        'bertolak',
+        'waktu_bertolak',
+        'jml_crew',
+        'muatan',
+        'tmp_terbit',
+        'waktu_terbit',
+        'no_pup',
 
     ];
 
@@ -33,7 +44,7 @@ class Spb extends Model
 
     public function pelabuhan()
     {
-        return $this->belongsTo(Kapal::class, 'pelabuhan_id');
+        return $this->belongsTo(Pelabuhan::class, 'pelabuhan_id');
     }
 
     public function pegawai()

@@ -76,7 +76,8 @@ Route::put('pelabuhan/{id}', [PelabuhanController::class, 'update'])->name('pela
 Route::get('pelabuhan/{id}', [PelabuhanController::class, 'destroy'])->name('pelabuhan.destroy');
 
 //spb
-
 Route::get('spb', [SpbController::class, 'index'])->name('spb.index');
 Route::get('create/spb', [SpbController::class, 'create'])->name('spb.create');
 Route::post('spb', [SpbController::class, 'store'])->name('spb.store');
+Route::get('spb/{id}/edit', [SpbController::class, 'edit'])->name('spb.edit');
+Route::put('spb/{id}', [SpbController::class, 'update'])->name('spb.update');

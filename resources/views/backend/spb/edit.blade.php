@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah SPB')
+@section('title', 'Edit SPB')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Tambah SPB</h4>
+            <h4 class="m-0">Edit SPB</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item active">Tambah SPB</li>
+                <li class="breadcrumb-item active">Edit SPB</li>
             </ol>
         </div>
     </div>
@@ -24,8 +24,10 @@
                     <h5 class="m-0">Tambah Data</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('spb.store') }}" class="form-horizontal form-label-left" method="POST">
+                    <form action="{{ route('spb.update', $spb->id) }}" class="form-horizontal form-label-left"
+                        method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="row">
                             <div class="col col-md-6">
@@ -33,7 +35,7 @@
                                     <label for="no_regis">Nomor Register SPB</label>
                                     <input type="text" name="no_regis" id="no_regis"
                                         class="form-control  @error('no_regis') is-invalid @enderror"
-                                        value="{{ old('no_regis') ?? $no_regis }}" readonly>
+                                        value="{{ old('no_regis') ?? $spb->no_regis }}" readonly>
                                     @error('no_regis')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -42,7 +44,7 @@
                                     <label for="no_surat">Nomor Surat</label>
                                     <input type="text" name="no_surat" id="no_surat"
                                         class="form-control  @error('no_surat') is-invalid @enderror"
-                                        value="{{ old('no_surat') ?? $no_surat }}" readonly>
+                                        value="{{ old('no_surat') ?? $spb->no_surat }}" readonly>
                                     @error('no_surat')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

@@ -59,11 +59,21 @@ class SpbController extends Controller
             'bendera' => 'required',
             'tipe_kapal' => 'required',
             'gt' => 'required',
-            'call_sign' => 'required|unique:spb',
+            'call_sign' => 'required',
             'perusahaan' => 'required',
-
             'pelabuhan_id' => 'required',
             'pegawai_id' => 'required',
+            'no_imo' => 'required|unique:spb',
+            'thn_produksi' => 'required',
+            'nakhoda' => 'required',
+            'waktu_nakhoda' => 'required',
+            'bertolak' => 'required',
+            'waktu_bertolak' => 'required',
+            'jml_crew' => 'required',
+            'muatan' => 'required',
+            'tmp_terbit' => 'required',
+            'waktu_terbit' => 'required',
+            'no_pup' => 'required|unique:spb',
 
 
         ]);
@@ -94,9 +104,15 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function edit(Spb $spb)
+    public function edit($id)
     {
-        //
+        $spb = Spb::find($id);
+
+        if (!$spb) {
+            abort(404);
+        }
+
+        return view('backend.spb.edit', compact('spb'));
     }
 
     /**
@@ -106,10 +122,42 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Spb $spb)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'no_regis' => 'required',
+            'no_surat' => 'required',
+            'tgl_surat' => 'required',
+            'pemohon' => 'required',
+            'kapal_id' => 'required',
+            'bendera' => 'required',
+            'tipe_kapal' => 'required',
+            'gt' => 'required',
+            'call_sign' => 'required',
+            'perusahaan' => 'required',
+            'pelabuhan_id' => 'required',
+            'pegawai_id' => 'required',
+            'no_imo' => 'required|unique:spb,no_imo,',
+            'thn_produksi' => 'required',
+            'nakhoda' => 'required',
+            'waktu_nakhoda' => 'required',
+            'bertolak' => 'required',
+            'waktu_bertolak' => 'required',
+            'jml_crew' => 'required',
+            'muatan' => 'required',
+            'tmp_terbit' => 'required',
+            'waktu_terbit' => 'required',
+            'no_pup' => 'required|unique:spb,no_pup,'
+        ]);
+
+        $spb = Spb::findOrFail($id);
+        $spb->fill($validatedData);
+        $spb->save();
+
+        return redirect()->route('spb.index')->with('success', 'Data SPB berhasil diperbarui.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

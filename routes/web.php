@@ -55,7 +55,7 @@ Route::post('kapal', [KapalController::class, 'store'])->name('kapal.store');
 Route::get('kapal/{id}/edit', [KapalController::class, 'edit'])->name('kapal.edit');
 Route::put('kapal/{id}', [KapalController::class, 'update'])->name('kapal.update');
 Route::get('kapal/{id}', [KapalController::class, 'destroy'])->name('kapal.destroy');
-// mendapatkan id bendera
+// mendapatkan id yang berada di kapal
 Route::get('/get-data/{kapal_id}', [KapalController::class, 'getData'])->name('kapal.getData');
 
 
@@ -79,3 +79,4 @@ Route::get('pelabuhan/{id}', [PelabuhanController::class, 'destroy'])->name('pel
 
 Route::get('spb', [SpbController::class, 'index'])->name('spb.index');
 Route::get('create/spb', [SpbController::class, 'create'])->name('spb.create');
+Route::post('spb', [SpbController::class, 'store'])->name('spb.store');

@@ -39,6 +39,17 @@ return new class extends Migration
                 ->references('id')
                 ->on('pegawai')
                 ->onDelete('cascade');
+            $table->string('no_imo');
+            $table->string('thn_produksi');
+            $table->string('nakhoda');
+            $table->string('waktu_nakhoda');
+            $table->string('bertolak');
+            $table->string('waktu_bertolak');
+            $table->string('jml_crew');
+            $table->string('muatan');
+            $table->string('tmp_terbit');
+            $table->string('waktu_terbit');
+            $table->string('no_pup');
             $table->timestamps();
         });
     }

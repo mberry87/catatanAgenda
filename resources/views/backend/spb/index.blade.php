@@ -41,12 +41,10 @@
                                     <th>Tanggal</th>
                                     <th>Pemohon</th>
                                     <th>Nama Kapal</th>
-                                    <th>Bendera</th>
-                                    <th>Tipe Kapal</th>
-                                    <th>GT</th>
-                                    <th>Call Sign</th>
-                                    <th>Agen</th>
-                                    <th>Pelabuhan</th>
+                                    <th>Nama Nakhoda</th>
+                                    <th>Bertolak Dari</th>
+                                    <th>Tanggal Bertolak</th>
+                                    <th>Pelabuhan Tujuan</th>
                                     <th>Petugas</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -60,15 +58,13 @@
                                         <td>{{ $data->tgl_surat }}</td>
                                         <td>{{ $data->pemohon }}</td>
                                         <td>{{ $data->kapal->nama }}</td>
-                                        <td>{{ $data->bendera }}</td>
-                                        <td>{{ $data->tipe_kapal }}</td>
-                                        <td>{{ $data->gt }}</td>
-                                        <td>{{ $data->call_sign }}</td>
-                                        <td>{{ $data->perusahaan }}</td>
+                                        <td>{{ $data->nakhoda }}</td>
+                                        <td>{{ $data->bertolak }}</td>
+                                        <td>{{ $data->waktu_bertolak }}</td>
                                         <td>{{ $data->pelabuhan->nama }}</td>
                                         <td>{{ $data->pegawai->nama }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm "><i
+                                            <a href="{{ route('spb.edit', $data) }}" class="btn btn-primary btn-sm "><i
                                                     class="fa
                                                 fa-pen"></i></a>
                                             <a href="#" class="btn btn-danger btn-sm"><i

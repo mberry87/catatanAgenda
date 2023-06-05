@@ -64,10 +64,13 @@
                                         <td>{{ $data->pelabuhan->nama }}</td>
                                         <td>{{ $data->pegawai->nama }}</td>
                                         <td>
+                                            <a href="{{ route('spb.show', $data) }}" class="btn btn-warning btn-sm "><i
+                                                    class="fa
+                                            fa-eye"></i></a>
                                             <a href="{{ route('spb.edit', $data) }}" class="btn btn-primary btn-sm "><i
                                                     class="fa
                                                 fa-pen"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm"><i
+                                            <a href="{{ route('spb.destroy', $data) }}" class="btn btn-danger btn-sm"><i
                                                     class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>

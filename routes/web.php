@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BenderaController;
+use App\Http\Controllers\DashboardCotroller;
 use App\Http\Controllers\KapalController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelabuhanController;
@@ -8,6 +10,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\SpbController;
 use App\Http\Controllers\TipeKapalController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +24,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('backend/dashboard/index');
+    return view('auth.login');
 });
+
+Auth::routes();
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/dashboard', [DashboardCotroller::class, 'index'])->name('dashboard')->middleware('auth');
+
 
 // pegawai
 Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
@@ -31,6 +40,7 @@ Route::post('pegawai', [PegawaiController::class, 'store'])->name('pegawai.store
 Route::get('pegawai/{id}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
 Route::put('pegawai/{id}', [PegawaiController::class, 'update'])->name('pegawai.update');
 Route::get('pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+Route::get('pegawais/count', [PegawaiController::class, 'show'])->name('pegawai.count');
 
 // bendera
 Route::get('bendera', [BenderaController::class, 'index'])->name('bendera.index');
@@ -81,3 +91,5 @@ Route::get('create/spb', [SpbController::class, 'create'])->name('spb.create');
 Route::post('spb', [SpbController::class, 'store'])->name('spb.store');
 Route::get('spb/{id}/edit', [SpbController::class, 'edit'])->name('spb.edit');
 Route::put('spb/{id}', [SpbController::class, 'update'])->name('spb.update');
+Route::delete('spb/{id}', [SpbController::class, 'destroy'])->name('spb.destroy');
+Route::get('spb/{id}', [SpbController::class, 'show'])->name('spb.show');

@@ -93,9 +93,11 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function show(Spb $spb)
+    public function show($id)
     {
-        //
+        $data = Spb::findOrFail($id);
+
+        return view('backend.spb.show', compact('data'));
     }
 
     /**
@@ -106,13 +108,16 @@ class SpbController extends Controller
      */
     public function edit($id)
     {
+        $kapal = Kapal::all();
+        $pelabuhan = Pelabuhan::all();
+        $pegawai = Pegawai::all();
         $spb = Spb::find($id);
 
         if (!$spb) {
             abort(404);
         }
 
-        return view('backend.spb.edit', compact('spb'));
+        return view('backend.spb.edit', compact('spb', 'kapal', 'pelabuhan', 'pegawai'));
     }
 
     /**
@@ -137,7 +142,7 @@ class SpbController extends Controller
             'perusahaan' => 'required',
             'pelabuhan_id' => 'required',
             'pegawai_id' => 'required',
-            'no_imo' => 'required|unique:spb,no_imo,',
+            'no_imo' => 'required',
             'thn_produksi' => 'required',
             'nakhoda' => 'required',
             'waktu_nakhoda' => 'required',
@@ -147,7 +152,7 @@ class SpbController extends Controller
             'muatan' => 'required',
             'tmp_terbit' => 'required',
             'waktu_terbit' => 'required',
-            'no_pup' => 'required|unique:spb,no_pup,'
+            'no_pup' => 'required'
         ]);
 
         $spb = Spb::findOrFail($id);
@@ -165,8 +170,11 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Spb $spb)
+    public function destroy($id)
     {
-        //
+        $spb = Spb::findOrFail($id);
+        $spb->delete();
+
+        return redirect()->route('spb.index')->with('success', 'Data SPB berhasil dihapus.');
     }
 }

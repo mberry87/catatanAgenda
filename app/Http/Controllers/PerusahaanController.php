@@ -40,11 +40,11 @@ class PerusahaanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|unique:perusahaan',
-            'status' => 'required|unique:perusahaan',
-            'alamat' => 'required|unique:perusahaan',
-            'telepon' => 'required|unique:perusahaan',
-            'email' => 'required|unique:perusahaan',
+            'nama' => 'required',
+            'status' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+            'email' => 'required',
 
         ]);
 

@@ -53,7 +53,8 @@
                                     <label for="tgl_surat">Tanggal Pemohon</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="tgl_surat" id="tgl_surat"
-                                            class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                            class="form-control datetimepicker-input" data-target="#reservationdate"
+                                            value="{{ old('tgl_surat', $spb->tgl_surat) }}" />
                                         <div class="input-group-append" data-target="#reservationdate"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -67,7 +68,7 @@
                                     <label for="pemohon">Nama Pemohon</label>
                                     <input type="text" name="pemohon" id="pemohon"
                                         class="form-control  @error('pemohon') is-invalid @enderror"
-                                        value="{{ old('pemohon') }}">
+                                        value="{{ old('pemohon', $spb->pemohon) }}">
                                     @error('pemohon')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -75,9 +76,12 @@
                                 <div class="form-group">
                                     <label for="kapal_id">Nama Kapal</label>
                                     <select class="form-control select2bs4" id="kapal_id" name="kapal_id">
-                                        <option value="">-- Silahkan Pilih --</option>
+                                        <option>-- Silahkan Pilih --</option>
                                         @foreach ($kapal as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ $data->id == old('kapal_id', $spb->kapal_id) ? 'selected' : '' }}>
+                                                {{ $data->nama }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -85,7 +89,7 @@
                                     <label for="bendera">Bendera</label>
                                     <input type="text" name="bendera" id="bendera"
                                         class="form-control  @error('bendera') is-invalid @enderror"
-                                        value="{{ old('bendera') }}" Readonly>
+                                        value="{{ old('bendera', $spb->bendera) }}" Readonly>
                                     @error('bendera')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -94,7 +98,7 @@
                                     <label for="tipe_kapal">Tipe Kapal</label>
                                     <input type="text" name="tipe_kapal" id="tipe_kapal"
                                         class="form-control  @error('tipe_kapal') is-invalid @enderror"
-                                        value="{{ old('tipe_kapal') }}" Readonly>
+                                        value="{{ old('tipe_kapal', $spb->tipe_kapal) }}" Readonly>
                                     @error('tipe_kapal')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -102,8 +106,8 @@
                                 <div class="form-group">
                                     <label for="gt">GT</label>
                                     <input type="text" name="gt" id="gt"
-                                        class="form-control  @error('gt') is-invalid @enderror" value="{{ old('gt') }}"
-                                        readonly>
+                                        class="form-control  @error('gt') is-invalid @enderror"
+                                        value="{{ old('gt', $spb->gt) }}" readonly>
                                     @error('gt')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -112,7 +116,7 @@
                                     <label for="call_sign">Call Sign</label>
                                     <input type="text" name="call_sign" id="call_sign"
                                         class="form-control  @error('call_sign') is-invalid @enderror"
-                                        value="{{ old('call_sign') }}" readonly>
+                                        value="{{ old('call_sign', $spb->call_sign) }}" readonly>
                                     @error('call_sign')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -121,7 +125,7 @@
                                     <label for="thn_produksi">Tahun Produksi</label>
                                     <input type="text" name="thn_produksi" id="thn_produksi"
                                         class="form-control  @error('thn_produksi') is-invalid @enderror"
-                                        value="{{ old('thn_produksi') }}" readonly>
+                                        value="{{ old('thn_produksi', $spb->thn_produksi) }}" readonly>
                                     @error('thn_produksi')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -130,7 +134,7 @@
                                     <label for="perusahaan">Perusahaan</label>
                                     <input type="text" name="perusahaan" id="perusahaan"
                                         class="form-control  @error('perusahaan') is-invalid @enderror"
-                                        value="{{ old('perusahaan') }}" Readonly>
+                                        value="{{ old('perusahaan', $spb->perusahaan) }}" Readonly>
                                     @error('perusahaan')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -139,7 +143,7 @@
                                     <label for="no_imo">No IMO</label>
                                     <input type="text" name="no_imo" id="no_imo"
                                         class="form-control  @error('no_imo') is-invalid @enderror"
-                                        value="{{ old('no_imo') }}">
+                                        value="{{ old('no_imo', $spb->no_imo) }}">
                                     @error('no_imo')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -150,7 +154,7 @@
                                     <label for="nakhoda">Nama Nakhoda</label>
                                     <input type="text" name="nakhoda" id="nakhoda"
                                         class="form-control  @error('nakhoda') is-invalid @enderror"
-                                        value="{{ old('nakhoda') }}">
+                                        value="{{ old('nakhoda', $spb->nakhoda) }}">
                                     @error('nakhoda')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -160,7 +164,8 @@
                                     <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
                                         <input type="text" name="waktu_nakhoda" id="waktu_nakhoda"
                                             class="form-control  datetimepicker-input @error('waktu_nakhoda') is-invalid @enderror"
-                                            value="{{ old('waktu_nakhoda') }}" data-target="#reservationdatetime" />
+                                            value="{{ old('waktu_nakhoda', $spb->waktu_nakhoda) }}"
+                                            data-target="#reservationdatetime" />
                                         <div class="input-group-append" data-target="#reservationdatetime"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -174,7 +179,7 @@
                                     <label for="bertolak">Bertolak Dari</label>
                                     <input type="text" name="bertolak" id="bertolak"
                                         class="form-control  @error('bertolak') is-invalid @enderror"
-                                        value="{{ old('bertolak') }}">
+                                        value="{{ old('bertolak', $spb->bertolak) }}">
                                     @error('bertolak')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -184,7 +189,8 @@
                                     <div class="input-group date" id="reservationdatetime2" data-target-input="nearest">
                                         <input type="text" name="waktu_bertolak" id="waktu_bertolak"
                                             class="form-control  datetimepicker-input @error('waktu_bertolak') is-invalid @enderror"
-                                            value="{{ old('waktu_bertolak') }}" data-target="#reservationdatetime2" />
+                                            value="{{ old('waktu_bertolak', $spb->waktu_bertolak) }}"
+                                            data-target="#reservationdatetime2" />
                                         <div class="input-group-append" data-target="#reservationdatetime2"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -199,7 +205,10 @@
                                     <select class="form-control select2bs4" id="pelabuhan_id" name="pelabuhan_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($pelabuhan as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ $data->id == old('pelabuhan_id', $spb->pelabuhan_id) ? 'selected' : '' }}>
+                                                {{ $data->nama }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -207,7 +216,7 @@
                                     <label for="jml_crew">Jumlah Crew</label>
                                     <input type="text" name="jml_crew" id="jml_crew"
                                         class="form-control  @error('jml_crew') is-invalid @enderror"
-                                        value="{{ old('jml_crew') }}">
+                                        value="{{ old('jml_crew', $spb->jml_crew) }}">
                                     @error('jml_crew')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -216,7 +225,7 @@
                                     <label for="muatan">Muatan</label>
                                     <input type="text" name="muatan" id="muatan"
                                         class="form-control  @error('muatan') is-invalid @enderror"
-                                        value="{{ old('muatan') }}">
+                                        value="{{ old('muatan', $spb->muatan) }}">
                                     @error('muatan')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -225,7 +234,7 @@
                                     <label for="tmp_terbit">Diterbitkan Di</label>
                                     <input type="text" name="tmp_terbit" id="tmp_terbit"
                                         class="form-control  @error('tmp_terbit') is-invalid @enderror"
-                                        value="{{ old('tmp_terbit') }}">
+                                        value="{{ old('tmp_terbit', $spb->tmp_terbit) }}">
                                     @error('tmp_terbit')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -235,7 +244,8 @@
                                     <div class="input-group date" id="reservationdatetime3" data-target-input="nearest">
                                         <input type="text" name="waktu_terbit" id="waktu_terbit"
                                             class="form-control  datetimepicker-input @error('waktu_terbit') is-invalid @enderror"
-                                            value="{{ old('waktu_terbit') }}" data-target="#reservationdatetime3" />
+                                            value="{{ old('waktu_terbit', $spb->waktu_terbit) }}"
+                                            data-target="#reservationdatetime3" />
                                         <div class="input-group-append" data-target="#reservationdatetime3"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -250,7 +260,9 @@
                                     <select class="form-control select2bs4" id="pegawai_id" name="pegawai_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($pegawai as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ $data->id == old('pegawai_id', $spb->pegawai_id) ? 'selected' : '' }}>
+                                                {{ $data->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -258,7 +270,7 @@
                                     <label for="no_pup">No PUP</label>
                                     <input type="text" name="no_pup" id="no_pup"
                                         class="form-control  @error('no_pup') is-invalid @enderror"
-                                        value="{{ old('no_pup') }}">
+                                        value="{{ old('no_pup', $spb->no_pup) }}">
                                     @error('no_pup')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

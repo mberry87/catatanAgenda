@@ -122,7 +122,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg"
                             class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">Alexander Pierce</span>
+                        <span class="d-none d-md-inline">{{ Auth::user()->username }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
@@ -130,14 +130,17 @@
                             <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg"
                                 class="img-circle elevation-2" alt="User Image">
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <small>
+                                    Nama : {{ Auth::user()->name }} <br>
+                                    Email : {{ Auth::user()->email }} <br>
+                                    Member sejak {{ Auth::user()->created_at->format('d F Y') }}
+                                </small>
                             </p>
                         </li>
 
                         <li class="user-footer">
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+                            <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right">Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -159,26 +162,13 @@
             </a>
 
             <div class="sidebar">
-
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
-
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
+                        <a href="#" class="d-block">{{ Auth::user()->username }}</a>
                     </div>
                 </div>
 
@@ -186,8 +176,8 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item ">
-                            <a href="/"
-                                class="nav-link nav-link {{ Request::is('/') ? 'active' : 'inactive' }}">
+                            <a href="{{ route('dashboard') }}"
+                                class="nav-link nav-link {{ Request::is('dashboard') ? 'active' : 'inactive' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>DASHBOARD</p>
                             </a>

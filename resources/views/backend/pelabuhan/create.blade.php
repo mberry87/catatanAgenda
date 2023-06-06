@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active">Tambah Pelabuhan</li>
             </ol>
         </div>
@@ -45,7 +45,7 @@
                         </div>
                         <a href="{{ route('pelabuhan.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button class="btn btn-info btn-sm" type="reset">Reset</button>
-                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                        <button type="submit" class="btn btn-success btn-sm swalDefaultSuccess">Simpan</button>
                     </form>
                 </div>
             </div>

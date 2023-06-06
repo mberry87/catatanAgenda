@@ -4,9 +4,10 @@
 
 @section('logo')
     <div class="login-logo">
+        <img src="{{ asset('image/logo-kemenhub.png') }}" alt="logo" style="width: 65px">
         <a href="#">
-            <p>Kantor KSOP <br>
-                <span>Kelas II Tanjungpinang</span>
+            <p><b>Electronic</b> SPB <br>
+                <span>KSOP Tg.pinang</span>
             </p>
         </a>
     </div>

@@ -41,5 +41,17 @@
                 <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>120</h3>
+                    <p>PELABUHAN</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-android-boat"></i>
+                </div>
+                <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
 @endsection

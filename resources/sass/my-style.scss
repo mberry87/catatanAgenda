@@ -1,0 +1,23 @@
+.hdr_surat {
+    img{
+        width: 100px;
+        margin-bottom: 20px;
+    }
+
+    p{
+        font-weight: bold;
+        line-height: 85%;
+    }
+
+    span{
+        font-weight: normal;
+        font-style: italic;
+        font-size: 14px;
+    }
+}
+
+.nmr_surat{
+    span{
+        font-size: 13px;
+    }
+}

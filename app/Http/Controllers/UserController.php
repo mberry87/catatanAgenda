@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bendera;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class BenderaController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,8 @@ class BenderaController extends Controller
      */
     public function index()
     {
-        // hubungkan data migration
-        $bendera = Bendera::all();
-
-        return view('backend.bendera.index', compact('bendera'));
+        $users = User::all();
+        return view('backend.user.index', compact('users'));
     }
 
     /**
@@ -27,7 +25,8 @@ class BenderaController extends Controller
      */
     public function create()
     {
-        return view('backend.bendera.create');
+        $users = User::all();
+        return view('backend.user.create', compact('users'));
     }
 
     /**
@@ -39,23 +38,26 @@ class BenderaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
-            'kode' => 'required',
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
 
         ]);
 
-        Bendera::create($validatedData);
+        $validatedData['password'] = bcrypt('password'); // membuat password tersimpan otomatis
 
-        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil ditambah.');
+        User::create($validatedData);
+
+        return redirect()->route('user.index')->with('success', 'Data user berhasil ditambah, password awal : password.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bendera  $bendera
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bendera $bendera)
+    public function show($id)
     {
         //
     }
@@ -63,60 +65,59 @@ class BenderaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bendera  $bendera
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $bendera = Bendera::find($id);
+        $user = User::find($id);
 
-        if (!$bendera) {
+        if (!$user) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
-        return view('backend.bendera.edit', compact('bendera'));
+        return view('backend.user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bendera  $bendera
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $bendera = Bendera::find($id);
+        $user = User::find($id);
 
-        if (!$bendera) {
+        if (!$user) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
         $request->validate([
-            'nama' => 'required',
-            'kode' => 'required',
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
         ]);
 
-        $bendera->nama = $request->nama;
-        $bendera->kode = $request->kode;
-        $bendera->save();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->save();
 
-        return redirect()->route('bendera.index')->with('success', 'bendera berhasil diperbarui.');
+        return redirect()->route('user.index')->with('success', 'user berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bendera  $bendera
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $bendera = Bendera::findOrFail($id);
-        $bendera->delete();
-
-        return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus.');
+        //
     }
 }

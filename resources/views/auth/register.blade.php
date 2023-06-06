@@ -3,13 +3,17 @@
 @section('title', 'Register')
 
 @section('logo')
-    <div class="register-logo">
-        <a href="#"><b>KSOP</b> Tg.Pinang</a>
+    <div class="text-center">
+        <img src="{{ asset('image/logo-kemenhub.png') }}" alt="logo" style="width: 65px">
+        <div class="register-logo">
+            <a href="#"><b>KSOP</b> Tg.Pinang</a>
+        </div>
     </div>
 @endsection
 
 @section('content')
     <div class="card-body register-card-body">
+
         <p class="login-box-msg">Form Registrasi User</p>
 
         <form action="{{ route('register') }}" method="POST">

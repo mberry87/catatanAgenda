@@ -70,14 +70,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $users = User::find($id);
 
-        if (!$user) {
+        if (!$users) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
-        return view('backend.user.edit', compact('user'));
+        return view('backend.user.edit', compact('users'));
     }
 
     /**
@@ -89,9 +89,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $users = User::find($id);
 
-        if (!$user) {
+        if (!$users) {
             // Jika pegawai dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
@@ -102,10 +102,10 @@ class UserController extends Controller
             'email' => 'required',
         ]);
 
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->save();
+        $users->name = $request->name;
+        $users->username = $request->username;
+        $users->email = $request->email;
+        $users->save();
 
         return redirect()->route('user.index')->with('success', 'user berhasil diperbarui.');
     }
@@ -118,6 +118,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $users = User::findOrFail($id);
+        $users->delete();
+
+        return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');
     }
 }

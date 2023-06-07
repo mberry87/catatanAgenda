@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PegawaiSeeder::class,
             BenderaSeeder::class,
             Tipe_kapalSeeder::class,
+            User::class
         ]);
     }
 }

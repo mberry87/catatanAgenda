@@ -51,8 +51,8 @@
                                     <label for="tgl_surat">Tanggal Pemohon</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="tgl_surat" id="tgl_surat"
-                                            class="form-control datetimepicker-input" data-target="#reservationdate" />
-                                        <div class="input-group-append" data-target="#reservationdate"
+                                            class="form-control datetimepicker-input" data-target="#tgl_surat" />
+                                        <div class="input-group-append" data-target="#tgl_surat"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -154,19 +154,45 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Tanggal & Jam Pernyataan Nakhoda</label>
-                                    <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                        <input type="text" name="waktu_nakhoda" id="waktu_nakhoda"
-                                            class="form-control  datetimepicker-input @error('waktu_nakhoda') is-invalid @enderror"
-                                            value="{{ old('waktu_nakhoda') }}" data-target="#reservationdatetime" />
-                                        <div class="input-group-append" data-target="#reservationdatetime"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    <label>Pernyataan Nakhoda</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="tgl_nakhoda"> Tanggal</label>
+                                                <div class="input-group date" id="reservationdate"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="tgl_nakhoda" id="tgl_nakhoda"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#tgl_nakhoda" />
+                                                    <div class="input-group-append" data-target="#tgl_nakhoda"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('tgl_nakhoda')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="jam_nakhoda">Jam</label>
+                                                <div class="input-group date" id="datetimepicker3"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="jam_nakhoda" id="jam_nakhoda"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#jam_nakhoda" />
+                                                    <div class="input-group-append" data-target="#jam_nakhoda"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('jam_nakhoda')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('waktu_nakhoda')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="bertolak">Bertolak Dari</label>
@@ -178,19 +204,45 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Tanggal & Jam Bertolak</label>
-                                    <div class="input-group date" id="reservationdatetime2" data-target-input="nearest">
-                                        <input type="text" name="waktu_bertolak" id="waktu_bertolak"
-                                            class="form-control  datetimepicker-input @error('waktu_bertolak') is-invalid @enderror"
-                                            value="{{ old('waktu_bertolak') }}" data-target="#reservationdatetime2" />
-                                        <div class="input-group-append" data-target="#reservationdatetime2"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    <label>Waktu Bertolak</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="tgl_bertolak"> Tanggal</label>
+                                                <div class="input-group date" id="reservationdate"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="tgl_bertolak" id="tgl_bertolak"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#tgl_bertolak" />
+                                                    <div class="input-group-append" data-target="#tgl_bertolak"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('tgl_bertolak')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="jam_bertolak">Jam</label>
+                                                <div class="input-group date" id="datetimepicker3"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="jam_bertolak" id="jam_bertolak"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#jam_bertolak" />
+                                                    <div class="input-group-append" data-target="#jam_bertolak"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('jam_bertolak')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('waktu_bertolak')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="pelabuhan_id">Pelabuhan Tujuan</label>
@@ -229,19 +281,46 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Tanggal & Jam Terbit</label>
-                                    <div class="input-group date" id="reservationdatetime3" data-target-input="nearest">
-                                        <input type="text" name="waktu_terbit" id="waktu_terbit"
-                                            class="form-control  datetimepicker-input @error('waktu_terbit') is-invalid @enderror"
-                                            value="{{ old('waktu_terbit') }}" data-target="#reservationdatetime3" />
-                                        <div class="input-group-append" data-target="#reservationdatetime3"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    <label>Waktu Terbit</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="tgl_terbit"> Tanggal</label>
+                                                <div class="input-group date" id="reservationdate"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="tgl_terbit" id="tgl_terbit"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#tgl_terbit" />
+                                                    <div class="input-group-append" data-target="#tgl_terbit"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('tgl_terbit')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="jam_terbit">Jam</label>
+                                                <div class="input-group date" id="datetimepicker3"
+                                                    data-target-input="nearest">
+                                                    <input type="text" name="jam_terbit" id="jam_terbit"
+                                                        class="form-control datetimepicker-input"
+                                                        data-target="#jam_terbit" />
+                                                    <div class="input-group-append" data-target="#jam_terbit"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                                    </div>
+                                                </div>
+                                                @error('jam_terbit')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    @error('waktu_terbit')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
                                 <div class="form-group">
                                     <label for="pegawai_id">Syahbandar</label>

@@ -142,8 +142,8 @@
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="tgl_docking" id="tgl_docking"
                                             class="form-control datetimepicker-input @error('tgl_docking') is-invalid @enderror"
-                                            data-target="#reservationdate" value="{{ old('tgl_docking') }}" />
-                                        <div class="input-group-append" data-target="#reservationdate"
+                                            data-target="#tgl_docking" value="{{ old('tgl_docking') }}" />
+                                        <div class="input-group-append" data-target="#tgl_docking"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>

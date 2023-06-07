@@ -1,17 +1,67 @@
 .hdr_surat img {
   width: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 .hdr_surat p {
   font-weight: bold;
-  line-height: 85%;
+  line-height: 1;
 }
 .hdr_surat span {
-  font-weight: normal;
   font-style: italic;
-  font-size: 14px;
+  font-weight: normal;
+  font-size: 12px;
 }
 
+.nmr_surat p {
+  line-height: 1.2;
+}
 .nmr_surat span {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.info_kapal p {
   font-size: 13px;
+  line-height: 90%;
+}
+.info_kapal span {
+  font-weight: normal;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.isi_surat p {
+  font-size: 12px;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.isi_surat .legal {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.info_spb p {
+  line-height: 1.2;
+  font-size: 12px;
+}
+.info_spb span {
+  font-size: 11px;
+  font-style: italic;
+}
+.info_spb .ttd {
+  font-size: 22px;
+  text-decoration: underline;
+  margin-bottom: 2px;
+  margin-top: 70px;
+}
+.info_spb .pegawai {
+  font-size: 18px;
+}
+
+.list_surat ol li {
+  font-size: 10px;
+  line-height: 1.2;
+}
+.list_surat span {
+  font-style: italic;
 }

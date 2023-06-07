@@ -55,9 +55,15 @@
                                             <a href="{{ route('user.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <a href="{{ route('user.destroy', $data) }}" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt">
-                                                </i> Hapus</a>
+                                            <form action="{{ route('user.destroy', $data) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus ?')">
+                                                    <i class="fas fa-trash-alt"></i> Hapus
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

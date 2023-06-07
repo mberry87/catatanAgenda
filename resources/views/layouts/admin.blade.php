@@ -27,13 +27,10 @@
         href="{{ asset('template') }}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <link rel="stylesheet"
         href="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
     <link rel="stylesheet" href="{{ asset('template') }}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('template') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/bs-stepper/css/bs-stepper.min.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/dropzone/min/dropzone.min.css">
-    <link rel="stylesheet"
-        href="{{ asset('template') }}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+
     <link rel="stylesheet"
         href="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
@@ -122,7 +119,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg"
                             class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->username }}</span>
+                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
@@ -168,7 +165,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->username }}</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -338,6 +335,7 @@
 
     <script src="{{ asset('template') }}/plugins/select2/js/select2.full.min.js"></script>
     <script src="{{ asset('template') }}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
     <script src="{{ asset('template') }}/plugins/moment/moment.min.js"></script>
     <script src="{{ asset('template') }}/plugins/inputmask/jquery.inputmask.min.js"></script>
     <script src="{{ asset('template') }}/plugins/daterangepicker/daterangepicker.js"></script>
@@ -347,7 +345,9 @@
     <script src="{{ asset('template') }}/plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <script src="{{ asset('template') }}/plugins/dropzone/min/dropzone.min.js"></script>
 
+
     <script src="{{ asset('template') }}/dist/js/adminlte.min.js?v=3.2.0"></script>
+
 
     <script>
         $(function() {
@@ -370,31 +370,81 @@
     </script>
 
     <script>
-        //Date picker
-        $('#reservationdate').datetimepicker({
-            format: 'L'
-        });
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
 
-        //Date and time picker1
-        $('#reservationdatetime').datetimepicker({
-            icons: {
-                time: 'far fa-clock'
-            }
-        });
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
 
-        //Date and time picker2
-        $('#reservationdatetime2').datetimepicker({
-            icons: {
-                time: 'far fa-clock'
-            }
-        });
+            //Date picker
 
-        //Date and time picker3
-        $('#reservationdatetime3').datetimepicker({
-            icons: {
-                time: 'far fa-clock'
-            }
-        });
+
+            $(function() {
+                $('#tgl_docking').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#tgl_surat').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                });
+
+            })
+
+            $(function() {
+                $('#tgl_nakhoda').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#jam_nakhoda').datetimepicker({
+                    format: 'LT',
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#tgl_bertolak').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#jam_bertolak').datetimepicker({
+                    format: 'LT',
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#tgl_terbit').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                });
+            })
+
+            $(function() {
+                $('#jam_terbit').datetimepicker({
+                    format: 'LT',
+                    locale: 'id',
+                });
+            })
+
+        })
     </script>
 
     <script>

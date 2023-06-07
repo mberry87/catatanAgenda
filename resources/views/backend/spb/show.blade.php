@@ -26,7 +26,7 @@
                 <p>REPUBLIK INDONESIA <br>
                     <span>THE REPUBLIC OF INDONESIA</span>
                 </p>
-                <P>SURAT PERSETUJAUN BERLAYAR <br>
+                <P>SURAT PERSETUJUAN BERLAYAR <br>
                     <span>PORT CLEREANCE</span>
                 </P>
             </div>
@@ -43,12 +43,12 @@
     </header>
 
     <section>
-        <div class="container info_kapal">
+        <div class="container info_kapal mb-3">
             <div class="row">
                 <div class="col col-md-6">
                     <div class="mb-3">
-                        <p>Nama : {{ $data->pemohon }}
-                            <br> <span>Ship Name : {{ $data->kapal->nama }} </span>
+                        <p>Nama Kapal : {{ $data->kapal->nama }}
+                            <br> <span>Ship Name </span>
                         </p>
                     </div>
                     <div class="mb-3">
@@ -85,17 +85,17 @@
     </section>
 
     <section>
-        <div class="container isi_surat">
+        <div class="container isi_surat mb-3">
             <p>Sesuai dengan Surat Pernyataan Keberangkatan Kapal yang dibuat oleh Nakhoda kapal tanggal
-                {{ $data->waktu_bertolak }} Pukul
-                ...........WS, <br>
-                <span>In accordance with Sailing Declaration Issud by Master on dated ........Time .........LT,</span>
+                {{ $data->tgl_nakhoda }} Pukul {{ $data->jam_nakhoda }} WS, <br>
+                <span>In accordance with Sailing Declaration Issud by Master on dated {{ $data->tgl_nakhoda }} Time
+                    {{ $data->jam_nakhoda }} LT,</span>
             </p>
             <p class="text-center">Bawhwa kapal telah memenuhi seluruh ketentuan pada pasal 219 (3) UU No.17 Tahun 2008
                 <br>
                 <span>That ship has fully comply with the provision of article 219 (3) Shipping Act. 17,2008</span>
             </p>
-            <p class="text-center fs-6 fw-semibold">Dengan ini kapal tersebut diatas disetujui untuk <br>
+            <p class="text-center legal">Dengan ini kapal tersebut diatas disetujui untuk <br>
                 <span class="fst-italic">The above mention vessel is hereby granted for</span>
             </p>
         </div>
@@ -111,30 +111,34 @@
                     <p>Jumlah Awak Kapal : {{ $data->jml_crew }}<br>
                         <span>Number Of Ship Crew</span>
                     </p>
-                    <p>Tempat diterbitkan : <br>
+                    <p>Tempat diterbitkan : {{ $data->tmp_terbit }} <br>
                         <span>Place Of Issued</span>
                     </p>
-                    <p>Pada Tanggal : <br>
+                    <p>Pada Tanggal : {{ $data->tgl_terbit }} <br>
                         <span>Date</span>
                     </p>
-                    <p>Jam : <br>
+                    <p>Jam : {{ $data->jam_terbit }} <br>
                         <span>Time</span>
                     </p>
                 </div>
                 <div class="col col-md-4">
-                    <p>Pada tanggal /jam : <br>
+                    <p>Pada tanggal / jam : {{ $data->tgl_bertolak }} / {{ $data->jam_bertolak }} <br>
                         <span>on date / time</span>
                     </p>
                 </div>
                 <div class="col col-md-4">
-                    <p>Pelabuhan Tujuan : <br>
+                    <p>Pelabuhan Tujuan : {{ $data->pelabuhan->nama }}<br>
                         <span>Port of destination</span>
                     </p>
-                    <p>Dengan Muatan : <br>
+                    <p>Dengan Muatan : {{ $data->muatan }} <br>
                         <span>With Cargoes</span>
                     </p>
                     <p class="ttd text-center">SYAHBANDAR </p>
                     <p class="text-center">HARBOUR MASTER</p>
+                    <br>
+                    <br>
+                    <p class="text-center pegawai">{{ $data->pegawai->nama }}</p>
+
                 </div>
             </div>
         </div>

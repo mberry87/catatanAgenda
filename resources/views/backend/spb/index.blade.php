@@ -38,12 +38,12 @@
                                     <th>No.</th>
                                     <th>No.Regis</th>
                                     <th>No.Surat</th>
-                                    <th>Tanggal</th>
+                                    <th>Tgl Permohonan</th>
                                     <th>Pemohon</th>
                                     <th>Nama Kapal</th>
                                     <th>Nama Nakhoda</th>
                                     <th>Bertolak Dari</th>
-                                    <th>Tanggal Bertolak</th>
+                                    <th>Tgl Bertolak</th>
                                     <th>Pelabuhan Tujuan</th>
                                     <th>Petugas</th>
                                     <th>Aksi</th>
@@ -60,7 +60,7 @@
                                         <td>{{ $data->kapal->nama }}</td>
                                         <td>{{ $data->nakhoda }}</td>
                                         <td>{{ $data->bertolak }}</td>
-                                        <td>{{ $data->waktu_bertolak }}</td>
+                                        <td>{{ $data->tgl_bertolak }}</td>
                                         <td>{{ $data->pelabuhan->nama }}</td>
                                         <td>{{ $data->pegawai->nama }}</td>
                                         <td>

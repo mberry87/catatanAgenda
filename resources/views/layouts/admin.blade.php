@@ -258,6 +258,7 @@
                         <li
                             class="
                             nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
+                            nav-item {{ Request::is('user') ? 'menu-open' : '' }}
                             ">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
@@ -268,7 +269,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('user.index') }}"
+                                        class="nav-link {{ Request::is('user') ? 'active' : '' }}">
                                         <i class="fas fa-user nav-icon"></i>
                                         <p>User</p>
                                     </a>

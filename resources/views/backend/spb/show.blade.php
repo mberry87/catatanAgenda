@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/my-app.css') }}">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         <div class="container">
             <div class="row">
                 <div class="col col-md-6">
-                    <p>Nomor Registrasi : </p>
+                    <p>Nomor Registrasi : {{ $data->no_regis }}</p>
                 </div>
                 <div class="col col-md-6">
                     <p>Nomor : </p>
@@ -31,7 +31,7 @@
                 </P>
             </div>
             <div class="nmr_surat text-center">
-                <p>No : ..................................................................<br>
+                <p>No : {{ $data->no_surat }}<br>
                     <span>
                         Berdasarkan UU No.17 Tahun 2008 Pasal 219 ayat 1 <br>
                         Under The Shipping Act. No.17,2008 Article 219 (1)
@@ -47,17 +47,17 @@
             <div class="row">
                 <div class="col col-md-6">
                     <div class="mb-3">
-                        <p>Nama :
-                            <br> <span>Ship Name </span>
+                        <p>Nama : {{ $data->pemohon }}
+                            <br> <span>Ship Name : {{ $data->kapal->nama }} </span>
                         </p>
                     </div>
                     <div class="mb-3">
-                        <p>Bendera Kebangsaan :
+                        <p>Bendera Kebangsaan : {{ $data->bendera }}
                             <br> <span>Nationality Flag </span>
                         </p>
                     </div>
                     <div class="mb-3">
-                        <p>Nomor IMO :
+                        <p>Nomor IMO : {{ $data->no_imo }}
                             <br> <span>IMO Number </span>
                         </p>
                     </div>
@@ -65,17 +65,17 @@
 
                 <div class="col col-md-6">
                     <div class="mb-3">
-                        <p>Tonase Kotor :
+                        <p>Tonase Kotor : {{ $data->gt }}
                             <br> <span>Gross Tonage </span>
                         </p>
                     </div>
                     <div class="mb-3">
-                        <p>Nakhoda :
+                        <p>Nakhoda : {{ $data->nakhoda }}
                             <br> <span>Master </span>
                         </p>
                     </div>
                     <div class="mb-3">
-                        <p>Tanda Panggilan :
+                        <p>Tanda Panggilan : {{ $data->call_sign }}
                             <br> <span>Call Sign </span>
                         </p>
                     </div>
@@ -86,7 +86,8 @@
 
     <section>
         <div class="container isi_surat">
-            <p>Sesuai dengan Surat Pernyataan Keberangkatan Kapal yang dibuat oleh Nakhoda kapal tanggal ........ Pukul
+            <p>Sesuai dengan Surat Pernyataan Keberangkatan Kapal yang dibuat oleh Nakhoda kapal tanggal
+                {{ $data->waktu_bertolak }} Pukul
                 ...........WS, <br>
                 <span>In accordance with Sailing Declaration Issud by Master on dated ........Time .........LT,</span>
             </p>
@@ -104,10 +105,10 @@
         <div class="container info_spb">
             <div class="row">
                 <div class="col col-md-4">
-                    <p>Bertolak Dari : <br>
+                    <p>Bertolak Dari :{{ $data->bertolak }} <br>
                         <span>Departure from</span>
                     </p>
-                    <p>Jumlah Awak Kapal : <br>
+                    <p>Jumlah Awak Kapal : {{ $data->jml_crew }}<br>
                         <span>Number Of Ship Crew</span>
                     </p>
                     <p>Tempat diterbitkan : <br>

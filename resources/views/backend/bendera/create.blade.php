@@ -36,7 +36,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="nip">Kode</label>
+                            <label for="kode">Kode</label>
                             <input type="text" id="kode" name="kode"
                                 class="form-control @error('kode') is-invalid @enderror" value="{{ old('kode') }}">
                             @error('kode')

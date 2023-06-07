@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Edit Bendeara</h4>
+            <h4 class="m-0">Edit Bendera</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nip">Kode</label>
+                            <label for="kode">Kode</label>
                             <input type="text" class="form-control form-control  @error('kode') is-invalid @enderror"
                                 id="kode" name="kode" value="{{ old('kode', $bendera->kode) }}">
                             @error('kode')
@@ -44,7 +44,7 @@
                             @enderror
                         </div>
 
-                        <a href="{{ route('pegawai.index') }}" class="btn btn-warning btn-sm">Kembali</a>
+                        <a href="{{ route('bendera.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                     </form>
                 </div>

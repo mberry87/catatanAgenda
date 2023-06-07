@@ -114,7 +114,7 @@ class BenderaController extends Controller
      */
     public function destroy($id)
     {
-        $bendera = Bendera::findOrFail($id);
+        $bendera = Bendera::find($id);
         $bendera->delete();
 
         return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil dihapus.');

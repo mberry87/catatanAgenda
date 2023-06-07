@@ -124,7 +124,7 @@ class PerusahaanController extends Controller
      */
     public function destroy($id)
     {
-        $perusahaan = Perusahaan::findOrFail($id);
+        $perusahaan = Perusahaan::find($id);
         $perusahaan->delete();
 
         return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil dihapus.');

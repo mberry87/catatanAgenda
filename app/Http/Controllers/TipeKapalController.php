@@ -115,7 +115,7 @@ class TipeKapalController extends Controller
      */
     public function destroy($id)
     {
-        $tipe_kapal = Tipe_kapal::findOrFail($id);
+        $tipe_kapal = Tipe_kapal::find($id);
         $tipe_kapal->delete();
 
         return redirect()->route('tipe_kapal.index')->with('success', 'Data tipe kapal berhasil dihapus.');

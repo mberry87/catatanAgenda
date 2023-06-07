@@ -53,7 +53,7 @@
                         </div>
                         <a href="{{ route('user.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button class="btn btn-info btn-sm" type="reset">Reset</button>
-                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                        <button id="submit" type="submit" class="btn btn-success btn-sm">Simpan</button>
                     </form>
                 </div>
             </div>

@@ -146,7 +146,7 @@ class KapalController extends Controller
     public function destroy($id)
     {
 
-        $kapal = Kapal::findOrFail($id);
+        $kapal = Kapal::find($id);
 
         $kapal->delete();
 

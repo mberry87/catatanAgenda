@@ -34,6 +34,8 @@
     <link rel="stylesheet"
         href="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.min.css">
+
     <link rel="stylesheet" href="{{ asset('template') }}/dist/css/adminlte.min.css?v=3.2.0">
     <script nonce="860543f9-e2cc-4eef-8734-25719429198f">
         (function(w, d) {
@@ -326,15 +328,15 @@
     <script src="{{ asset('template') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="{{ asset('template') }}/plugins/toastr/toastr.min.js"></script>
 
+    <script src="{{ asset('template') }}/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('template') }}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
     <script src="{{ asset('template') }}/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ asset('template') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('template') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('template') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="{{ asset('template') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="{{ asset('template') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
-    <script src="{{ asset('template') }}/plugins/select2/js/select2.full.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 
     <script src="{{ asset('template') }}/plugins/moment/moment.min.js"></script>
     <script src="{{ asset('template') }}/plugins/inputmask/jquery.inputmask.min.js"></script>
@@ -345,6 +347,7 @@
     <script src="{{ asset('template') }}/plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <script src="{{ asset('template') }}/plugins/dropzone/min/dropzone.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
 
     <script src="{{ asset('template') }}/dist/js/adminlte.min.js?v=3.2.0"></script>
 
@@ -478,6 +481,19 @@
             });
         });
     </script>
+
+    {{-- <script>
+        const tombol = document.querySelector('#tombol');
+        tombol.addEventListener('click', function() {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    </script> --}}
 
 
 

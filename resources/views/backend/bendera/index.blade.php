@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col col-sm-6">
             <h4 class="m-0">Bendera</h4>
         </div>
         <div class="col-sm-6">

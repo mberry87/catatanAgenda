@@ -114,7 +114,7 @@ class PelabuhanController extends Controller
      */
     public function destroy($id)
     {
-        $pelabuhan = Pelabuhan::findOrFail($id);
+        $pelabuhan = Pelabuhan::find($id);
         $pelabuhan->delete();
 
         return redirect()->route('pelabuhan.index')->with('success', 'Data pelabuhan berhasil dihapus.');

@@ -178,7 +178,7 @@ class SpbController extends Controller
      */
     public function destroy($id)
     {
-        $spb = Spb::findOrFail($id);
+        $spb = Spb::find($id);
         $spb->delete();
 
         return redirect()->route('spb.index')->with('success', 'Data SPB berhasil dihapus.');

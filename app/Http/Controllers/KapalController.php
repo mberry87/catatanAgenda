@@ -85,7 +85,7 @@ class KapalController extends Controller
      */
     public function edit($id)
     {
-        $kapal = Kapal::findOrFail($id);
+        $kapal = Kapal::find($id);
         $perusahaan = Perusahaan::all();
         $tipe_kapal = Tipe_kapal::all();
         $bendera = Bendera::all();
@@ -118,7 +118,7 @@ class KapalController extends Controller
             'tgl_docking' => 'required',
         ]);
 
-        $kapal = Kapal::findOrFail($id);
+        $kapal = Kapal::find($id);
 
         $kapal->nama = $request->nama;
         $kapal->call_sign = $request->call_sign;

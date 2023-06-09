@@ -138,7 +138,7 @@
                         </li>
 
                         <li class="user-footer">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <a href="{{ route('profil.index') }}" class="btn btn-default btn-flat">Profil</a>
                             <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right">Log Out</a>
                         </li>
                     </ul>

@@ -8,6 +8,7 @@ use App\Http\Controllers\KapalController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelabuhanController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SpbController;
 use App\Http\Controllers\TipeKapalController;
 use App\Http\Controllers\UserController;
@@ -104,6 +105,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::get('user/{id}', [UserController::class, 'show'])->name('user.show');
+
+    // profil
+    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
+    // Route::get('profil/edit', [ProfilController::class, 'edit'])->name('profil.edit');
+    // Route::post('profil', [ProfilController::class, 'update'])->name('profil.update');
 
     //signout
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');

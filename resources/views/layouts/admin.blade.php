@@ -119,14 +119,14 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg"
+                        <img src="{{ isset($userData->photo_profil) ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
                             class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
+
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
                         <li class="user-header bg-primary">
-                            <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg"
+                            <img src="{{ isset($userData->photo_profil) ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
                                 class="img-circle elevation-2" alt="User Image">
                             <p>
                                 <small>
@@ -162,10 +162,6 @@
 
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('template') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-                            alt="User Image">
-                    </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
@@ -447,6 +443,15 @@
                 });
             })
 
+            $(function() {
+                $('#tgl_lahir').datetimepicker({
+
+                    format: ('DD/MM/YYYY'),
+                    locale: 'id',
+                    useCurrent: false,
+                });
+            })
+
         })
     </script>
 
@@ -494,8 +499,6 @@
             });
         });
     </script> --}}
-
-
 
 </body>
 

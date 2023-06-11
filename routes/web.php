@@ -108,8 +108,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // profil
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
-    Route::post('profil', [ProfilController::class, 'updateFotoProfil'])->name('profil.update');
-    Route::post('profil/photoProfil', [ProfilController::class, 'updateFotoProfil'])->name('photoProfil');
+    Route::post('profil/updateFotoProfil', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
+    Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
+
+
 
 
 

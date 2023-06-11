@@ -44,7 +44,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-primary">
                 <div class="inner">
-                    <h3>120</h3>
+                    <h3>{{ $jumlah_pelabuhan }}</h3>
                     <p>PELABUHAN</p>
                 </div>
                 <div class="icon">

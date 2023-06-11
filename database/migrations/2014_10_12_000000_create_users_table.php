@@ -21,8 +21,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('agama')->nullable();
+            $table->string('nip')->nullable();
             $table->string('tgl_lahir')->nullable();
             $table->string('tmp_lahir')->nullable();
+            $table->string('telepon')->nullable();
+            $table->text('alamat')->nullable();
             $table->string('photo_profil')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -99,13 +99,14 @@ class ProfilController extends Controller
     public function updateFotoProfil(Request $request)
     {
         $request->validate([
-            'photo_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:500',
         ]);
 
         $file = $request->file('photo_profil');
         $fileName = $file->getClientOriginalName(); // Menggunakan nama file asli
 
-        $user = auth()->user();
+        $id = Auth::user()->id;
+        $user = User::find($id);
 
         // Hapus foto profil lama jika ada
         if ($user->photo_profil) {
@@ -121,5 +122,34 @@ class ProfilController extends Controller
         $user->save();
 
         return redirect()->route('profil.index')->with('success', 'Foto profil berhasil diperbarui.');
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'nip' => 'required',
+            'email' => 'required',
+            'tgl_lahir' => 'required|date',
+            'tmp_lahir' => 'required',
+            'alamat' => 'nullable',
+            'telepon' => 'nullable',
+            'agama' => 'nullable',
+        ]);
+
+        $user = User::find(auth()->id());
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nip = $request->nip;
+        $user->tgl_lahir = $request->tgl_lahir;
+        $user->tmp_lahir = $request->tmp_lahir;
+        $user->alamat = $request->alamat;
+        $user->telepon = $request->telepon;
+        $user->agama = $request->agama;
+
+        $user->save();
+
+        return redirect()->route('profil.index')->with('success', ' profil berhasil diperbarui.');
     }
 }

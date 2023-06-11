@@ -49,7 +49,15 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->username }}</td>
-                                        <td> </td>
+                                        <td>
+                                            @if ($data->role === 'superadmin')
+                                                Super Admin
+                                            @elseif($data->role === 'admin')
+                                                Admin
+                                            @elseif($data->role === 'user')
+                                                User
+                                            @endif
+                                        </td>
                                         <td>{{ $data->email }}</td>
                                         <td>
                                             <a href="{{ route('user.edit', $data) }}" class="btn btn-primary btn-sm"><i

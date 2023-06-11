@@ -100,11 +100,13 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
+            'role' => 'required'
         ]);
 
         $users->name = $request->name;
         $users->username = $request->username;
         $users->email = $request->email;
+        $users->role = $request->role;
         $users->save();
 
         return redirect()->route('user.index')->with('success', 'user berhasil diperbarui.');

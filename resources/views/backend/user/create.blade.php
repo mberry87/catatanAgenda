@@ -44,6 +44,17 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control select2bs4 @error('role') is-invalid @enderror" id="role"
+                                name="role">
+                                <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>User</option>
+                            </select>
+                            @error('role')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" id="email" name="email"
                                 class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">

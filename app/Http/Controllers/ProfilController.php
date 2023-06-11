@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
-
 class ProfilController extends Controller
 {
     /**
@@ -19,9 +18,15 @@ class ProfilController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $adminData = User::find($id);
+        $userData = User::find($id);
 
-        return view('backend.profil.index', compact('adminData'));
+        if (!$userData) {
+            // Jika data pengguna tidak ditemukan, Anda dapat menangani kasus ini sesuai kebutuhan Anda,
+            // misalnya dengan menampilkan pesan kesalahan atau mengarahkan pengguna ke halaman lain.
+            return redirect()->back()->with('error', 'Data profil tidak ditemukan.');
+        }
+
+        return view('backend.profil.index', compact('userData'));
     }
 
     /**
@@ -89,5 +94,32 @@ class ProfilController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateFotoProfil(Request $request)
+    {
+        $request->validate([
+            'photo_profil' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $file = $request->file('photo_profil');
+        $fileName = $file->getClientOriginalName(); // Menggunakan nama file asli
+
+        $user = auth()->user();
+
+        // Hapus foto profil lama jika ada
+        if ($user->photo_profil) {
+            Storage::delete('public/photo_profil/' . $user->photo_profil);
+        }
+
+        // Simpan foto profil baru
+        $file->storeAs('public/photo_profil', $fileName);
+
+        // Update field photo_profil pada entitas pengguna
+        $user->photo_profil = $fileName;
+
+        $user->save();
+
+        return redirect()->route('profil.index')->with('success', 'Foto profil berhasil diperbarui.');
     }
 }

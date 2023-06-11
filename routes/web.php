@@ -108,8 +108,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     // profil
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
-    // Route::get('profil/edit', [ProfilController::class, 'edit'])->name('profil.edit');
-    // Route::post('profil', [ProfilController::class, 'update'])->name('profil.update');
+    Route::post('profil', [ProfilController::class, 'updateFotoProfil'])->name('profil.update');
+    Route::post('profil/photoProfil', [ProfilController::class, 'updateFotoProfil'])->name('photoProfil');
+
+
+
+
 
     //signout
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');

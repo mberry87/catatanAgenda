@@ -198,87 +198,94 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="
-                            nav-item {{ Request::is('bendera') ? 'menu-open' : '' }}
-                            nav-item {{ Request::is('perusahaan') ? 'menu-open' : '' }}
-                            nav-item {{ Request::is('kapal') ? 'menu-open' : '' }}
-                            nav-item {{ Request::is('tipe_kapal') ? 'menu-open' : '' }}
-                            ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-anchor"></i>
-                                <p>
-                                    KAPAL
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{ route('kapal.index') }}"
-                                        class="nav-link {{ Request::is('kapal') ? 'active' : '' }}">
-                                        <i class="fas fa-ship nav-icon"></i>
-                                        <p>Kapal</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="{{ route('tipe_kapal.index') }}"
-                                        class="nav-link {{ Request::is('tipe_kapal') ? 'active' : '' }}">
-                                        <i class="fas fa-dolly nav-icon"></i>
-                                        <p>Tipe Kapal</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="{{ route('bendera.index') }}"
-                                        class="nav-link {{ Request::is('bendera') ? 'active' : '' }}">
-                                        <i class="fas fa-flag nav-icon"></i>
-                                        <p>Bendera</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="{{ route('pelabuhan.index') }}"
-                                        class="nav-link {{ Request::is('pelabuhan') ? 'active' : '' }}">
-                                        <i class="fas fa-suitcase-rolling nav-icon"></i>
-                                        <p>Pelabuhan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="{{ route('perusahaan.index') }}"
-                                        class="nav-link {{ Request::is('perusahaan') ? 'active' : '' }}">
-                                        <i class="fas fa-building nav-icon"></i>
-                                        <p>Perusahaan</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li
-                            class="
-                            nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
-                            nav-item {{ Request::is('user') ? 'menu-open' : '' }}
-                            ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    MANAGEMENT
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('user.index') }}"
-                                        class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-                                        <i class="fas fa-user nav-icon"></i>
-                                        <p>User</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="{{ route('pegawai.index') }}"
-                                        class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
-                                        <i class="fas fa-id-card nav-icon"></i>
-                                        <p>Pegawai</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+
+                        @can('viewAny', App\User::class)
+                            <li
+                                class="
+                        nav-item {{ Request::is('bendera') ? 'menu-open' : '' }}
+                        nav-item {{ Request::is('perusahaan') ? 'menu-open' : '' }}
+                        nav-item {{ Request::is('kapal') ? 'menu-open' : '' }}
+                        nav-item {{ Request::is('tipe_kapal') ? 'menu-open' : '' }}
+                        ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-anchor"></i>
+                                    <p>
+                                        KAPAL
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item ">
+                                        <a href="{{ route('kapal.index') }}"
+                                            class="nav-link {{ Request::is('kapal') ? 'active' : '' }}">
+                                            <i class="fas fa-ship nav-icon"></i>
+                                            <p>Kapal</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('tipe_kapal.index') }}"
+                                            class="nav-link {{ Request::is('tipe_kapal') ? 'active' : '' }}">
+                                            <i class="fas fa-dolly nav-icon"></i>
+                                            <p>Tipe Kapal</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('bendera.index') }}"
+                                            class="nav-link {{ Request::is('bendera') ? 'active' : '' }}">
+                                            <i class="fas fa-flag nav-icon"></i>
+                                            <p>Bendera</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('pelabuhan.index') }}"
+                                            class="nav-link {{ Request::is('pelabuhan') ? 'active' : '' }}">
+                                            <i class="fas fa-suitcase-rolling nav-icon"></i>
+                                            <p>Pelabuhan</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('perusahaan.index') }}"
+                                            class="nav-link {{ Request::is('perusahaan') ? 'active' : '' }}">
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Perusahaan</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endcan
+
+                        @can('viewAny', App\User::class)
+                            <li
+                                class="
+                        nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
+                        nav-item {{ Request::is('user') ? 'menu-open' : '' }}
+                        ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        MANAGEMENT
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('user.index') }}"
+                                            class="nav-link {{ Request::is('user') ? 'active' : '' }}">
+                                            <i class="fas fa-user nav-icon"></i>
+                                            <p>User</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('pegawai.index') }}"
+                                            class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
+                                            <i class="fas fa-id-card nav-icon"></i>
+                                            <p>Pegawai</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endcan
+
                     </ul>
                 </nav>
 

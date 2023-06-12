@@ -19,10 +19,11 @@ class UserSeeder extends Seeder
         $data = [
 
             [
-                'name' => 'superuser',
-                'username' => 'superuser',
-                'email' => 'berry311287@gmail.com',
-                'password' => Hash::make('superuser123'),
+                'name' => 'admin',
+                'username' => 'admin',
+                'email' => 'superadmin@gmail.com',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
 
 
             ],

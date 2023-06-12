@@ -26,7 +26,10 @@
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @can('viewAny', App\User::class)
+                    <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @endcan
+
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -38,7 +41,9 @@
                 <div class="icon">
                     <i class="ion ion-card"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @can('viewAny', App\User::class)
+                    <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @endcan
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -50,7 +55,10 @@
                 <div class="icon">
                     <i class="ion ion-android-boat"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @can('viewAny', App\User::class)
+                    <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
+                @endcan
+
             </div>
         </div>
     </div>

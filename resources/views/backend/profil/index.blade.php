@@ -37,9 +37,9 @@
                             <p class="text-muted text-center">Email : {{ $userData->email }}</p>
                             <p class="text-muted text-center">Tempat Tanggal Lahir : {{ $userData->tmp_lahir }},
                                 {{ $userData->tgl_lahir }} </p>
-                            <p class="text-muted text-center">Agama : {{ $userData->tgl_lahir }}</p>
+                            <p class="text-muted text-center">Agama : {{ $userData->agama }}</p>
                         </div>
-                        <form action="route('profil.updateFotoProfil') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('profil.updateFotoProfil') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="photo_profil" class="form-label ">Upload foto profil</label>

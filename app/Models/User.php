@@ -29,7 +29,8 @@ class User extends Authenticatable
         'alamat',
         'telepon',
         'agama',
-        'photo_profil'
+        'photo_profil',
+
     ];
 
     /**

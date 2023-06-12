@@ -36,7 +36,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardCotroller::class, 'index'])->name('dashboard');
 
-    Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::middleware(['auth', 'role:admin,user'])->group(function () {
         // pegawai
         Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
         Route::get('create/pegawai', [PegawaiController::class, 'create'])->name('pegawai.create');
@@ -99,10 +99,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    // profil
-    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
-    Route::post('profil/updateFotoProfil', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
-    Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
+
+
+
 
     //spb
     Route::get('spb', [SpbController::class, 'index'])->name('spb.index');
@@ -112,6 +111,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('spb/{id}', [SpbController::class, 'update'])->name('spb.update');
     Route::delete('spb/{id}', [SpbController::class, 'destroy'])->name('spb.destroy');
     Route::get('spb/{id}', [SpbController::class, 'show'])->name('spb.show');
+
+    // profil
+    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('profil/updateFotoProfil', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
+    Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
+
 
     //signout
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');

@@ -16,12 +16,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        // dd($request->user()->role);
-
-        if (!$request->user() || strcasecmp($request->user()->role, $role) !== 0) {
-            abort(403, 'Unauthorized');
+        if ($request->user() && $request->user()->role === $role) {
+            return $next($request);
         }
 
-        return $next($request);
+        abort(403, 'Unauthorized');
     }
 }

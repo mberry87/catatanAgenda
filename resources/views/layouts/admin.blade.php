@@ -492,6 +492,43 @@
                 }
             });
         });
+
+
+        $(document).ready(function() {
+            $('#kapal_id').change(function() {
+                var kapalId = $(this).val();
+                if (kapalId !== '') {
+                    var url = '/get-data/' + kapalId;
+                    if ("{{ auth()->user()->role }}" === 'admin') {
+                        // Tambahkan parameter role=admin pada URL untuk admin
+                        url += '?role=admin';
+                    }
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#bendera').val(response.bendera);
+                            $('#perusahaan').val(response.perusahaan);
+                            $('#tipe_kapal').val(response.tipe_kapal);
+                            $('#gt').val(response.gt);
+                            $('#call_sign').val(response.call_sign);
+                            $('#thn_produksi').val(response.thn_produksi);
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                } else {
+                    $('#bendera').val('');
+                    $('#perusahaan').val('');
+                    $('#tipe_kapal').val('');
+                    $('#gt').val('');
+                    $('#call_sign').val('');
+                    $('#thn_produksi').val('');
+                }
+            });
+        });
     </script>
 
     {{-- <script>

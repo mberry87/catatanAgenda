@@ -45,6 +45,9 @@
                                 <label for="photo_profil" class="form-label ">Upload foto profil</label>
                                 <input name="photo_profil" class="form-control" type="file" id="photo_profil">
                             </div>
+                            @error('photo_profil')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <button type="submit" class="btn btn-primary btn-sm ">Update foto</button>
                         </form>
                     </div>

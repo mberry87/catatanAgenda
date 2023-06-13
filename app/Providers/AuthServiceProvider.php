@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\SpbPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::resource('users', UserPolicy::class);
+
+        Gate::define('spb.update', [SpbPolicy::class, 'update']);
+        Gate::define('spb.delete', [SpbPolicy::class, 'delete']);
     }
 }

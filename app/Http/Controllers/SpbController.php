@@ -6,7 +6,10 @@ use App\Models\Kapal;
 use App\Models\Pegawai;
 use App\Models\Pelabuhan;
 use App\Models\Spb;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+
+
 
 class SpbController extends Controller
 {
@@ -109,8 +112,14 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Spb $spb)
     {
+        // $this->authorize('spb.update', $spb);
+
+        if (!Gate::allows('spb.update', $spb)) {
+            abort(403);
+        }
+
         $kapal = Kapal::all();
         $pelabuhan = Pelabuhan::all();
         $pegawai = Pegawai::all();
@@ -176,10 +185,13 @@ class SpbController extends Controller
      * @param  \App\Models\Spb  $spb
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Spb $spb)
     {
-        $spb = Spb::find($id);
-        $spb->delete();
+        if (!Gate::allows('spb.delete', $spb)) {
+            abort(403);
+        }
+
+        Spb::destroy($id);
 
         return redirect()->route('spb.index')->with('success', 'Data SPB berhasil dihapus.');
     }

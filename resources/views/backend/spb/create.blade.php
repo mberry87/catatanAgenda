@@ -75,7 +75,8 @@
                                     <select class="form-control select2bs4" id="kapal_id" name="kapal_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($kapal as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}" id="kapal_id_{{ $data->id }}">
+                                                {{ $data->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -64,14 +64,23 @@
                                         <td>{{ $data->pelabuhan->nama }}</td>
                                         <td>{{ $data->pegawai->nama }}</td>
                                         <td>
-                                            <a href="{{ route('spb.show', $data) }}" class="btn btn-warning btn-sm "><i
-                                                    class="fa
-                                            fa-eye"></i></a>
-                                            <a href="{{ route('spb.edit', $data) }}" class="btn btn-primary btn-sm "><i
-                                                    class="fa
-                                                fa-pen"></i></a>
-                                            <a href="{{ route('spb.destroy', $data) }}" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt"></i></a>
+                                            <div class="d-flex">
+                                                <a href="{{ route('spb.show', $data) }}"
+                                                    class="btn btn-warning btn-sm mr-2"><i class="fa fa-eye"></i>
+                                                </a>
+                                                @if (auth()->user()->role === 'admin')
+                                                    <a href="{{ route('spb.edit', $data) }}"
+                                                        class="btn btn-primary btn-sm mr-2"><i class="fa fa-pen"></i>
+                                                    </a>
+                                                    <form action="{{ route('spb.destroy', $data->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                class="fa fa-trash"></i></button>
+                                                    </form>
+                                                @endif
+
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -11,6 +11,6 @@ class AdminController extends Controller
     {
         $userData = Auth::user();
 
-        return view('layouts.admin', compact('userData'));
+        return view('layouts.admin', compact('userData',));
     }
 }

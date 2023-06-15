@@ -113,6 +113,8 @@ Route::middleware('islogin')->group(function () {
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
     Route::post('profil/updateFotoProfil', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
     Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
+    Route::post('profil/updatePassword', [ProfilController::class, 'updatePassword'])->name('profil.updatePassword');
+
 
 
     //signout

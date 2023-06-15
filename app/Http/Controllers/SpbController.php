@@ -101,9 +101,9 @@ class SpbController extends Controller
      */
     public function show($id)
     {
-        $data = Spb::findOrFail($id);
+        $spb = Spb::findOrFail($id);
 
-        return view('backend.spb.show', compact('data'));
+        return view('backend.spb.show', compact('spb'));
     }
 
     /**

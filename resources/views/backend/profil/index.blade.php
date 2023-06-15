@@ -108,7 +108,7 @@
                                 value="{{ $userData->email }}">
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm">Update Profil</button>
-                        <a href="#" class="btn btn-warning btn-sm">Kembali</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">Kembali</a>
                     </form>
 
                 </div>

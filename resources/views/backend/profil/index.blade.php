@@ -20,12 +20,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="form-group">
                         <div class="text-center">
                             <img class="profile-user-img img-fluid"
@@ -111,6 +111,59 @@
                         <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">Kembali</a>
                     </form>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex flex-row-reverse">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header">
+                    <h5 class="m-0">Update Password</h5>
+                </div>
+                <div class="card-body">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('profil.updatePassword') }}">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="current_password">Password saat ini</label>
+                            <input class="form-control" type="password" id="current_password" name="current_password">
+                            @error('current_password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new_password">Password baru</label>
+                            <input class="form-control" type="password" id="new_password" name="new_password">
+                            @error('new_password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm_password">Konfirmasi Password baru</label>
+                            <input class="form-control" type="password" id="confirm_password" name="confirm_password">
+                            @error('confirm_password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-sm">Ubah Password</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

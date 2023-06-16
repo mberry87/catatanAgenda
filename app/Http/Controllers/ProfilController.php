@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -151,5 +152,26 @@ class ProfilController extends Controller
         $user->save();
 
         return redirect()->route('profil.index')->with('success', ' profil berhasil diperbarui.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        // Validasi input password saat ini
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            return redirect()->back()->with('error', 'Password saat ini tidak sesuai.');
+        }
+
+        // Validasi konfirmasi password baru
+        if ($request->input('new_password') !== $request->input('confirm_password')) {
+            return redirect()->back()->with('error', 'Konfirmasi password baru tidak sesuai.');
+        }
+
+        // Update password baru
+        $user->password = Hash::make($request->input('new_password'));
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password berhasil diubah.');
     }
 }

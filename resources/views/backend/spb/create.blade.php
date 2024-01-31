@@ -26,9 +26,8 @@
                 <div class="card-body">
                     <form action="{{ route('spb.store') }}" class="form-horizontal form-label-left" method="POST">
                         @csrf
-
                         <div class="row">
-                            <div class="col col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="no_regis">Nomor Register SPB</label>
                                     <input type="text" name="no_regis" id="no_regis"
@@ -50,7 +49,7 @@
                                 <div class="form-group">
                                     <label for="tgl_surat">Tanggal Pemohon</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="text" name="tgl_surat" id="tgl_surat"
+                                        <input type="text" name="tgl_surat" id="tgl_surat" value="{{ old('tgl_surat') }}"
                                             class="form-control datetimepicker-input" data-target="#tgl_surat" />
                                         <div class="input-group-append" data-target="#tgl_surat"
                                             data-toggle="datetimepicker">
@@ -75,7 +74,8 @@
                                     <select class="form-control select2bs4" id="kapal_id" name="kapal_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($kapal as $data)
-                                            <option value="{{ $data->id }}" id="kapal_id_{{ $data->id }}">
+                                            <option value="{{ $data->id }}"
+                                                {{ old('kapal_id') == $data->id ? 'selected' : '' }}>
                                                 {{ $data->nama }}</option>
                                         @endforeach
                                     </select>
@@ -89,6 +89,8 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="tipe_kapal">Tipe Kapal</label>
                                     <input type="text" name="tipe_kapal" id="tipe_kapal"
@@ -144,7 +146,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="nakhoda">Nama Nakhoda</label>
                                     <input type="text" name="nakhoda" id="nakhoda"
@@ -155,14 +157,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Pernyataan Nakhoda</label>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="tgl_nakhoda"> Tanggal</label>
+                                                <label for="tgl_nakhoda"> Tgl Pernyataan</label>
                                                 <div class="input-group date" id="reservationdate"
                                                     data-target-input="nearest">
                                                     <input type="text" name="tgl_nakhoda" id="tgl_nakhoda"
+                                                        value="{{ old('tgl_nakhoda') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#tgl_nakhoda" />
                                                     <div class="input-group-append" data-target="#tgl_nakhoda"
@@ -177,10 +179,11 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="jam_nakhoda">Jam</label>
+                                                <label for="jam_nakhoda">Jam Pernyataan</label>
                                                 <div class="input-group date" id="datetimepicker3"
                                                     data-target-input="nearest">
                                                     <input type="text" name="jam_nakhoda" id="jam_nakhoda"
+                                                        value="{{ old('jam_nakhoda') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#jam_nakhoda" />
                                                     <div class="input-group-append" data-target="#jam_nakhoda"
@@ -205,14 +208,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Waktu Bertolak</label>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="tgl_bertolak"> Tanggal</label>
+                                                <label for="tgl_bertolak"> Tgl Bertolak</label>
                                                 <div class="input-group date" id="reservationdate"
                                                     data-target-input="nearest">
                                                     <input type="text" name="tgl_bertolak" id="tgl_bertolak"
+                                                        value="{{ old('tgl_bertolak') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#tgl_bertolak" />
                                                     <div class="input-group-append" data-target="#tgl_bertolak"
@@ -227,10 +230,11 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="jam_bertolak">Jam</label>
+                                                <label for="jam_bertolak">Jam Bertolak</label>
                                                 <div class="input-group date" id="datetimepicker3"
                                                     data-target-input="nearest">
                                                     <input type="text" name="jam_bertolak" id="jam_bertolak"
+                                                        value="{{ old('jam_bertolak') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#jam_bertolak" />
                                                     <div class="input-group-append" data-target="#jam_bertolak"
@@ -250,7 +254,9 @@
                                     <select class="form-control select2bs4" id="pelabuhan_id" name="pelabuhan_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($pelabuhan as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ old('pelabuhan_id') == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -263,6 +269,8 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="muatan">Muatan</label>
                                     <input type="text" name="muatan" id="muatan"
@@ -282,14 +290,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Waktu Terbit</label>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="tgl_terbit"> Tanggal</label>
+                                                <label for="tgl_terbit"> Tgl Terbit</label>
                                                 <div class="input-group date" id="reservationdate"
                                                     data-target-input="nearest">
                                                     <input type="text" name="tgl_terbit" id="tgl_terbit"
+                                                        value="{{ old('tgl_terbit') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#tgl_terbit" />
                                                     <div class="input-group-append" data-target="#tgl_terbit"
@@ -304,10 +312,11 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="jam_terbit">Jam</label>
+                                                <label for="jam_terbit">Jam Terbit</label>
                                                 <div class="input-group date" id="datetimepicker3"
                                                     data-target-input="nearest">
                                                     <input type="text" name="jam_terbit" id="jam_terbit"
+                                                        value="{{ old('jam_terbit') }}"
                                                         class="form-control datetimepicker-input"
                                                         data-target="#jam_terbit" />
                                                     <div class="input-group-append" data-target="#jam_terbit"
@@ -343,7 +352,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <a href="{{ route('spb.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button class="btn btn-info btn-sm" type="reset">Reset</button>
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>

@@ -30,7 +30,7 @@
                         @method('PUT')
 
                         <div class="row">
-                            <div class="col col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="no_regis">Nomor Register SPB</label>
                                     <input type="text" name="no_regis" id="no_regis"
@@ -94,6 +94,8 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="tipe_kapal">Tipe Kapal</label>
                                     <input type="text" name="tipe_kapal" id="tipe_kapal"
@@ -149,7 +151,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col col-md-6">
+                            <div class="col col-md-3">
                                 <div class="form-group">
                                     <label for="nakhoda">Nama Nakhoda</label>
                                     <input type="text" name="nakhoda" id="nakhoda"
@@ -258,6 +260,8 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="jml_crew">Jumlah Crew</label>
                                     <input type="text" name="jml_crew" id="jml_crew"

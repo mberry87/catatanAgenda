@@ -177,11 +177,8 @@
                                 <p>DASHBOARD</p>
                             </a>
                         </li>
-                        <li
-                            class="
-                            nav-item {{ Request::is('spb') ? 'menu-open' : '' }}
-                            ">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ Request::is('spb') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('spb') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     JENIS SURAT
@@ -201,49 +198,45 @@
 
                         @can('viewAny', App\User::class)
                             <li
-                                class="
-                        nav-item {{ Request::is('bendera') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('perusahaan') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('kapal') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('tipe_kapal') ? 'menu-open' : '' }}
-                        ">
-                                <a href="#" class="nav-link">
+                                class="nav-item {{ Request::is('kapal', 'tipe_kapal', 'bendera', 'perusahaan', 'pelabuhan') ? 'menu-open active' : '' }}">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('kapal', 'tipe_kapal', 'bendera', 'perusahaan', 'pelabuhan') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-anchor"></i>
                                     <p>
-                                        KAPAL
+                                        MASTER DATA
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item ">
+                                    <li class="nav-item">
                                         <a href="{{ route('kapal.index') }}"
                                             class="nav-link {{ Request::is('kapal') ? 'active' : '' }}">
                                             <i class="fas fa-ship nav-icon"></i>
                                             <p>Kapal</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item">
                                         <a href="{{ route('tipe_kapal.index') }}"
                                             class="nav-link {{ Request::is('tipe_kapal') ? 'active' : '' }}">
                                             <i class="fas fa-dolly nav-icon"></i>
                                             <p>Tipe Kapal</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item">
                                         <a href="{{ route('bendera.index') }}"
                                             class="nav-link {{ Request::is('bendera') ? 'active' : '' }}">
                                             <i class="fas fa-flag nav-icon"></i>
                                             <p>Bendera</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item">
                                         <a href="{{ route('pelabuhan.index') }}"
                                             class="nav-link {{ Request::is('pelabuhan') ? 'active' : '' }}">
                                             <i class="fas fa-suitcase-rolling nav-icon"></i>
                                             <p>Pelabuhan</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item">
                                         <a href="{{ route('perusahaan.index') }}"
                                             class="nav-link {{ Request::is('perusahaan') ? 'active' : '' }}">
                                             <i class="fas fa-building nav-icon"></i>
@@ -255,12 +248,8 @@
                         @endcan
 
                         @can('viewAny', App\User::class)
-                            <li
-                                class="
-                        nav-item {{ Request::is('pegawai') ? 'menu-open' : '' }}
-                        nav-item {{ Request::is('user') ? 'menu-open' : '' }}
-                        ">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ Request::is('pegawai', 'user') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ Request::is('pegawai', 'user') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         MANAGEMENT
@@ -353,6 +342,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
 
     <script src="{{ asset('template') }}/dist/js/adminlte.min.js?v=3.2.0"></script>
+
+    <script src="{{ asset('template') }}/plugins/chart.js/Chart.min.js"></script>
 
 
     <script>

@@ -108,6 +108,7 @@ Route::middleware('islogin')->group(function () {
     Route::put('spb/{id}', [SpbController::class, 'update'])->name('spb.update');
     Route::delete('spb/{id}', [SpbController::class, 'destroy'])->name('spb.destroy');
     Route::get('spb/{id}', [SpbController::class, 'show'])->name('spb.show');
+    Route::get('cetak/spb', [SpbController::class, 'cetak'])->name('cetak.spb');
 
     // profil
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');

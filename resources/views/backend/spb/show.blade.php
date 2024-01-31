@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="call_sign">Call Sign</label>
                                 <input type="text" name="call_sign" id="call_sign" class="form-control  "
-                                    value="$spb->call_sign }}" readonly>
+                                    value="{{ $spb->call_sign }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="thn_produksi">Tahun Produksi</label>
@@ -130,8 +130,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="pelabuhan_id">Pelabuhan Tujuan</label>
-                                <input type="text" name="pelabuhan_id" id="pelabuhan_id" class="form-control"
-                                    value="{{ $spb->pelabuhan_id }}" readonly>
+                                <input type="text" name="pelabuhan" id="pelabuhan" class="form-control"
+                                    value="{{ $spb->pelabuhan->nama }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="jml_crew">Jumlah Crew</label>
@@ -165,8 +165,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="pegawai_id">Syahbandar</label>
-                                <input type="text" name="pegawai_id" id="pegawai_id" class="form-control"
-                                    value="{{ $spb->pegawai_id }}" readonly>
+                                <input type="text" name="pegawai" id="pegawai_" class="form-control"
+                                    value="{{ $spb->pegawai->nama }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="no_pup">No PUP</label>

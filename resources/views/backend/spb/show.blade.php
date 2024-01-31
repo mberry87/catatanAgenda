@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col col-md-6">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group">
                                 <label for="no_regis">Nomor Register SPB</label>
                                 <input type="text" name="no_regis" id="no_regis" class="form-control"
@@ -56,6 +56,8 @@
                                 <input type="text" name="bendera" id="bendera" class="form-control"
                                     value="{{ $spb->bendera }}" Readonly>
                             </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group">
                                 <label for="tipe_kapal">Tipe Kapal</label>
                                 <input type="text" name="tipe_kapal" id="tipe_kapal" class="form-control"
@@ -87,22 +89,21 @@
                                     value="{{ $spb->no_imo }}" readonly>
                             </div>
                         </div>
-                        <div class="col col-md-6">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group">
                                 <label for="nakhoda">Nama Nakhoda</label>
                                 <input type="text" name="nakhoda" id="nakhoda" class="form-control"
                                     value="{{ $spb->nakhoda }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Pernyataan Nakhoda</label>
                                 <div class="row">
                                     <div class="col">
-                                        <label>Tanggal</label>
+                                        <label>Tanggal Pernyataan</label>
                                         <input type="text" name="tgl_nakhoda" class="form-control"
                                             value="{{ $spb->tgl_nakhoda }}" readonly>
                                     </div>
                                     <div class="col">
-                                        <label>Jam</label>
+                                        <label>Jam Pernyataan</label>
                                         <input type="text" name="jam_nakhoda" class="form-control"
                                             value="{{ $spb->jam_nakhoda }}" readonly>
                                     </div>
@@ -114,15 +115,14 @@
                                     value="{{ $spb->bertolak }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Waktu Bertolak</label>
                                 <div class="row">
                                     <div class="col">
-                                        <label>Tanggal</label>
+                                        <label>Tanggal Bertolak</label>
                                         <input type="text" name="tgl_bertolak" class="form-control"
                                             value="{{ $spb->tgl_bertolak }}" readonly>
                                     </div>
                                     <div class="col">
-                                        <label>Jam</label>
+                                        <label>Jam Bertolak</label>
                                         <input type="text" name="jam_bertolak" class="form-control"
                                             value="{{ $spb->jam_bertolak }}" readonly>
                                     </div>
@@ -138,6 +138,8 @@
                                 <input type="text" name="jml_crew" id="jml_crew" class="form-control"
                                     value="{{ $spb->jml_crew }}" readonly>
                             </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group">
                                 <label for="muatan">Muatan</label>
                                 <input type="text" name="muatan" id="muatan" class="form-control"
@@ -149,15 +151,14 @@
                                     value="{{ $spb->tmp_terbit }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Waktu Terbit</label>
                                 <div class="row">
                                     <div class="col">
-                                        <label>Tanggal</label>
+                                        <label>Tanggal Terbit</label>
                                         <input type="text" name="tgl_terbit" class="form-control"
                                             value="{{ $spb->tgl_terbit }}" readonly>
                                     </div>
                                     <div class="col">
-                                        <label>Jam</label>
+                                        <label>Jam Terbit</label>
                                         <input type="text" name="jam_bertolak" class="form-control"
                                             value="{{ $spb->jam_bertolak }}" readonly>
                                     </div>

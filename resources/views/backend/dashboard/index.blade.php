@@ -17,6 +17,23 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-4">
+            <label for="">Petugas SPB</label>
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid"
+                            src="{{ $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
+                            alt="User profile picture">
+                        <h3 class="profile-username text-center">{{ $userData->name }}</h3>
+                        <p class="text-muted text-center">NIP : {{ $userData->nip }}</p>
+                        <p class="text-muted text-center">Email : {{ $userData->email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-3">
             <div class="small-box bg-info">
                 <div class="inner">

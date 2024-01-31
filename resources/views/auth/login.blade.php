@@ -48,21 +48,20 @@
                     </span>
                 @enderror
             </div>
-            <div class="row">
-                <div class="col-8">
-                    <p class="mb-1">
+            {{-- lupa password dan register --}}
+            <div class="row ">
+                <div class="col-8 d-none">
+                    <p class="mb-0">
                         <a href="forgot-password.html">Lupa password</a>
                     </p>
+                    <p class="mb-0">
+                        <a href="{{ route('register') }}" class="text-center">{{ __('Register') }}</a>
+                    </p>
                 </div>
-                <!-- /.col -->
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
                 </div>
-                <!-- /.col -->
             </div>
-            <p class="mb-0">
-                <a href="{{ route('register') }}" class="text-center">{{ __('Register') }}</a>
-            </p>
         </form>
     </div>
 @endsection

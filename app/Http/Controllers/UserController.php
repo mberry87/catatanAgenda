@@ -40,6 +40,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'username' => 'required',
+            'nip' => 'required',
             'email' => 'required',
 
         ]);
@@ -99,12 +100,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required',
+            'nip' => 'required',
             'email' => 'required',
             'role' => 'required'
         ]);
 
         $users->name = $request->name;
         $users->username = $request->username;
+        $users->nip = $request->nip;
         $users->email = $request->email;
         $users->role = $request->role;
         $users->save();

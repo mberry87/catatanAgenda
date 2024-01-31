@@ -20,9 +20,16 @@ class SpbController extends Controller
      */
     public function index()
     {
-        $spb = Spb::all();
+        $spb = Spb::latest()->get();
 
         return view('backend.spb.index', compact('spb'));
+    }
+
+    public function cetak()
+    {
+        $cetakspb = Spb::all();
+
+        return view('backend.spb.cetak', compact('cetakspb'));
     }
 
     /**

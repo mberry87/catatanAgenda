@@ -17,6 +17,10 @@ class PegawaiController extends Controller
         // hubungkan data migration
         $pegawai = Pegawai::all();
 
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.pegawai.index', compact('pegawai'));
     }
 

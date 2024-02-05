@@ -37,7 +37,7 @@
         <div class="col-md-3">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>{{ \App\Models\Spb::whereMonth('created_at', now())->count() }}</h3>
+                    <h3>{{ $spb }}</h3>
                     <p>SPB DITERBITKAN</p>
                 </div>
                 <div class="icon">
@@ -90,7 +90,6 @@
                 @can('viewAny', App\User::class)
                     <a href="#" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
                 @endcan
-
             </div>
         </div>
     </div>

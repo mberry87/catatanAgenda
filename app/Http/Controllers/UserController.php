@@ -15,6 +15,11 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.user.index', compact('users'));
     }
 

@@ -292,6 +292,7 @@
             <div class="content">
                 <div class="container-fluid">
                     @yield('content')
+                    @include('sweetalert::alert')
                 </div>
             </div>
         </div>

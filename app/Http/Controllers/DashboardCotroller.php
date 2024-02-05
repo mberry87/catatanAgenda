@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Pelabuhan;
+use App\Models\Spb;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class DashboardCotroller extends Controller
 
         $jumlah_pelabuhan = Pelabuhan::count();
         $jumlah_pegawai = Pegawai::count();
-        return view('backend.dashboard.index', compact('jumlah_pegawai', 'jumlah_pelabuhan'));
+        $spb = Spb::count();
+        return view('backend.dashboard.index', compact('jumlah_pegawai', 'jumlah_pelabuhan', 'spb'));
     }
 
     /**

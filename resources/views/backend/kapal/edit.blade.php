@@ -56,6 +56,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('bendera_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="tipe_kapal_id">Tipe Kapal</label>
@@ -68,6 +71,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('tipe_kapal_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -76,8 +82,8 @@
                                         <div class="form-group">
                                             <label for="gt">GT</label>
                                             <input type="text"
-                                                class="form-control @error('gt') is-invalid @enderror"id="gt"
-                                                name="gt" value="{{ old('gt', $kapal->gt) }}">
+                                                class="form-control @error('gt') is-invalid @enderror"id="gt" name="gt"
+                                                value="{{ old('gt', $kapal->gt) }}">
                                             @error('gt')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -126,6 +132,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('perusahaan_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="thn_produksi">Tahun Produksi</label>
@@ -140,9 +149,10 @@
                                     <label for="tgl_docking">Tanggal Docking</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="tgl_docking" id="tgl_docking"
-                                            class="form-control datetimepicker-input" data-target="#reservationdate"
-                                            value="{{ $kapal->tgl_docking }}" />
-                                        <div class="input-group-append" data-target="#reservationdate"
+                                            class="form-control datetimepicker-input @error('tgl_docking') is-invalid @enderror"
+                                            data-target="#tgl_docking"
+                                            value="{{ old('tgl_docking', $kapal->tgl_docking) }}" />
+                                        <div class="input-group-append" data-target="#tgl_docking"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>

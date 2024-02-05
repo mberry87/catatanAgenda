@@ -68,9 +68,9 @@
                                                 <a href="{{ route('spb.show', $data) }}"
                                                     class="btn btn-warning btn-sm mr-1"><i class="fa fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('cetak.spb') }}"
-                                                        class="btn btn-success btn-sm mr-1"><i class="fa fa-print"></i>
-                                                    </a>
+                                                <a href="{{ route('cetak.spb', $data) }}"
+                                                    class="btn btn-success btn-sm mr-1"><i class="fa fa-print"></i>
+                                                </a>
                                                 @if (auth()->user()->role === 'admin')
                                                     <a href="{{ route('spb.edit', $data) }}"
                                                         class="btn btn-primary btn-sm mr-1"><i class="fa fa-pen"></i>
@@ -81,7 +81,6 @@
                                                         <button type="submit" class="btn btn-danger btn-sm mr-1"><i
                                                                 class="fa fa-trash"></i></button>
                                                     </form>
-
                                                 @endif
 
                                             </div>

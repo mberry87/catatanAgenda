@@ -17,6 +17,10 @@ class TipeKapalController extends Controller
         // hubungkan data migration
         $tipe_kapal = Tipe_kapal::all();
 
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.tipe_kapal.index', compact('tipe_kapal'));
     }
 

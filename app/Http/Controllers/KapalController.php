@@ -21,7 +21,14 @@ class KapalController extends Controller
 
     {
         // hubungkan data migration
-        $kapal = Kapal::with('bendera', 'tipe_kapal', 'perusahaan')->get();
+        // $kapal = Kapal::with('bendera', 'tipe_kapal', 'perusahaan')->get();
+
+        $kapal = Kapal::all();
+
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.kapal.index', compact('kapal'));
     }
 
@@ -109,9 +116,9 @@ class KapalController extends Controller
             'call_sign' => 'required',
             'bendera_id' => 'required',
             'tipe_kapal_id' => 'required',
-            // 'gt' => 'required',
-            // 'dwt' => 'required',
-            // 'loa' => 'required',
+            'gt' => 'required',
+            'dwt' => 'required',
+            'loa' => 'required',
             'kapasitas' => 'required',
             'perusahaan_id' => 'required',
             'thn_produksi' => 'required',

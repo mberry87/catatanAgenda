@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bendera;
 use Illuminate\Http\Request;
 
+
 class BenderaController extends Controller
 {
     /**
@@ -16,6 +17,10 @@ class BenderaController extends Controller
     {
         // hubungkan data migration
         $bendera = Bendera::all();
+
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
 
         return view('backend.bendera.index', compact('bendera'));
     }
@@ -45,6 +50,7 @@ class BenderaController extends Controller
         ]);
 
         Bendera::create($validatedData);
+
 
         return redirect()->route('bendera.index')->with('success', 'Data bendera berhasil ditambah.');
     }
@@ -114,6 +120,7 @@ class BenderaController extends Controller
      */
     public function destroy($id)
     {
+
         $bendera = Bendera::find($id);
         $bendera->delete();
 

@@ -22,12 +22,17 @@ class SpbController extends Controller
     {
         $spb = Spb::latest()->get();
 
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.spb.index', compact('spb'));
     }
 
-    public function cetak()
+    public function cetak($id)
     {
-        $cetakspb = Spb::all();
+        set_time_limit(300);
+        $cetakspb = Spb::findOrFail($id);
 
         return view('backend.spb.cetak', compact('cetakspb'));
     }

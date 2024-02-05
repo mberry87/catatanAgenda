@@ -162,10 +162,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Pernyataan Nakhoda</label>
                                     <div class="row">
                                         <div class="col">
-                                            <label>Tanggal</label>
+                                            <label>Pernyataan Nakhoda</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="tgl_nakhoda" id="tgl_nakhoda"
@@ -182,7 +181,7 @@
                                             @enderror
                                         </div>
                                         <div class="col">
-                                            <label>Jam</label>
+                                            <label>Jam Pernyataan</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="jam_nakhoda" id="jam_nakhoda"
@@ -210,10 +209,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Waktu Bertolak</label>
                                     <div class="row">
                                         <div class="col">
-                                            <label>Tanggal</label>
+                                            <label>Tgl Bertolak</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="tgl_bertolak" id="tgl_bertolak"
@@ -230,7 +228,7 @@
                                             @enderror
                                         </div>
                                         <div class="col">
-                                            <label>Jam</label>
+                                            <label>Jam Bertolak</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="jam_bertolak" id="jam_bertolak"
@@ -260,8 +258,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="jml_crew">Jumlah Crew</label>
                                     <input type="text" name="jml_crew" id="jml_crew"
@@ -271,6 +267,8 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="muatan">Muatan</label>
                                     <input type="text" name="muatan" id="muatan"
@@ -290,10 +288,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Waktu Terbit</label>
                                     <div class="row">
                                         <div class="col">
-                                            <label>Tanggal</label>
+                                            <label>Tgl Terbit</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="tgl_terbit" id="tgl_terbit"
@@ -310,7 +307,7 @@
                                             @enderror
                                         </div>
                                         <div class="col">
-                                            <label>Jam</label>
+                                            <label>Jam Terbit</label>
                                             <div class="input-group date" id="reservationdatetime"
                                                 data-target-input="nearest">
                                                 <input type="text" name="jam_terbit" id="jam_terbit"

@@ -17,6 +17,10 @@ class PelabuhanController extends Controller
     {
         $pelabuhan = Pelabuhan::all();
 
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.pelabuhan.index', compact('pelabuhan'));
     }
 

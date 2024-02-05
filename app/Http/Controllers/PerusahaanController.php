@@ -18,6 +18,10 @@ class PerusahaanController extends Controller
         // hubungkan data migration
         $perusahaan = Perusahaan::all();
 
+        $title = 'Hapus Data!';
+        $text = "Anda yakin ingin hapus data?";
+        confirmDelete($title, $text);
+
         return view('backend.perusahaan.index', compact('perusahaan'));
     }
 

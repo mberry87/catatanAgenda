@@ -51,8 +51,8 @@
                                             <a href="{{ route('bendera.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <a href="{{ route('bendera.destroy', $data) }}" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt">
+                                            <a href="{{ route('bendera.destroy', $data) }}" class="btn btn-danger btn-sm"
+                                                data-confirm-delete="true"><i class="fas fa-trash-alt">
                                                 </i> Hapus</a>
                                         </td>
                                     </tr>

@@ -52,16 +52,23 @@
                                     <select class="form-control select2bs4" id="bendera_id" name="bendera_id">
                                         <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($bendera as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ old('bendera_id') == $data->id ? 'selected' : '' }}>{{ $data->nama }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('bendera_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="tipe_kapal_id">Tipe Kapal</label>
                                     <select class="form-control select2bs4" name="tipe_kapal_id" id="tipe_kapal_id">
-                                        <option>-- Silahkan Pilih --</option>
+                                        <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($tipe_kapal as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ old('tipe_kapal_id') == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nama }}</option>
                                         @endforeach
                                     </select>
                                     @error('tipe_kapal_id')
@@ -118,11 +125,15 @@
                                 <div class="form-group">
                                     <label for="perusahaan_id">Perusahaan</label>
                                     <select class="form-control select2bs4" name="perusahaan_id" id="perusahaan_id">
-                                        <option>-- Silahkan Pilih --</option>
+                                        <option value="">-- Silahkan Pilih --</option>
                                         @foreach ($perusahaan as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            <option value="{{ $data->id }}"
+                                                {{ old('perusahaan_id') == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nama }}</option>
                                         @endforeach
-
+                                        @error('perusahaan_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </select>
                                     @error('perusahaan_id')
                                         <div class="text-danger">{{ $message }}</div>

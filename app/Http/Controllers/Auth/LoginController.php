@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 
 use Illuminate\Http\Request;
 
@@ -45,6 +48,7 @@ class LoginController extends Controller
 
     public function username()
     {
+        Alert::success('Selamat Datang', 'Anda Berhasil Login');
         return 'username';
     }
 }

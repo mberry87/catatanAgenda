@@ -22,8 +22,7 @@ class ProfilController extends Controller
         $userData = User::find($id);
 
         if (!$userData) {
-            // Jika data pengguna tidak ditemukan, Anda dapat menangani kasus ini sesuai kebutuhan Anda,
-            // misalnya dengan menampilkan pesan kesalahan atau mengarahkan pengguna ke halaman lain.
+            // Jika data pengguna tidak ditemukan
             return redirect()->back()->with('error', 'Data profil tidak ditemukan.');
         }
 

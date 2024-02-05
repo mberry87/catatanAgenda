@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,8 +47,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('pegawai', [PegawaiController::class, 'store'])->name('pegawai.store');
     Route::get('pegawai/{id}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
     Route::put('pegawai/{id}', [PegawaiController::class, 'update'])->name('pegawai.update');
-    Route::get('pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
-    Route::get('pegawais/count', [PegawaiController::class, 'show'])->name('pegawai.count');
+    Route::delete('pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
     // bendera
     Route::get('bendera', [BenderaController::class, 'index'])->name('bendera.index');
@@ -55,7 +55,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('bendera', [BenderaController::class, 'store'])->name('bendera.store');
     Route::get('bendera/{id}/edit', [BenderaController::class, 'edit'])->name('bendera.edit');
     Route::put('bendera/{id}', [BenderaController::class, 'update'])->name('bendera.update');
-    Route::get('bendera/{id}', [BenderaController::class, 'destroy'])->name('bendera.destroy');
+    Route::delete('bendera/{id}', [BenderaController::class, 'destroy'])->name('bendera.destroy');
 
     // perusahaan
     Route::get('perusahaan', [PerusahaanController::class, 'index'])->name('perusahaan.index');
@@ -63,7 +63,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('perusahaan', [PerusahaanController::class, 'store'])->name('perusahaan.store');
     Route::get('perusahaan/{id}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
     Route::put('perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.update');
-    Route::get('perusahaan/{id}', [PerusahaanController::class, 'destroy'])->name('perusahaan.destroy');
+    Route::delete('perusahaan/{id}', [PerusahaanController::class, 'destroy'])->name('perusahaan.destroy');
 
     // kapal
     Route::get('kapal', [KapalController::class, 'index'])->name('kapal.index');
@@ -71,7 +71,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('kapal', [KapalController::class, 'store'])->name('kapal.store');
     Route::get('kapal/{id}/edit', [KapalController::class, 'edit'])->name('kapal.edit');
     Route::put('kapal/{id}', [KapalController::class, 'update'])->name('kapal.update');
-    Route::get('kapal/{id}', [KapalController::class, 'destroy'])->name('kapal.destroy');
+    Route::delete('kapal/{id}', [KapalController::class, 'destroy'])->name('kapal.destroy');
     // mendapatkan id yang berada di kapal
     Route::get('/get-data/{kapal_id}', [KapalController::class, 'getData'])->name('kapal.getData');
 
@@ -81,7 +81,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('tipe_kapal', [TipeKapalController::class, 'store'])->name('tipe_kapal.store');
     Route::get('tipe_kapal/{id}/edit', [TipeKapalController::class, 'edit'])->name('tipe_kapal.edit');
     Route::put('tipe_kapal/{id}', [TipeKapalController::class, 'update'])->name('tipe_kapal.update');
-    Route::get('tipe_kapal/{id}', [TipeKapalController::class, 'destroy'])->name('tipe_kapal.destroy');
+    Route::delete('tipe_kapal/{id}', [TipeKapalController::class, 'destroy'])->name('tipe_kapal.destroy');
 
     // pelabuhan
     Route::get('pelabuhan', [PelabuhanController::class, 'index'])->name('pelabuhan.index');
@@ -89,7 +89,7 @@ Route::middleware('islogin')->group(function () {
     Route::post('pelabuhan', [PelabuhanController::class, 'store'])->name('pelabuhan.store');
     Route::get('pelabuhan/{id}/edit', [PelabuhanController::class, 'edit'])->name('pelabuhan.edit');
     Route::put('pelabuhan/{id}', [PelabuhanController::class, 'update'])->name('pelabuhan.update');
-    Route::get('pelabuhan/{id}', [PelabuhanController::class, 'destroy'])->name('pelabuhan.destroy');
+    Route::delete('pelabuhan/{id}', [PelabuhanController::class, 'destroy'])->name('pelabuhan.destroy');
 
     //user
     Route::get('user', [UserController::class, 'index'])->name('user.index');
@@ -108,7 +108,7 @@ Route::middleware('islogin')->group(function () {
     Route::put('spb/{id}', [SpbController::class, 'update'])->name('spb.update');
     Route::delete('spb/{id}', [SpbController::class, 'destroy'])->name('spb.destroy');
     Route::get('spb/{id}', [SpbController::class, 'show'])->name('spb.show');
-    Route::get('cetak/spb', [SpbController::class, 'cetak'])->name('cetak.spb');
+    Route::get('cetak/spb{id}', [SpbController::class, 'cetak'])->name('cetak.spb');
 
     // profil
     Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');

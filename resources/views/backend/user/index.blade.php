@@ -63,14 +63,10 @@
                                             <a href="{{ route('user.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <form action="{{ route('user.destroy', $data) }}" method="POST"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i> Hapus
-                                                </button>
-                                            </form>
+                                            @if (auth()->user()->id !== $data->id)
+                                                <a href="{{ route('user.destroy', $data) }}" class="btn btn-danger btn-sm"
+                                                    data-confirm-delete="true"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

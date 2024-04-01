@@ -6,6 +6,7 @@ use App\Models\Kapal;
 use App\Models\Pegawai;
 use App\Models\Pelabuhan;
 use App\Models\Spb;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
@@ -31,10 +32,17 @@ class SpbController extends Controller
 
     public function cetak($id)
     {
-        set_time_limit(300);
+        // set_time_limit(300);
         $cetakspb = Spb::findOrFail($id);
 
-        return view('backend.spb.cetak', compact('cetakspb'));
+        $data = [
+            'cetakspb' => $cetakspb
+        ];
+
+        $pdf = Pdf::loadView('backend.spb.cetak', $data);
+        return $pdf->download('invoice.pdf');
+
+        // return view('backend.spb.cetak', compact('cetakspb'));
     }
 
     /**

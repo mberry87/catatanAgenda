@@ -318,7 +318,7 @@
                                     </div>
 
                                 </div>
-                                {{-- <div class="form-group">
+                                <div class="form-group">
                                     <label for="pegawai_id">Syahbandar</label>
                                     <select class="form-control select2bs4" id="pegawai_id" name="pegawai_id">
                                         <option value="">-- Silahkan Pilih --</option>
@@ -326,15 +326,6 @@
                                             <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                         @endforeach
                                     </select>
-                                </div> --}}
-                                <div class="form-group">
-                                    <label for="pegawai_id">Syahbandar</label>
-                                    <input type="text" name="pegawai_id" id="pegawai_id"
-                                        class="form-control  @error('pegawai_id') is-invalid @enderror"
-                                        value="{{ old('pegawai_id') ?? $pegawai_id }}" readonly>
-                                    @error('pegawai_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="no_pup">No PUP</label>

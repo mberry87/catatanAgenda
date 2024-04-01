@@ -73,7 +73,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="6">PPK-29</td>
+            <td colspan="6">{{ $cetakspb->no_regis }}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -93,7 +93,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="8">C.2</td>
+            <td colspan="8">{{ $cetakspb->no_surat }}</td>
             <td></td>
             <td></td>
             <td></td>

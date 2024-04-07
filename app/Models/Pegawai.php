@@ -12,8 +12,8 @@ class Pegawai extends Model
 
     protected $fillable = ['nama', 'nip', 'gol'];
 
-    public function spb()
-    {
-        return $this->hasMany(Spb::class, 'pegawai_id');
-    }
+    // public function spb()
+    // {
+    //     return $this->hasMany(Spb::class, 'pegawai_id');
+    // }
 }

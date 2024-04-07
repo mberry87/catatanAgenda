@@ -62,7 +62,7 @@
                                         <td>{{ $data->bertolak }}</td>
                                         <td>{{ $data->tgl_bertolak }}</td>
                                         <td>{{ $data->pelabuhan->nama }}</td>
-                                        <td>{{ $data->pegawai->nama }}</td>
+                                        <td>{{ $data->users->name }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{ route('spb.show', $data) }}"

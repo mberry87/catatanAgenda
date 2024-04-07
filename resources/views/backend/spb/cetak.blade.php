@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SPB</title>
 
-    <style>
+    {{-- <style>
         table,
         th,
         td {
@@ -38,12 +38,12 @@
         table {
             width: 100%
         }
-    </style>
+    </style> --}}
 </head>
 
 
 <body>
-    <table>
+    {{-- <table>
         <tr class="hdr">
             <th></th>
             <th></th>
@@ -247,8 +247,142 @@
             <td></td>
             <td colspan="7"> 14.00 WIB</td>
         </tr>
-    </table>
+    </table> --}}
 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .line1 p {
+            margin-top: 2cm;
+            margin-left: 5cm;
+        }
+
+        .line2 p {
+            margin-top: 7.3cm;
+            margin-left: 7cm;
+            tab-size: 8;
+            -moz-tab-size: 8;
+            -o-tab-size: 8;
+            white-space: pre-wrap;
+        }
+
+        .line3 p {
+            margin-top: 0.5cm;
+            margin-left: 4.5cm;
+        }
+
+        .line4 p {
+            margin-top: 0.5cm;
+            margin-left: 4.5cm;
+        }
+
+        .line5 p {
+            margin-top: 0.5cm;
+            margin-left: 4.5cm;
+        }
+
+        .line6 p {
+            margin-top: 1cm;
+            margin-left: 13cm;
+        }
+
+        .line7 p {
+            margin-top: 1.5cm;
+            margin-left: 3.5cm;
+        }
+
+        .line8 p {
+            margin-top: 0.2cm;
+            margin-left: 7cm;
+        }
+
+        .line9 p {
+            margin-left: 3.5cm;
+        }
+
+        .line10 p {
+            margin-left: 3.5cm;
+        }
+
+        .line11 p {
+            margin-left: 3.5cm;
+        }
+
+        .line12 p {
+            margin-left: 3.5cm;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="line1">
+            <p>
+                {{ $cetakspb->no_regis }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D3
+            </p>
+        </div>
+        <div class="line2">
+            <p>C.2 KM.17. 242. III 2024</p>
+        </div>
+        <div class="line3">
+            <p>
+                {{ $cetakspb->kapal->nama }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->gt }}
+            </p>
+        </div>
+        <div class="line4">
+            <p>
+                {{ $cetakspb->bendera }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->nakhoda }}
+            </p>
+        </div>
+        <div class="line5">
+            <p>
+                {{ $cetakspb->no_imo }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->call_sign }}
+            </p>
+        </div>
+        <div class="line6">
+            <p>
+                {{ $cetakspb->tgl_nakhoda }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->jam_nakhoda }}
+            </p>
+        </div>
+        <div class="line7">
+            <p>
+                {{ $cetakspb->bertolak }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->tgl_bertolak }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->pelabuhan->nama }}
+            </p>
+        </div>
+        <div class="line8">
+            <p>
+                {{ $cetakspb->jam_bertolak }}
+            </p>
+        </div>
+        <div class="line9">
+            <p>
+                {{ $cetakspb->jml_crew }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $cetakspb->muatan }}
+            </p>
+        </div>
+        <div class="line10">
+            <p>
+                {{ $cetakspb->tmp_terbit }}
+            </p>
+        </div>
+        <div class="line11">
+            <p>
+                {{ $cetakspb->tgl_terbit }}
+            </p>
+        </div>
+        <div class="line12">
+            <p>
+                {{ $cetakspb->jam_terbit }}
+            </p>
+        </div>
+    </div>
 </body>
 
 </html>

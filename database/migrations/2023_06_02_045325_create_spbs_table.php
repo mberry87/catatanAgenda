@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('call_sign');
             $table->string('perusahaan');
             $table->unsignedBigInteger('pelabuhan_id')->nullable();
-            $table->unsignedBigInteger('pegawai_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('kapal_id')
                 ->references('id')
                 ->on('kapal')
@@ -35,9 +35,9 @@ return new class extends Migration
                 ->references('id')
                 ->on('pelabuhan')
                 ->onDelete('cascade');
-            $table->foreign('pegawai_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('pegawai')
+                ->on('users')
                 ->onDelete('cascade');
             $table->string('no_imo');
             $table->string('thn_produksi');

@@ -316,7 +316,7 @@
                         <p class="text-center">HARBOUR MASTER</p>
                         <br>
                         <br>
-                        <p class="text-center pegawai">{{ $cetakspb->pegawai->nama }}</p>
+                        <p class="text-center pegawai">{{ $cetakspb->users->name }}</p>
 
                     </div>
                 </div>

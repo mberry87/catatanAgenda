@@ -326,15 +326,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pegawai_id">Syahbandar</label>
-                                    <select class="form-control select2bs4" id="pegawai_id" name="pegawai_id">
-                                        <option value="">-- Silahkan Pilih --</option>
-                                        @foreach ($pegawai as $data)
-                                            <option value="{{ $data->id }}"
-                                                {{ $data->id == old('pegawai_id', $spb->pegawai_id) ? 'selected' : '' }}>
-                                                {{ $data->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="user_id">Syahbandar</label>
+                                    <input type="text" name="user_id" id="user_id"
+                                        class="form-control  @error('user_id') is-invalid @enderror"
+                                        value="{{ Auth::user()->name }}">
+                                    @error('user_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="no_pup">No PUP</label>

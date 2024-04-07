@@ -19,11 +19,6 @@
 @section('content')
     <div class="row">
         <div class="col col-md-12">
-            @if (session('success'))
-                <div class="alert alert-success" role="alert" style="width: 50%">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     <h5 class="m-0">Tabel Data</h5>
@@ -66,7 +61,8 @@
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{ route('spb.show', $data) }}"
-                                                    class="btn btn-warning btn-sm mr-1"><i class="fa fa-eye"></i>
+                                                    class="btn btn-warning btn-sm mr-1" target="_blank"><i
+                                                        class="fa fa-eye"></i>
                                                 </a>
                                                 <a href="{{ route('cetak.spb', $data) }}"
                                                     class="btn btn-success btn-sm mr-1"><i class="fa fa-print"></i>

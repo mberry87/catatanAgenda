@@ -121,9 +121,9 @@ class SpbController extends Controller
      */
     public function show($id)
     {
-        $spb = Spb::findOrFail($id);
+        $cetakspb = Spb::findOrFail($id);
 
-        return view('backend.spb.show', compact('spb'));
+        return view('backend.spb.cetak_ori', compact('cetakspb'));
     }
 
     /**

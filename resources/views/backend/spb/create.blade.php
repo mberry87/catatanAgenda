@@ -318,20 +318,11 @@
                                     </div>
 
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="pegawai_id">Syahbandar</label>
-                                    <select class="form-control select2bs4" id="pegawai_id" name="pegawai_id">
-                                        <option value="">-- Silahkan Pilih --</option>
-                                        @foreach ($pegawai as $data)
-                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
                                 <div class="form-group">
                                     <label for="user_id">Syahbandar</label>
                                     <input type="text" name="user_id" id="user_id"
                                         class="form-control  @error('user_id') is-invalid @enderror"
-                                        value="{{ Auth::user()->name }}">
+                                        value="{{ Auth::user()->name }}" readonly>
                                     @error('user_id')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

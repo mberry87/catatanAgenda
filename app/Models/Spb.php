@@ -22,7 +22,7 @@ class Spb extends Model
         'call_sign',
         'perusahaan',
         'pelabuhan_id',
-        'pegawai_id',
+        'user_id',
         'no_imo',
         'thn_produksi',
         'nakhoda',
@@ -50,9 +50,9 @@ class Spb extends Model
         return $this->belongsTo(Pelabuhan::class, 'pelabuhan_id');
     }
 
-    public function pegawai()
+    public function users()
     {
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // membuat no surat otomatis
@@ -74,7 +74,7 @@ class Spb extends Model
         // Contoh: "REGIS/2023/001"
         $tahun = date('Y');
         $nomor = $this->max('id') + 1; // Mengambil id terbesar dan ditambah 1
-        $nomor_regis = 'REGIS/' . 'SPB/' . $tahun . '/' . str_pad($nomor, 3, '0', STR_PAD_LEFT);
+        $nomor_regis = 'PPK-' . str_pad($nomor, 2, '20', STR_PAD_LEFT) . '/' . str_pad($nomor, 3, '20', STR_PAD_LEFT) . '/' . 'III' . '/' . $tahun;
 
         return $nomor_regis;
     }

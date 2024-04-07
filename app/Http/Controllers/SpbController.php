@@ -9,8 +9,7 @@ use App\Models\Spb;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class SpbController extends Controller
 {
@@ -85,7 +84,6 @@ class SpbController extends Controller
             'call_sign' => 'required',
             'perusahaan' => 'required',
             'pelabuhan_id' => 'required',
-            'pegawai_id' => 'required',
             'no_imo' => 'required|unique:spb',
             'thn_produksi' => 'required',
             'nakhoda' => 'required',
@@ -101,13 +99,15 @@ class SpbController extends Controller
             'jam_terbit' => 'required',
             'no_pup' => 'required|unique:spb',
 
-
         ]);
+
+        $user_id = Auth::id();
 
         // generate nomor
         $spb = new Spb($validatedData);
         $spb->no_surat = $spb->generateNomorSurat();
         $spb->no_regis = $spb->generateNomorRegis();
+        $spb->user_id = $user_id;
         $spb->save();
 
         return redirect()->route('spb.index')->with('success', 'Data SPB berhasil ditambah.');
@@ -173,7 +173,6 @@ class SpbController extends Controller
             'call_sign' => 'required',
             'perusahaan' => 'required',
             'pelabuhan_id' => 'required',
-            'pegawai_id' => 'required',
             'no_imo' => 'required',
             'thn_produksi' => 'required',
             'nakhoda' => 'required',
@@ -190,7 +189,12 @@ class SpbController extends Controller
             'no_pup' => 'required'
         ]);
 
+        $user_id = Auth::id();
+
         $spb = Spb::findOrFail($id);
+        if ($spb->user_id != $user_id) {
+            return redirect()->back()->with('error', 'Anda tidak diizinkan mengubah data ini.');
+        }
         $spb->fill($validatedData);
         $spb->save();
 

@@ -19,17 +19,12 @@
 @section('content')
     <div class="row">
         <div class="col col-md-6">
-            @if (session('success'))
-                <div class="alert alert-success" role="alert" style="width: 50%">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     <h5 class="m-0">Tabel Data</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i>
+                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                         Tambah</a>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
@@ -53,9 +48,11 @@
                                             <a href="{{ route('pegawai.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <a href="{{ route('pegawai.destroy', $data) }}" class="btn btn-danger btn-sm"
-                                                data-confirm-delete="true"><i class="fas fa-trash-alt">
-                                                </i> Hapus</a>
+                                            @can('viewAny', App\User::class)
+                                                <a href="{{ route('pegawai.destroy', $data) }}" class="btn btn-danger btn-sm"
+                                                    data-confirm-delete="true"><i class="fas fa-trash-alt">
+                                                    </i> Hapus</a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

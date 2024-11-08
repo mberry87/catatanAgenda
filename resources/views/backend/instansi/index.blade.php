@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Perusahaan')
+@section('title', 'Instansi')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Perusahaan</h4>
+            <h4 class="m-0">Instansi</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Perusahaan</li>
+                <li class="breadcrumb-item active">Instansi</li>
             </ol>
         </div>
     </div>
@@ -19,25 +19,19 @@
 @section('content')
     <div class="row">
         <div class="col col-md-12">
-            @if (session('success'))
-                <div class="alert alert-success" role="alert" style="width: 50%">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     <h5 class="m-0">Tabel Data</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('perusahaan.create') }}" class="btn btn-primary btn-sm mb-3"><i
-                            class="fa fa-plus"></i>
+                    <a href="{{ route('instansi.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                         Tambah</a>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped ">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Perusahaan</th>
+                                    <th>Nama Instansi</th>
                                     <th>Status</th>
                                     <th>Alamat</th>
                                     <th>Telepon</th>
@@ -46,7 +40,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($perusahaan as $data)
+                                @foreach ($instansi as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nama }}</td>
@@ -55,13 +49,19 @@
                                         <td>{{ $data->telepon }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>
-                                            <a href="{{ route('perusahaan.edit', $data) }}"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-pen"></i>
+                                            <a href="{{ route('instansi.edit', $data) }}" class="btn btn-primary btn-sm"><i
+                                                    class="fa fa-pen"></i>
                                                 Edit</a>
-                                            <a href="{{ route('perusahaan.destroy', $data) }}"
-                                                class="btn btn-danger btn-sm" data-confirm-delete="true"><i
-                                                    class="fas fa-trash-alt">
-                                                </i> Hapus</a>
+                                            @can('viewAny', App\User::class)
+                                                <form action="{{ route('instansi.destroy', $data->id) }}" method="POST"
+                                                    class="delete-form" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm delete-btn">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

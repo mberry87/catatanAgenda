@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bendera', function (Blueprint $table) {
+        Schema::create('agenda_pegawai', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('kode');
+            $table->foreignId('agenda_kegiatan_id')
+                ->constrained('agenda_kegiatan')
+                ->onDelete('cascade');
+            $table->foreignId('pegawai_id')
+                ->constrained('pegawai')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bendera');
+        Schema::dropIfExists('agenda_pegawai');
     }
 };

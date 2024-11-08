@@ -16,10 +16,6 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        $title = 'Hapus Data!';
-        $text = "Anda yakin ingin hapus data?";
-        confirmDelete($title, $text);
-
         return view('backend.user.index', compact('users'));
     }
 
@@ -128,7 +124,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $users = User::find($id);
+        $users = User::findOrFail($id);
         $users->delete();
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');

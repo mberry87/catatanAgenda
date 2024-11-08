@@ -19,17 +19,12 @@
 @section('content')
     <div class="row">
         <div class="col col-md-12">
-            @if (session('success'))
-                <div class="alert alert-success" role="alert" style="width: 50%">
-                    {{ session('success') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     <h5 class="m-0">Tabel Data</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i>
+                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                         Tambah</a>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
@@ -38,6 +33,7 @@
                                     <th>No.</th>
                                     <th>Nama</th>
                                     <th>Username</th>
+                                    <th>NIP</th>
                                     <th>Role</th>
                                     <th>Email</th>
                                     <th>Aksi</th>
@@ -49,6 +45,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->username }}</td>
+                                        <td>{{ $data->nip }}</td>
                                         <td>
                                             @if ($data->role === 'superadmin')
                                                 Super Admin
@@ -64,8 +61,13 @@
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
                                             @if (auth()->user()->id !== $data->id)
-                                                <a href="{{ route('user.destroy', $data) }}" class="btn btn-danger btn-sm"
-                                                    data-confirm-delete="true"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                                <form action="{{ route('user.destroy', $data->id) }}" method="POST"
+                                                    class="delete-form" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm delete-btn">
+                                                        <i class="fas fa-trash-alt"></i> Hapus</button>
+                                                </form>
                                             @endif
                                         </td>
                                     </tr>

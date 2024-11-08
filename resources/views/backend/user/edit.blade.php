@@ -44,6 +44,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="nip">NIP</label>
+                            <input type="text" class="form-control form-control  @error('nip') is-invalid @enderror"
+                                id="nip" name="nip" value="{{ old('nip', $users->nip) }}">
+                            @error('nip')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="role">Role</label>
                             <select class="form-control select2bs4 @error('role') is-invalid @enderror" id="role"
                                 name="role">

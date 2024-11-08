@@ -177,79 +177,58 @@
                                 <p>DASHBOARD</p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('spb') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('spb') ? 'active' : '' }}">
+                        <li class="nav-item {{ Request::is('agenda') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    JENIS SURAT
+                                    Catatan
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('spb.index') }}"
-                                        class="nav-link {{ Request::is('spb') ? 'active' : '' }}">
-                                        <i class="fas fa-file nav-icon"></i>
-                                        <p>Persetujuan Berlayar</p>
+                                    <a href="{{ route('agenda.index') }}"
+                                        class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
+                                        <i class="fas fa-building nav-icon"></i>
+                                        <p>Agenda Kegiatan</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item {{ Request::is('instansi', 'pegawai') ? 'menu-open active' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ Request::is('instansi', 'pegawai') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-anchor"></i>
+                                <p>
+                                    MASTER DATA
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('instansi.index') }}"
+                                        class="nav-link {{ Request::is('instansi') ? 'active' : '' }}">
+                                        <i class="fas fa-building nav-icon"></i>
+                                        <p>Instansi</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item ">
+                                    <a href="{{ route('pegawai.index') }}"
+                                        class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
+                                        <i class="fas fa-id-card nav-icon"></i>
+                                        <p>Pegawai</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
                         @can('viewAny', App\User::class)
-                            <li
-                                class="nav-item {{ Request::is('kapal', 'tipe_kapal', 'bendera', 'perusahaan', 'pelabuhan') ? 'menu-open active' : '' }}">
-                                <a href="#"
-                                    class="nav-link {{ Request::is('kapal', 'tipe_kapal', 'bendera', 'perusahaan', 'pelabuhan') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-anchor"></i>
-                                    <p>
-                                        MASTER DATA
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('kapal.index') }}"
-                                            class="nav-link {{ Request::is('kapal') ? 'active' : '' }}">
-                                            <i class="fas fa-ship nav-icon"></i>
-                                            <p>Kapal</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('tipe_kapal.index') }}"
-                                            class="nav-link {{ Request::is('tipe_kapal') ? 'active' : '' }}">
-                                            <i class="fas fa-dolly nav-icon"></i>
-                                            <p>Tipe Kapal</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('bendera.index') }}"
-                                            class="nav-link {{ Request::is('bendera') ? 'active' : '' }}">
-                                            <i class="fas fa-flag nav-icon"></i>
-                                            <p>Bendera</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('pelabuhan.index') }}"
-                                            class="nav-link {{ Request::is('pelabuhan') ? 'active' : '' }}">
-                                            <i class="fas fa-suitcase-rolling nav-icon"></i>
-                                            <p>Pelabuhan</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('perusahaan.index') }}"
-                                            class="nav-link {{ Request::is('perusahaan') ? 'active' : '' }}">
-                                            <i class="fas fa-building nav-icon"></i>
-                                            <p>Perusahaan</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endcan
-
-                        @can('viewAny', App\User::class)
-                            <li class="nav-item {{ Request::is('pegawai', 'user') ? 'menu-open' : '' }}">
-                                <a href="#" class="nav-link {{ Request::is('pegawai', 'user') ? 'active' : '' }}">
+                            <li class="nav-item {{ Request::is('user') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         MANAGEMENT
@@ -262,13 +241,6 @@
                                             class="nav-link {{ Request::is('user') ? 'active' : '' }}">
                                             <i class="fas fa-user nav-icon"></i>
                                             <p>User</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="{{ route('pegawai.index') }}"
-                                            class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
-                                            <i class="fas fa-id-card nav-icon"></i>
-                                            <p>Pegawai</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -376,165 +348,74 @@
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
-
-            //Date picker
-
-
-            $(function() {
-                $('#tgl_docking').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#tgl_surat').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                });
-
-            })
-
-            $(function() {
-                $('#tgl_nakhoda').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#jam_nakhoda').datetimepicker({
-                    format: 'LT',
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#tgl_bertolak').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#jam_bertolak').datetimepicker({
-                    format: 'LT',
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#tgl_terbit').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#jam_terbit').datetimepicker({
-                    format: 'LT',
-                    locale: 'id',
-                });
-            })
-
-            $(function() {
-                $('#tgl_lahir').datetimepicker({
-
-                    format: ('DD/MM/YYYY'),
-                    locale: 'id',
-                    useCurrent: false,
-                });
-            })
-
         })
     </script>
 
     <script>
-        $(document).ready(function() {
-            $('#kapal_id').change(function() {
-                var kapalId = $(this).val();
-                if (kapalId !== '') {
-                    $.ajax({
-                        url: '/get-data/' + kapalId,
-                        type: 'GET',
-                        success: function(response) {
-                            $('#bendera').val(response.bendera);
-                            $('#perusahaan').val(response.perusahaan);
-                            $('#tipe_kapal').val(response.tipe_kapal);
-                            $('#gt').val(response.gt);
-                            $('#call_sign').val(response.call_sign);
-                            $('#thn_produksi').val(response.thn_produksi);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                } else {
-                    $('#bendera').val('');
-                    $('#perusahaan').val('');
-                    $('#tipe_kapal').val('');
-                    $('#gt').val('');
-                    $('#call_sign').val('');
-                    $('#thn_produksi').val('');
-                }
+        $(function() {
+            $('#tgl_mulai').datetimepicker({
+                format: 'L'
             });
-        });
 
-
-        $(document).ready(function() {
-            $('#kapal_id').change(function() {
-                var kapalId = $(this).val();
-                if (kapalId !== '') {
-                    var url = '/get-data/' + kapalId;
-                    if ("{{ auth()->user()->role }}" === 'admin') {
-                        // Tambahkan parameter role=admin pada URL untuk admin
-                        url += '?role=admin';
-                    }
-
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        success: function(response) {
-                            $('#bendera').val(response.bendera);
-                            $('#perusahaan').val(response.perusahaan);
-                            $('#tipe_kapal').val(response.tipe_kapal);
-                            $('#gt').val(response.gt);
-                            $('#call_sign').val(response.call_sign);
-                            $('#thn_produksi').val(response.thn_produksi);
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                } else {
-                    $('#bendera').val('');
-                    $('#perusahaan').val('');
-                    $('#tipe_kapal').val('');
-                    $('#gt').val('');
-                    $('#call_sign').val('');
-                    $('#thn_produksi').val('');
-                }
+            $('#tgl_selesai').datetimepicker({
+                format: 'L'
             });
         });
     </script>
 
-    {{-- <script>
-        const tombol = document.querySelector('#tombol');
-        tombol.addEventListener('click', function() {
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
+    <script>
+        $(function() {
+            $('#timepicker').datetimepicker({
+                format: 'LT'
+            });
+
+        })
+    </script>
+    {{-- alert tombol hapus --}}
+    <script>
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const form = button.closest('.delete-form');
+                Swal.fire({
+                    title: 'Hapus Data!',
+                    text: "Anda yakin ingin hapus data?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
-    </script> --}}
+    </script>
+
+    {{-- alert tombol selesai --}}
+    <script>
+        document.querySelectorAll('.selesai-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const form = button.closest('.selesai-form');
+                Swal.fire({
+                    title: 'Agenda Selesai!',
+                    text: "Anda yakin agenda kegiatan selesai?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Selesai!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

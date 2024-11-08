@@ -43,10 +43,11 @@ class PegawaiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|unique:pegawai',
-            'nip' => 'required|unique:pegawai',
+            'nama' => 'required',
+            'nip' => 'required',
             'gol' => 'required',
         ]);
+
 
         Pegawai::create($validatedData);
 

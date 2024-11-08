@@ -17,11 +17,8 @@ class DashboardCotroller extends Controller
      */
     public function index()
     {
-
-        $jumlah_pelabuhan = Pelabuhan::count();
         $jumlah_pegawai = Pegawai::count();
-        $spb = Spb::count();
-        return view('backend.dashboard.index', compact('jumlah_pegawai', 'jumlah_pelabuhan', 'spb'));
+        return view('backend.dashboard.index', compact('jumlah_pegawai'));
     }
 
     /**

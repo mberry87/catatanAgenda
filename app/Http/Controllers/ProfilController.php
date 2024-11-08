@@ -130,7 +130,7 @@ class ProfilController extends Controller
             'name' => 'required',
             'nip' => 'required',
             'email' => 'required',
-            'tgl_lahir' => 'required|date',
+            'tgl_lahir' => 'required',
             'tmp_lahir' => 'required',
             'alamat' => 'nullable',
             'telepon' => 'nullable',

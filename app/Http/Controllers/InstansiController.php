@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kapal;
-use App\Models\Perusahaan;
+use App\Models\Instansi;
 use Illuminate\Http\Request;
 
-class PerusahaanController extends Controller
+class InstansiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +15,9 @@ class PerusahaanController extends Controller
     public function index()
     {
         // hubungkan data migration
-        $perusahaan = Perusahaan::all();
+        $instansi = Instansi::all();
 
-        $title = 'Hapus Data!';
-        $text = "Anda yakin ingin hapus data?";
-        confirmDelete($title, $text);
-
-        return view('backend.perusahaan.index', compact('perusahaan'));
+        return view('backend.instansi.index', compact('instansi'));
     }
 
     /**
@@ -32,7 +27,7 @@ class PerusahaanController extends Controller
      */
     public function create()
     {
-        return view('backend.perusahaan.create');
+        return view('backend.instansi.create');
     }
 
     /**
@@ -45,25 +40,24 @@ class PerusahaanController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required',
-            'status' => 'required',
             'alamat' => 'required',
             'telepon' => 'required',
             'email' => 'required',
 
         ]);
 
-        Perusahaan::create($validatedData);
+        Instansi::create($validatedData);
 
-        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil ditambah.');
+        return redirect()->route('instansi.index')->with('success', 'Data instansi berhasil ditambah.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Perusahaan  $perusahaan
+     * @param  \App\Models\Instansi  $instansi
      * @return \Illuminate\Http\Response
      */
-    public function show(Perusahaan $perusahaan)
+    public function show(Instansi $instansi)
     {
         //
     }
@@ -71,66 +65,64 @@ class PerusahaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Perusahaan  $perusahaan
+     * @param  \App\Models\Instansi  $instansi
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $perusahaan = Perusahaan::find($id);
+        $instansi = Instansi::find($id);
 
-        if (!$perusahaan) {
-            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
+        if (!$instansi) {
+            // Jika instansi dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
-        return view('backend.perusahaan.edit', compact('perusahaan'));
+        return view('backend.instansi.edit', compact('instansi'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Perusahaan  $perusahaan
+     * @param  \App\Models\Instansi  $instansi
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $perusahaan = Perusahaan::find($id);
+        $instansi = Instansi::find($id);
 
-        if (!$perusahaan) {
-            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
+        if (!$instansi) {
+            // Jika instansi dengan ID yang diberikan tidak ditemukan,
             abort(404);
         }
 
         $request->validate([
             'nama' => 'required',
-            'status' => 'required',
             'alamat' => 'required',
             'telepon' => 'required',
             'email' => 'required',
         ]);
 
-        $perusahaan->nama = $request->nama;
-        $perusahaan->status = $request->status;
-        $perusahaan->alamat = $request->alamat;
-        $perusahaan->telepon = $request->telepon;
-        $perusahaan->email = $request->email;
-        $perusahaan->save();
+        $instansi->nama = $request->nama;
+        $instansi->alamat = $request->alamat;
+        $instansi->telepon = $request->telepon;
+        $instansi->email = $request->email;
+        $instansi->save();
 
-        return redirect()->route('perusahaan.index')->with('success', 'perusahaan berhasil diperbarui.');
+        return redirect()->route('instansi.index')->with('success', 'instansi berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Perusahaan  $perusahaan
+     * @param  \App\Models\Instansi  $instansi
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $perusahaan = Perusahaan::find($id);
-        $perusahaan->delete();
+        $instansi = Instansi::findOrFail($id);
+        $instansi->delete();
 
-        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil dihapus.');
+        return redirect()->route('instansi.index')->with('success', 'Data instansi berhasil dihapus.');
     }
 }

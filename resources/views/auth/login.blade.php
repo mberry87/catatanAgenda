@@ -6,7 +6,7 @@
     <div class="login-logo">
         <img src="{{ asset('image/logo-kemenhub.png') }}" alt="logo" style="width: 65px">
         <a href="#">
-            <p><b>Electronic</b> SPB <br>
+            <p><b>Catatan</b> Qu <br>
                 <span>KSOP Tg.pinang</span>
             </p>
         </a>
@@ -14,6 +14,7 @@
 @endsection
 
 @section('content')
+    @include('sweetalert::alert')
     <div class="card-body login-card-body">
         <p class="login-box-msg">Silahkan Login</p>
 

@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Perusahaan')
+@section('title', 'Tambah Instansi')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Tambah Perusahaan</h4>
+            <h4 class="m-0">Tambah Instansi</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Tambah Perusahaan</li>
+                <li class="breadcrumb-item active">Tambah Instansi</li>
             </ol>
         </div>
     </div>
@@ -24,26 +24,14 @@
                     <h5 class="m-0">Tambah Data</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('perusahaan.store') }}" class="form-horizontal form-label-left" method="POST">
+                    <form action="{{ route('instansi.store') }}" class="form-horizontal form-label-left" method="POST">
                         @csrf
 
                         <div class="form-group">
-                            <label for="nama">Nama Perusahaan</label>
+                            <label for="nama">Nama Instansi</label>
                             <input type="text" name="nama" id="nama"
                                 class="form-control  @error('nama') is-invalid @enderror" value="{{ old('nama') }}">
                             @error('nama')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" name="status" id="status">
-                                <option>-- Silahkan Pilih --</option>
-                                <option value="Milik">Milik</option>
-                                <option value="Pribadi">Pribadi</option>
-                                <option value="Sub Milik">Sub Agene</option>
-                            </select>
-                            @error('status')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -71,7 +59,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <a href="{{ route('bendera.index') }}" class="btn btn-warning btn-sm">Kembali</a>
+                        <a href="{{ route('instansi.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button class="btn btn-info btn-sm" type="reset">Reset</button>
                         <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                     </form>

@@ -14,7 +14,6 @@
 @endsection
 
 @section('content')
-    @include('sweetalert::alert')
     <div class="card-body login-card-body">
         <p class="login-box-msg">Silahkan Login</p>
 

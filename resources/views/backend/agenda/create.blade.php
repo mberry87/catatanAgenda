@@ -106,7 +106,7 @@
                                         <div class="form-group">
                                             <label>Pakaian</label>
                                             <select class="form-control select2 @error('pakaian') is-invalid @enderror"
-                                                name="pakaian">
+                                                name="pakaian"style="width: 100%;">
                                                 <option value="" disabled
                                                     {{ old('pakaian') === null ? 'selected' : '' }}>
                                                     Pilih Jenis Pakaian</option>
@@ -156,7 +156,7 @@
                                 <div class="form-group">
                                     <label for="instansi_id" class="form-label">Instansi</label>
                                     <select class="form-control select2 @error('instansi_id') is-invalid @enderror"
-                                        id="instansi_id" name="instansi_id">
+                                        id="instansi_id" name="instansi_id" style="width: 100%;">
                                         <option value="" disabled selected>Pilih Instansi</option>
                                         @foreach ($instansi as $i)
                                             <option value="{{ $i->id }}"
@@ -171,7 +171,7 @@
                                 <div class="form-group">
                                     <label>Jenis Agenda:</label>
                                     <select class="form-control select2 @error('jenis_agenda') is-invalid @enderror"
-                                        name="jenis_agenda">
+                                        name="jenis_agenda" style="width: 100%;">
                                         <option value="" disabled
                                             {{ old('jenis_agenda') === null ? 'selected' : '' }}>
                                             Pilih Jenis Agenda</option>

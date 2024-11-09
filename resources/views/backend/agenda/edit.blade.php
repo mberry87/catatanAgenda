@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <label>Pakaian</label>
                                             <select class="form-control select2 @error('pakaian') is-invalid @enderror"
-                                                name="pakaian">
+                                                name="pakaian" style="width: 100%;">
                                                 <option value="PDH (Pakaian Dinas Harian)"
                                                     {{ old('pakaian', $agenda->pakaian) == 'PDH (Pakaian Dinas Harian)' ? 'selected' : '' }}>
                                                     PDH (Pakaian Dinas Harian)

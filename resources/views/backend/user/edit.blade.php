@@ -51,25 +51,6 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select class="form-control select2bs4 @error('role') is-invalid @enderror" id="role"
-                                name="role">
-                                <option value="admin" selected>Admin</option>
-                                <option value="user">User</option>
-                            </select>
-                            @error('role')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control form-control  @error('email') is-invalid @enderror"
-                                id="email" name="email" value="{{ old('email', $users->email) }}">
-                            @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         {{-- Jika status admin ditampikan option 'admin,user' --}}
                         @if (auth()->user()->role === 'admin')
@@ -81,6 +62,15 @@
                                 </select>
                             </div>
                         @endif
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control form-control  @error('email') is-invalid @enderror"
+                                id="email" name="email" value="{{ old('email', $users->email) }}">
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <a href="{{ route('user.index') }}" class="btn btn-warning btn-sm">Kembali</a>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>

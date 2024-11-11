@@ -26,10 +26,9 @@
                 <div class="icon">
                     <i class="ion ion-plane"></i>
                 </div>
-                @can('viewAny', App\User::class)
-                    <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                @endcan
+                <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
+                        class="fas fa-arrow-circle-right"></i></a>
+
 
             </div>
         </div>
@@ -42,10 +41,8 @@
                 <div class="icon">
                     <i class="ion ion-checkmark"></i>
                 </div>
-                @can('viewAny', App\User::class)
-                    <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                @endcan
+                <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
+                        class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-md-3">

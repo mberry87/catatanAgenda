@@ -367,14 +367,6 @@
         });
     </script>
 
-    <script>
-        $(function() {
-            $('#timepicker').datetimepicker({
-                format: 'LT'
-            });
-
-        })
-    </script>
     {{-- alert tombol hapus --}}
     <script>
         document.querySelectorAll('.delete-btn').forEach(button => {

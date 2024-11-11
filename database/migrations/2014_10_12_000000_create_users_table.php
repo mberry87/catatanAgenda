@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('agama')->nullable();
             $table->string('nip')->nullable();
-            $table->string('tgl_lahir')->nullable();
+            $table->string('tgl_lahir');
             $table->string('tmp_lahir')->nullable();
             $table->string('telepon')->nullable();
             $table->text('alamat')->nullable();

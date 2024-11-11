@@ -90,20 +90,28 @@
                         </div>
                         <div class="form-group">
                             <label for="nip">NIP:</label>
-                            <input name="nip" id="nip" type="text" class="form-control"
+                            <input name="nip" id="nip" type="text"
+                                class="form-control @error('nip') is-invalid @enderror"
                                 value="{{ old('nip', $userData->nip) }}">
+                            @error('nip')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="tmp_lahir" for="tempat_lahir">Tempat Lahir:</label>
-                            <input name="tmp_lahir" id="tmp_lahir" type="text" class="form-control"
+                            <input name="tmp_lahir" id="tmp_lahir" type="text"
+                                class="form-control @error('tmp_lahir') is-invalid @enderror"
                                 value="{{ old('tmp_lahir', $userData->tmp_lahir) }}">
+                            @error('tmp_lahir')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                            <label for="tgl_lahir" class="form-label">Tanggal lahir</label>
                             <div class="input-group date" id="tgl_lahir" data-target-input="nearest">
                                 <input type="text"
                                     class="form-control datetimepicker-input @error('tgl_lahir') is-invalid @enderror"
-                                    id="tgl_lahir" name="tgl_lahir" value="{{ old('tgl_lahir') }}"
+                                    name="tgl_lahir" value="{{ old('tgl_lahir', $userData->tgl_lahir) }}"
                                     data-target="#tgl_lahir">
                                 <div class="input-group-append" data-target="#tgl_lahir" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -115,22 +123,37 @@
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="form-control">{{ $userData->alamat }}</textarea>
+                            <textarea name="alamat" id="alamat" class="form-control @error('alamat') is-invalid @enderror">{{ $userData->alamat }}</textarea>
+                            @error('alamat')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="telepon">Telepon:</label>
-                            <input name="telepon" id="telepon" type="text" class="form-control"
+                            <input name="telepon" id="telepon" type="text"
+                                class="form-control @error('telepon') is-invalid @enderror"
                                 value="{{ old('telepon', $userData->telepon) }}">
+                            @error('telepon')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="agama">Agama:</label>
-                            <input name="agama" id="agama" type="text" class="form-control"
+                            <input name="agama" id="agama" type="text"
+                                class="form-control @error('agama') is-invalid @enderror"
                                 value="{{ old('agama', $userData->agama) }}">
+                            @error('agama')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input name="email" id="email" type="email" class="form-control"
+                            <input name="email" id="email" type="email"
+                                class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email', $userData->email) }}">
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm">Update Profil</button>
                         <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">Kembali</a>

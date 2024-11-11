@@ -137,18 +137,18 @@ class ProfilController extends Controller
             'agama' => 'nullable',
         ]);
 
-        $user = User::find(auth()->id());
+        $userData = User::find(auth()->id());
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->nip = $request->nip;
-        $user->tgl_lahir = $request->tgl_lahir;
-        $user->tmp_lahir = $request->tmp_lahir;
-        $user->alamat = $request->alamat;
-        $user->telepon = $request->telepon;
-        $user->agama = $request->agama;
+        $userData->name = $request->name;
+        $userData->email = $request->email;
+        $userData->nip = $request->nip;
+        $userData->tgl_lahir = $request->tgl_lahir;
+        $userData->tmp_lahir = $request->tmp_lahir;
+        $userData->alamat = $request->alamat;
+        $userData->telepon = $request->telepon;
+        $userData->agama = $request->agama;
 
-        $user->save();
+        $userData->save();
 
         return redirect()->route('profil.index')->with('success', ' profil berhasil diperbarui.');
     }

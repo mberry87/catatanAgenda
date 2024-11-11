@@ -99,15 +99,19 @@
                                 value="{{ old('tmp_lahir', $userData->tmp_lahir) }}">
                         </div>
                         <div class="form-group">
-                            <label for="tgl_lahir">Tanggal Lahir</label>
-                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="text" name="tgl_lahir" id="tgl_lahir"
-                                    class="form-control datetimepicker-input" data-target="#tgl_lahir"
-                                    value="{{ old('tgl_lahir', $userData->tgl_lahir) }}" />
+                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                            <div class="input-group date" id="tgl_lahir" data-target-input="nearest">
+                                <input type="text"
+                                    class="form-control datetimepicker-input @error('tgl_lahir') is-invalid @enderror"
+                                    id="tgl_lahir" name="tgl_lahir" value="{{ old('tgl_lahir') }}"
+                                    data-target="#tgl_lahir">
                                 <div class="input-group-append" data-target="#tgl_lahir" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
+                            @error('tgl_lahir')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>

@@ -353,6 +353,10 @@
 
     <script>
         $(function() {
+            $('#tgl_lahir').datetimepicker({
+                format: 'L'
+            });
+
             $('#tgl_mulai').datetimepicker({
                 format: 'L'
             });

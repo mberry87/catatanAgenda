@@ -115,11 +115,19 @@
                                                     PDH (Pakaian
                                                     Dinas Harian)
                                                 </option>
+                                                <option value="PDL (Pakaian Dinas Lapangan)"
+                                                    {{ old('pakaian') == 'PDL (Pakaian Dinas Lapangan)' ? 'selected' : '' }}>
+                                                    PDL (Pakaian
+                                                    Dinas Lapangan)
+                                                </option>
                                                 <option value="PDU (Pakaian Dinas Upacara)"
                                                     {{ old('pakaian') == 'PDU (Pakaian Dinas Upacara)' ? 'selected' : '' }}>
                                                     PDU (Pakian Dinas Upacara) </option>
                                                 <option value="Batik" {{ old('pakaian') == 'Batik' ? 'selected' : '' }}>
                                                     Batik </option>
+                                                <option value="Bebas Rapi"
+                                                    {{ old('pakaian') == 'Bebas Rapi' ? 'selected' : '' }}>
+                                                    Bebas Rapi</option>
                                             </select>
                                             @error('pakaian')
                                                 <div class="text-danger">{{ $message }}</div>

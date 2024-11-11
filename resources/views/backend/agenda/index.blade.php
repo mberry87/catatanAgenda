@@ -54,9 +54,8 @@
                                         <td>{{ $data->nmr_surat }}</td>
                                         <td>{{ $data->uraian }}</td>
                                         <td>
-                                            {{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d/m/Y') }} -
-                                            {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d/m/Y') }}
-
+                                            {{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }} s.d
+                                            {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}
                                         </td>
                                         <td>{{ $data->pukul }}</td>
                                         <td>{{ $data->tempat }}</td>
@@ -131,7 +130,9 @@
                                 <span></span>===================================
                                 <p>
                                     Uraian : <span>{{ $data->uraian }}</span><br>
-                                    Tanggal : <span>{{ $data->tgl_mulai }} - {{ $data->tgl_selesai }}</span><br>
+                                    Tanggal :
+                                    <span>{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }} s.d
+                                        {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}</span><br>
                                     Pukul : <span>{{ $data->pukul }}</span><br>
                                     Tempat : <span>{{ $data->tempat }}</span><br>
                                     Menghadiri : @foreach ($data->pegawai as $pegawai)

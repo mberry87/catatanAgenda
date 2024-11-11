@@ -51,9 +51,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function spb()
-    {
-        return $this->hasMany(Spb::class, 'user_id');
-    }
 }

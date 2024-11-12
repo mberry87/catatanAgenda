@@ -182,4 +182,16 @@ class AgendaKegiatanController extends Controller
 
         return redirect()->route('agenda.index')->with('success', 'Data agenda berhasil dihapus.');
     }
+
+    public function countSelesai()
+    {
+        $jumlahSelesai = AgendaKegiatan::where('status', 'Selesai')->get();
+        return view('backend.status.countSelesai', compact('jumlahSelesai'));
+    }
+
+    public function countBelumSelesai()
+    {
+        $jumlahBelumSelesai = AgendaKegiatan::where('status', 'Belum Selesai')->get();
+        return view('backend.status.countBelumSelesai', compact('jumlahBelumSelesai'));
+    }
 }

@@ -79,6 +79,8 @@ Route::middleware('islogin')->group(function () {
     Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
     Route::post('profil/updatePassword', [ProfilController::class, 'updatePassword'])->name('profil.updatePassword');
 
+    Route::get('status-selesai', [AgendaKegiatanController::class, 'countSelesai'])->name('status.countSelesai');
+    Route::get('status-belum-selesai', [AgendaKegiatanController::class, 'countBelumSelesai'])->name('status.countBelumSelesai');
 
 
     //signout

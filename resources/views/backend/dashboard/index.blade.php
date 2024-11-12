@@ -26,7 +26,7 @@
                 <div class="icon">
                     <i class="ion ion-plane"></i>
                 </div>
-                <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
+                <a href="{{ route('status.countBelumSelesai') }}" class="small-box-footer">Detail <i
                         class="fas fa-arrow-circle-right"></i></a>
 
 
@@ -41,7 +41,7 @@
                 <div class="icon">
                     <i class="ion ion-checkmark"></i>
                 </div>
-                <a href="{{ route('agenda.index') }}" class="small-box-footer">Detail <i
+                <a href="{{ route('status.countSelesai') }}" class="small-box-footer">Detail <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>

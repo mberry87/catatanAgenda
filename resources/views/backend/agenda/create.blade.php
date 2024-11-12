@@ -18,7 +18,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-md-6">
+        <div class="col col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="m-0">Tambah Data</h5>

@@ -90,12 +90,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="pukul" class="form-label">Pukul</label>
-                                            <div class="input-group date" id="timepicker" data-target-input="nearest">
+                                            <div class="input-group date" id="pukul" data-target-input="nearest">
                                                 <input type="text"
                                                     class="form-control datetimepicker-input @error('pukul') is-invalid @enderror"
                                                     name="pukul" value="{{ old('pukul', $agenda->pukul) }}"
-                                                    data-target="#timepicker">
-                                                <div class="input-group-append" data-target="#timepicker"
+                                                    data-target="#pukul">
+                                                <div class="input-group-append" data-target="#pukul"
                                                     data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-clock"></i></div>
                                                 </div>
@@ -114,6 +114,10 @@
                                                     {{ old('pakaian', $agenda->pakaian) == 'PDH (Pakaian Dinas Harian)' ? 'selected' : '' }}>
                                                     PDH (Pakaian Dinas Harian)
                                                 </option>
+                                                <option value="Pakaian Dinas Lapangan (PDL)"
+                                                    {{ old('pakaian', $agenda->pakaian) == 'Pakaian Dinas Lapangan (PDL)' ? 'selected' : '' }}>
+                                                    Pakaian Dinas Lapangan (PDL)
+                                                </option>
                                                 <option value="PDU (Pakaian Dinas Upacara)"
                                                     {{ old('pakaian', $agenda->pakaian) == 'PDU (Pakaian Dinas Upacara)' ? 'selected' : '' }}>
                                                     PDU (Pakaian Dinas Upacara)
@@ -121,6 +125,10 @@
                                                 <option value="Batik"
                                                     {{ old('pakaian', $agenda->pakaian) == 'Batik' ? 'selected' : '' }}>
                                                     Batik
+                                                </option>
+                                                <option value="Bebas Rapi"
+                                                    {{ old('pakaian', $agenda->pakaian) == 'Bebas Rapi' ? 'selected' : '' }}>
+                                                    Bebas Rapi
                                                 </option>
                                             </select>
                                             @error('pakaian')

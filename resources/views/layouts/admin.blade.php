@@ -364,6 +364,11 @@
             $('#tgl_selesai').datetimepicker({
                 format: 'L'
             });
+
+            $('#pukul').datetimepicker({
+                format: 'LT'
+
+            });
         });
     </script>
 

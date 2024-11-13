@@ -87,12 +87,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="pukul" class="form-label">Pukul</label>
-                                            <div class="input-group date" id="timepicker" data-target-input="nearest">
+                                            <div class="input-group date" id="pukul" data-target-input="nearest">
                                                 <input type="text"
                                                     class="form-control datetimepicker-input @error('pukul') is-invalid @enderror"
                                                     id="pukul" name="pukul" value="{{ old('pukul') }}"
-                                                    data-target="#timepicker">
-                                                <div class="input-group-append" data-target="#timepicker"
+                                                    data-target="#pukul">
+                                                <div class="input-group-append" data-target="#pukul"
                                                     data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-clock"></i></div>
                                                 </div>

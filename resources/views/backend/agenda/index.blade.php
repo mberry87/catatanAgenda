@@ -44,25 +44,27 @@
                             </thead>
                             <tbody>
                                 @foreach ($agendaKegiatan as $data)
-                                    <tr style="font-size: 15px">
+                                    <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nmr_surat }}</td>
                                         <td>
                                             {{ $data->uraian }} <br>
-
-                                            Menghadiri :
-                                            @foreach ($data->pegawai as $pegawai)
-                                                <span class="badge text-bg-primary">{{ $pegawai->nama }} </span>
-                                            @endforeach
-                                            <br>
-                                            Tanggal : {{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }} s.d
-                                            {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}
-                                            <br>
-                                            Pukul : {{ $data->pukul }}
-                                            <br>
-                                            Tempat : {{ $data->tempat }}
-                                            <br>
-                                            Pakaian : {{ $data->pakaian }}
+                                            <span style="font-size: 14px">
+                                                * Menghadiri :
+                                                @foreach ($data->pegawai as $pegawai)
+                                                    <span class="badge text-bg-primary">{{ $pegawai->nama }} </span>
+                                                @endforeach
+                                                <br>
+                                                * Tanggal : {{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }}
+                                                s.d
+                                                {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}
+                                                <br>
+                                                * Pukul : {{ $data->pukul }}
+                                                <br>
+                                                * Tempat : {{ $data->tempat }}
+                                                <br>
+                                                * Pakaian : {{ $data->pakaian }}
+                                            </span>
                                         </td>
                                         <td>{{ $data->instansi->nama }}</td>
                                         <td>{{ $data->jenis_agenda }}</td>

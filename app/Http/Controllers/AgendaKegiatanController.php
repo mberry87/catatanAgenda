@@ -156,7 +156,7 @@ class AgendaKegiatanController extends Controller
         // Sinkronisasi pegawai_id jika ada relasi many-to-many
         $agenda->pegawai()->sync($request->pegawai_id);
 
-        return redirect()->route('agenda.index')->with('success', 'instansi berhasil diperbarui.');
+        return redirect()->route('agenda.index')->with('success',  'Data agenda berhasil diperbarui.');
     }
 
     public function updateStatus($id)

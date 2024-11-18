@@ -124,11 +124,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="lh-2">
+                        ============================ <br>
+                        AGENDA KEGIATAN <br>
+                        ============================
                         @if ($laporan->isEmpty())
                             <h5>Agenda kegiatan tidak ditemukan</h5>
                         @else
                             @foreach ($laporan as $data)
-                                <span></span>===================================
                                 <p>
                                     Uraian : <span>{{ $data->uraian }}</span><br>
                                     Tanggal :
@@ -137,9 +139,10 @@
                                     Pukul : <span>{{ $data->pukul }}</span><br>
                                     Tempat : <span>{{ $data->tempat }}</span><br>
                                     Menghadiri : @foreach ($data->pegawai as $pegawai)
-                                        <span>{{ $pegawai->nama }},</span>
+                                        <span>{{ $pegawai->nama }}, </span>
                                     @endforeach <br>
-                                    Keterangan : {{ $data->keterangan }}
+                                    Keterangan : {{ $data->keterangan }} <br>
+                                    ----------------------------
                                 </p>
                             @endforeach
                         @endif

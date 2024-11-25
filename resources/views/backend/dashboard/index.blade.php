@@ -78,6 +78,29 @@
     </div>
 
     <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">List Agenda</h4>
+                </div>
+                <div class="card-body">
+                    @foreach ($tanggal_agenda as $data)
+                        &#9745;
+                        @if ($data->jenis_agenda == 'Hadir Fisik')
+                            <span class="badge bg-primary">{{ $data->tgl_mulai }}</span>
+                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                            <span class="badge bg-danger">{{ $data->tgl_mulai }}</span>
+                        @endif
+
+                        @if ($data->jenis_agenda == 'Hadir Fisik')
+                            <span class="badge bg-primary">Hadir Fisik</span>
+                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                            <span class="badge bg-danger">Zoom Meet (Daring)</span>
+                        @endif <br>
+                    @endforeach
+                </div>
+            </div>
+        </div>
         <div class="col-md-9">
             <div class="card card-primary">
                 <div class="card-body p-0">

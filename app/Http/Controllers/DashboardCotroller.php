@@ -19,7 +19,7 @@ class DashboardCotroller extends Controller
     public function index()
     {
         $jumlah_pegawai = Pegawai::count();
-        $tanggal_agenda = AgendaKegiatan::where('status', 'Belum Selesai')->get(['jenis_agenda', 'tgl_mulai', 'tgl_selesai']);
+        $tanggal_agenda = AgendaKegiatan::where('status', 'Belum Selesai')->get(['id', 'jenis_agenda', 'tgl_mulai', 'tgl_selesai']);
 
         return view('backend.dashboard.index', compact('jumlah_pegawai', 'tanggal_agenda'));
     }

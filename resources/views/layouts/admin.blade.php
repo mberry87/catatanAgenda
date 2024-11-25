@@ -431,12 +431,6 @@
 
     <script>
         $(function() {
-
-            var date = new Date()
-            var d = date.getDate(),
-                m = date.getMonth(),
-                y = date.getFullYear()
-
             var Calendar = FullCalendar.Calendar;
             var calendarEl = document.getElementById('calendar');
 
@@ -447,35 +441,40 @@
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 themeSystem: 'bootstrap',
-                //Random default events
                 events: [
                     @isset($tanggal_agenda)
                         @foreach ($tanggal_agenda as $data)
-                            {
-                                title: 'Agenda {{ $data->jenis_agenda }}',
-                                start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
-                                end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
-                                allDay: true,
-                                backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                    '#0073b7' // Blue
-                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                    '#f56954' // Red
-                                @endif ,
-                                borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                    '#0073b7' // Blue
-                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                    '#f56954' // Red
-                                @endif ,
-                            },
+                            @if ($data->id) // Validasi bahwa id ada
+                                {
+                                    title: 'Agenda {{ $data->jenis_agenda }}',
+                                    start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
+                                    end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
+                                    allDay: true,
+                                    backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                        '#0073b7'
+                                    @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                        '#f56954'
+                                    @endif ,
+                                    borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                        '#0073b7'
+                                    @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                        '#f56954'
+                                    @endif ,
+                                    url: '{{ route('agenda.show', $data->id) }}'
+                                }
+                                @if (!$loop->last)
+                                    ,
+                                @endif
+                            @endif
                         @endforeach
                     @endisset
-                ],
+                ]
             });
 
             calendar.render();
-            // $('#calendar').fullCalendar()
-        })
+        });
     </script>
+
 
 </body>
 

@@ -87,7 +87,13 @@ class AgendaKegiatanController extends Controller
      */
     public function show($id)
     {
-        //
+        // $agendaShow = AgendaKegiatan::findOrFail($id);
+
+        // return view('backend.agenda.show', compact('agendaShow'));
+
+        return view('backend.agenda.show', [
+            'agendaShow' => AgendaKegiatan::with('pegawai')->findOrFail($id)
+        ]);
     }
 
     /**
@@ -192,6 +198,7 @@ class AgendaKegiatanController extends Controller
     public function countBelumSelesai()
     {
         $jumlahBelumSelesai = AgendaKegiatan::where('status', 'Belum Selesai')->get();
+
         return view('backend.status.countBelumSelesai', compact('jumlahBelumSelesai'));
     }
 }

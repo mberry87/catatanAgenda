@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgendaKegiatan;
 use App\Models\Pegawai;
 use App\Models\Pelabuhan;
 use App\Models\Spb;
@@ -18,8 +19,12 @@ class DashboardCotroller extends Controller
     public function index()
     {
         $jumlah_pegawai = Pegawai::count();
-        return view('backend.dashboard.index', compact('jumlah_pegawai'));
+        $tanggal_agenda = AgendaKegiatan::where('status', 'Belum Selesai')->get(['jenis_agenda', 'tgl_mulai', 'tgl_selesai']);
+
+        return view('backend.dashboard.index', compact('jumlah_pegawai', 'tanggal_agenda'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

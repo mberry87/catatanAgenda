@@ -37,6 +37,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.min.css">
 
     <link rel="stylesheet" href="{{ asset('template') }}/dist/css/adminlte.min.css?v=3.2.0">
+
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{ asset('template') }}/plugins/fullcalendar/main.css">
+
     <script nonce="860543f9-e2cc-4eef-8734-25719429198f">
         (function(w, d) {
             ! function(a, b, c, d) {
@@ -115,7 +119,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
-
+            {{-- notification --}}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -287,6 +291,7 @@
     </div>
 
     <script src="{{ asset('template') }}/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('template') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
 
     <script src="{{ asset('template') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -317,6 +322,10 @@
     <script src="{{ asset('template') }}/dist/js/adminlte.min.js?v=3.2.0"></script>
 
     <script src="{{ asset('template') }}/plugins/chart.js/Chart.min.js"></script>
+
+    <!-- fullCalendar 2.2.5 -->
+    <script src="{{ asset('template') }}/plugins/moment/moment.min.js"></script>
+    <script src="{{ asset('template') }}/plugins/fullcalendar/main.js"></script>
 
 
     <script>
@@ -416,6 +425,56 @@
                 });
             });
         });
+    </script>
+
+    {{-- calender --}}
+
+    <script>
+        $(function() {
+
+            var date = new Date()
+            var d = date.getDate(),
+                m = date.getMonth(),
+                y = date.getFullYear()
+
+            var Calendar = FullCalendar.Calendar;
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                themeSystem: 'bootstrap',
+                //Random default events
+                events: [
+                    @isset($tanggal_agenda)
+                        @foreach ($tanggal_agenda as $data)
+                            {
+                                title: 'Agenda {{ $data->jenis_agenda }}',
+                                start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
+                                end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
+                                allDay: true,
+                                backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                    '#0073b7' // Blue
+                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                    '#f56954' // Red
+                                @endif ,
+                                borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                    '#0073b7' // Blue
+                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                    '#f56954' // Red
+                                @endif ,
+                            },
+                        @endforeach
+                    @endisset
+                ],
+            });
+
+            calendar.render();
+            // $('#calendar').fullCalendar()
+        })
     </script>
 
 </body>

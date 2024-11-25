@@ -26,6 +26,7 @@
                 <div class="card-body">
                     <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                         Tambah</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">Kembali</a>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped ">
                             <thead>
@@ -79,6 +80,8 @@
                                                     <button class="btn btn-info btn-sm mr-1 selesai-btn" type="submit"><i
                                                             class="fas fa-check"></i></button>
                                                 </form>
+                                                <a href="{{ route('agenda.show', $data) }}"
+                                                    class="btn btn-warning btn-sm mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="{{ route('agenda.edit', $data) }}"
                                                     class="btn btn-primary btn-sm mr-1"><i class="fa fa-pen"></i></a>
                                                 @can('viewAny', App\User::class)

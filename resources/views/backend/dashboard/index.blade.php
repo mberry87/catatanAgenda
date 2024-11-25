@@ -18,7 +18,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-3">
-            <div class="small-box bg-primary">
+            <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>{{ \App\Models\AgendaKegiatan::where('status', 'Belum Selesai')->count() }}</h3>
                     <p>AGENDA KEGIATAN</p>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="small-box bg-danger">
+            <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>{{ \App\Models\AgendaKegiatan::where('status', 'Selesai')->count() }}</h3>
                     <p>AGENDA SELESAI</p>
@@ -74,6 +74,16 @@
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             @endcan
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card card-primary">
+                <div class="card-body p-0">
+                    <div id="calendar"></div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -87,6 +87,8 @@
                                                             type="submit"><i class="fas fa-check"></i></button>
                                                     </form>
                                                 @endif
+                                                <a href="{{ route('agenda.show', $data) }}"
+                                                    class="btn btn-warning btn-sm mr-1"><i class="fa fa-eye"></i></a>
                                                 <a href="{{ route('agenda.edit', $data) }}"
                                                     class="btn btn-primary btn-sm mr-1"><i class="fa fa-pen"></i></a>
                                                 @can('viewAny', App\User::class)

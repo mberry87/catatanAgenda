@@ -43,9 +43,11 @@ Route::middleware('islogin')->group(function () {
     Route::get('agenda/create', [AgendaKegiatanController::class, 'create'])->name('agenda.create');
     Route::post('agenda', [AgendaKegiatanController::class, 'store'])->name('agenda.store');
     Route::get('agenda/{id}/edit', [AgendaKegiatanController::class, 'edit'])->name('agenda.edit');
+    Route::get('agenda/{id}/show', [AgendaKegiatanController::class, 'show'])->name('agenda.show');
     Route::put('agenda/{id}', [AgendaKegiatanController::class, 'update'])->name('agenda.update');
     Route::patch('agenda/{id}/selesai', [AgendaKegiatanController::class, 'updateStatus'])->name('agenda.updateStatus');
     Route::delete('agenda/{id}', [AgendaKegiatanController::class, 'destroy'])->name('agenda.destroy');
+
 
     // pegawai
     Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');

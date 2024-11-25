@@ -87,9 +87,6 @@ class AgendaKegiatanController extends Controller
      */
     public function show($id)
     {
-        // $agendaShow = AgendaKegiatan::findOrFail($id);
-
-        // return view('backend.agenda.show', compact('agendaShow'));
 
         return view('backend.agenda.show', [
             'agendaShow' => AgendaKegiatan::with('pegawai')->findOrFail($id)

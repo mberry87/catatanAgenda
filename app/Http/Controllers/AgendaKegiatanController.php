@@ -168,7 +168,7 @@ class AgendaKegiatanController extends Controller
         $agendaKegiatan->status = 'Selesai';
         $agendaKegiatan->save();
 
-        return redirect()->route('agenda.index')->with('success', 'Status agenda berhasil diubah menjadi Selesai');
+        return redirect()->route('dashboard')->with('success', 'Status agenda berhasil diubah menjadi Selesai');
     }
 
 

@@ -87,16 +87,25 @@
                     @foreach ($tanggal_agenda as $data)
                         &#9745;
                         @if ($data->jenis_agenda == 'Hadir Fisik')
-                            <span class="badge bg-primary">{{ $data->tgl_mulai }}</span>
+                            <span
+                                class="badge bg-primary">{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }}</span>
                         @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                            <span class="badge bg-danger">{{ $data->tgl_mulai }}</span>
+                            <span
+                                class="badge bg-danger">{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }}</span>
                         @endif
 
                         @if ($data->jenis_agenda == 'Hadir Fisik')
                             <span class="badge bg-primary">Hadir Fisik</span>
                         @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
                             <span class="badge bg-danger">Zoom Meet (Daring)</span>
-                        @endif <br>
+                        @endif
+                        <div style="line-height: 1; font-size: 13px">
+                            <span>
+                                Uraian : <br>
+                                {{ $data->uraian }}
+                            </span>
+                        </div>
+                        <hr>
                     @endforeach
                 </div>
             </div>

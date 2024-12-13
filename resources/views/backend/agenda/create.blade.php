@@ -26,7 +26,6 @@
                 <div class="card-body">
                     <form action="{{ route('agenda.store') }}" method="POST" class="form-horizontal form-label-left">
                         @csrf
-
                         <div class="row">
                             <div class="col-md 6">
                                 <div class="form-group">

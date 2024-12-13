@@ -143,6 +143,7 @@
                                     Menghadiri : @foreach ($data->pegawai as $pegawai)
                                         <span>{{ $pegawai->nama }}, </span>
                                     @endforeach <br>
+                                    Pakaian : <span>{{ $data->pakaian }}</span> <br>
                                     Keterangan : {{ $data->keterangan }} <br>
                                     ----------------------------
                                 </p>

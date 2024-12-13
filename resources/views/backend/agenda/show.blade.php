@@ -37,9 +37,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Tanggal</th>
+                            <th>Tanggal | Pukul</th>
                             <td>:</td>
-                            <td>{{ $agendaShow->tgl_mulai }} s.d {{ $agendaShow->tgl_selesai }}
+                            <td>{{ $agendaShow->tgl_mulai }} s.d {{ $agendaShow->tgl_selesai }} | {{ $agendaShow->pukul }}
                             </td>
                         </tr>
                         <tr>

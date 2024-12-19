@@ -19,7 +19,9 @@ class AgendaKegiatanController extends Controller
     {
 
         $agendaKegiatan = AgendaKegiatan::with('pegawai')->get();
-        $laporan = AgendaKegiatan::where('status', 'Belum Selesai')->get();
+        $laporan = AgendaKegiatan::orderBy('tgl_mulai')
+            ->where('status', 'Belum Selesai')
+            ->get();
 
         return view('backend.agenda.index', compact('agendaKegiatan', 'laporan'));
     }

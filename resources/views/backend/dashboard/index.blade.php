@@ -101,7 +101,7 @@
                         @endif
                         <div style="line-height: 1; font-size: 13px">
                             <span>
-                                Uraian : <br>
+                                Agenda : <br>
                                 {{ $data->uraian }}
                             </span>
                         </div>

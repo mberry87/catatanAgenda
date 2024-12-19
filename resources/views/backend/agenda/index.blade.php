@@ -34,7 +34,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>No.Surat</th>
-                                    <th>Uraian Kegiatan</th>
+                                    <th>Agenda Kegiatan</th>
                                     <th>Undangan Dari</th>
                                     <th>Jenis Agenda</th>
                                     <th>Keterangan</th>
@@ -127,24 +127,24 @@
                 <div class="modal-body">
                     <div class="lh-2">
                         ============================ <br>
-                        AGENDA KEGIATAN <br>
+                        *AGENDA KEGIATAN* <br>
                         ============================
                         @if ($laporan->isEmpty())
                             <h5>Agenda kegiatan tidak ditemukan</h5>
                         @else
                             @foreach ($laporan as $data)
                                 <p>
-                                    Uraian : <span>{{ $data->uraian }}</span><br>
-                                    Tanggal :
+                                    📑 Agenda : <span>{{ $data->uraian }}</span><br>
+                                    📅 Tanggal :
                                     <span>{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }} s.d
                                         {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}</span><br>
-                                    Pukul : <span>{{ $data->pukul }}</span><br>
-                                    Tempat : <span>{{ $data->tempat }}</span><br>
-                                    Menghadiri : @foreach ($data->pegawai as $pegawai)
+                                    🕣 Pukul : <span>{{ $data->pukul }}</span><br>
+                                    🏢 Tempat : <span>{{ $data->tempat }}</span><br>
+                                    ✅ Menghadiri : @foreach ($data->pegawai as $pegawai)
                                         <span>{{ $pegawai->nama }}, </span>
                                     @endforeach <br>
-                                    Pakaian : <span>{{ $data->pakaian }}</span> <br>
-                                    Keterangan : {{ $data->keterangan }} <br>
+                                    👕 Pakaian : <span>{{ $data->pakaian }}</span> <br>
+                                    ✏️ Keterangan : {{ $data->keterangan }} <br>
                                     ----------------------------
                                 </p>
                             @endforeach

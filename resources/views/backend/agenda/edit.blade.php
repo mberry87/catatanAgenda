@@ -41,7 +41,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="uraian" class="form-label">Uraian Kegiatan</label>
+                                    <label for="uraian" class="form-label">Agenda Kegiatan</label>
                                     <textarea class="form-control @error('uraian') is-invalid @enderror" id="uraian" name="uraian" rows="3">{{ old('uraian', $agenda->uraian) }}</textarea>
                                     @error('uraian')
                                         <div class="text-danger">{{ $message }}</div>

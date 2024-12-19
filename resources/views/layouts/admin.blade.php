@@ -181,11 +181,11 @@
                                 <p>DASHBOARD</p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('agenda') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
+                        <li class="nav-item {{ Request::is('agenda', 'smrt') ? 'menu-open active' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('sespim', 'smrt') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    Catatan
+                                    AGENDA
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -193,13 +193,20 @@
                                 <li class="nav-item">
                                     <a href="{{ route('agenda.index') }}"
                                         class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
-                                        <i class="fas fa-building nav-icon"></i>
-                                        <p>Agenda Kegiatan</p>
+                                        <i class="fas fa-check nav-icon"></i>
+                                        <p>SESPIM</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link {{ Request::is('smrt') ? 'active' : '' }}">
+                                        <i class="fas fa-check nav-icon"></i>
+                                        <p>SMRT</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
 
                         <li class="nav-item {{ Request::is('instansi', 'pegawai') ? 'menu-open active' : '' }}">
                             <a href="#"

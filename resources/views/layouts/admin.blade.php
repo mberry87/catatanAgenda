@@ -121,6 +121,45 @@
             </ul>
             {{-- notification --}}
             <ul class="navbar-nav ml-auto">
+                {{-- Notification Bell --}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" title="Pengingat Agenda">
+                        <i class="far fa-bell"></i>
+                        @if(isset($agendaReminders) && count($agendaReminders) > 0)
+                            <span class="badge badge-warning navbar-badge">{{ count($agendaReminders) }}</span>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow">
+                        <span class="dropdown-header font-weight-bold">
+                            {{ count($agendaReminders ?? []) }} Pengingat Agenda
+                        </span>
+                        <div class="dropdown-divider"></div>
+                        @forelse($agendaReminders ?? [] as $rem)
+                            <a href="{{ route('agenda.show', $rem['id']) }}" class="dropdown-item py-2">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-2 mt-1">
+                                        @if($rem['tipe'] === 'H-1')
+                                            <span class="badge badge-warning"><i class="fas fa-bell"></i> H-1</span>
+                                        @else
+                                            <span class="badge badge-info"><i class="fas fa-play"></i> Hari H</span>
+                                        @endif
+                                    </div>
+                                    <div style="line-height:1.2; max-width:210px;">
+                                        <p class="mb-0 text-sm font-weight-bold text-truncate">{{ $rem['uraian'] }}</p>
+                                        <small class="text-muted d-block"><i class="far fa-clock"></i> {{ $rem['waktu'] }}</small>
+                                        <small class="text-muted text-truncate d-block"><i class="fas fa-map-marker-alt"></i> {{ $rem['tempat'] }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        @empty
+                            <a href="#" class="dropdown-item text-center text-muted py-3">
+                                <small>Tidak ada agenda mendekati</small>
+                            </a>
+                        @endforelse
+                        <a href="{{ route('agenda.index') }}" class="dropdown-item dropdown-footer text-center">Lihat Semua Agenda</a>
+                    </div>
+                </li>
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
@@ -275,7 +314,6 @@
             <div class="content">
                 <div class="container-fluid">
                     @yield('content')
-                    @include('sweetalert::alert')
                 </div>
             </div>
         </div>
@@ -303,7 +341,6 @@
     <script src="{{ asset('template') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('template') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/toastr/toastr.min.js"></script>
 
     <script src="{{ asset('template') }}/plugins/select2/js/select2.full.min.js"></script>
     <script src="{{ asset('template') }}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
@@ -382,7 +419,7 @@
             });
 
             $('#pukul').datetimepicker({
-                format: 'LT'
+                format: 'HH:mm'
 
             });
         });
@@ -483,6 +520,9 @@
     </script>
 
 
+
+
+    @stack('scripts')
 </body>
 
 </html>

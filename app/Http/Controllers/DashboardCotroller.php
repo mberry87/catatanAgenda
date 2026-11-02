@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\AgendaKegiatan;
 use App\Models\Pegawai;
-use App\Models\Pelabuhan;
-use App\Models\Spb;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardCotroller extends Controller
@@ -18,77 +15,19 @@ class DashboardCotroller extends Controller
      */
     public function index()
     {
-        $jumlah_pegawai = Pegawai::count();
-        $tanggal_agenda = AgendaKegiatan::where('status', 'Belum Selesai', 'uraian')->get(['id', 'jenis_agenda', 'tgl_mulai', 'tgl_selesai', 'uraian']);
+        $jumlah_pegawai     = Pegawai::count();
+        $tanggal_agenda     = AgendaKegiatan::whereIn('status', ['In Progress', 'In Proses', 'Belum Selesai'])
+            ->orderBy('tgl_mulai')
+            ->get(['id', 'jenis_agenda', 'tgl_mulai', 'tgl_selesai', 'uraian', 'status']);
 
-        return view('backend.dashboard.index', compact('jumlah_pegawai', 'tanggal_agenda'));
-    }
+        $count_in_progress  = AgendaKegiatan::whereIn('status', ['In Progress', 'In Proses', 'Belum Selesai'])->count();
+        $count_selesai      = AgendaKegiatan::where('status', 'Selesai')->count();
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('backend.dashboard.index', compact(
+            'jumlah_pegawai',
+            'tanggal_agenda',
+            'count_in_progress',
+            'count_selesai'
+        ));
     }
 }

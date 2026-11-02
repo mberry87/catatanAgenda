@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\AgendaKegiatan;
 use App\Models\Instansi;
 use App\Models\Pegawai;
@@ -10,6 +9,18 @@ use Illuminate\Http\Request;
 
 class AgendaKegiatanController extends Controller
 {
+    // Daftar status yang tersedia
+    const STATUS_LIST = [
+        'In Progress',
+        'Selesai',
+    ];
+
+    // Daftar jenis agenda yang tersedia
+    const JENIS_AGENDA_LIST = [
+        'Hadir Fisik',
+        'Zoom Meet (Daring)',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +28,10 @@ class AgendaKegiatanController extends Controller
      */
     public function index()
     {
-
-        $agendaKegiatan = AgendaKegiatan::with('pegawai')->get();
-        $laporan = AgendaKegiatan::orderBy('tgl_mulai')
-            ->where('status', 'Belum Selesai')
+        $agendaKegiatan = AgendaKegiatan::with('pegawai', 'instansi')->orderBy('tgl_mulai', 'desc')->get();
+        $laporan = AgendaKegiatan::with('pegawai')
+            ->orderBy('tgl_mulai')
+            ->whereIn('status', ['In Progress', 'In Proses'])
             ->get();
 
         return view('backend.agenda.index', compact('agendaKegiatan', 'laporan'));
@@ -33,10 +44,12 @@ class AgendaKegiatanController extends Controller
      */
     public function create()
     {
-        $pegawai = Pegawai::all();
-        $instansi = Instansi::all();
+        $pegawai         = Pegawai::all();
+        $instansi        = Instansi::all();
+        $statusList      = self::STATUS_LIST;
+        $jenisAgendaList = self::JENIS_AGENDA_LIST;
 
-        return view('backend.agenda.create', compact('pegawai', 'instansi'));
+        return view('backend.agenda.create', compact('pegawai', 'instansi', 'statusList', 'jenisAgendaList'));
     }
 
     /**
@@ -48,32 +61,45 @@ class AgendaKegiatanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nmr_surat' => 'required',
-            'uraian' => 'required',
-            'tgl_mulai' => 'required',
-            'tgl_selesai' => 'required',
-            'pakaian' => 'required',
-            'pukul' => 'required',
-            'tempat' => 'required',
-            'pegawai_id' => 'required|array',
-            'instansi_id' => 'required',
+            'nmr_surat'    => 'required',
+            'uraian'       => 'required',
+            'tgl_mulai'    => 'required',
+            'tgl_selesai'  => 'required',
+            'pakaian'      => 'required',
+            'pukul'        => 'required',
+            'tempat'       => 'required',
+            'pegawai_id'   => 'required|array',
+            'instansi_id'  => 'required',
             'jenis_agenda' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required',
+            'status'       => 'required',
+            'keterangan'   => 'nullable',
         ]);
 
+        // Jika instansi_id bukan angka (input teks baru), buat instansi baru
+        if (!is_numeric($validatedData['instansi_id'])) {
+            $newInstansi = Instansi::firstOrCreate(
+                ['nama' => $validatedData['instansi_id']],
+                [
+                    'alamat'  => '-',
+                    'telepon' => '-',
+                    'email'   => '-',
+                ]
+            );
+            $validatedData['instansi_id'] = $newInstansi->id;
+        }
+
         $agendaKegiatan = AgendaKegiatan::create([
-            'nmr_surat' => $validatedData['nmr_surat'],
-            'uraian' => $validatedData['uraian'],
-            'tgl_mulai' => $validatedData['tgl_mulai'],
-            'tgl_selesai' => $validatedData['tgl_selesai'],
-            'pakaian' => $validatedData['pakaian'],
-            'pukul' => $validatedData['pukul'],
-            'tempat' => $validatedData['tempat'],
-            'instansi_id' => $validatedData['instansi_id'],
+            'nmr_surat'    => $validatedData['nmr_surat'],
+            'uraian'       => $validatedData['uraian'],
+            'tgl_mulai'    => $validatedData['tgl_mulai'],
+            'tgl_selesai'  => $validatedData['tgl_selesai'],
+            'pakaian'      => $validatedData['pakaian'],
+            'pukul'        => $validatedData['pukul'],
+            'tempat'       => $validatedData['tempat'],
+            'instansi_id'  => $validatedData['instansi_id'],
             'jenis_agenda' => $validatedData['jenis_agenda'],
-            'status' => $validatedData['status'],
-            'keterangan' => $validatedData['keterangan'],
+            'status'       => $validatedData['status'],
+            'keterangan'   => $validatedData['keterangan'] ?? null,
         ]);
 
         $agendaKegiatan->pegawai()->sync($validatedData['pegawai_id']);
@@ -89,9 +115,8 @@ class AgendaKegiatanController extends Controller
      */
     public function show($id)
     {
-
         return view('backend.agenda.show', [
-            'agendaShow' => AgendaKegiatan::with('pegawai')->findOrFail($id)
+            'agendaShow' => AgendaKegiatan::with('pegawai', 'instansi')->findOrFail($id)
         ]);
     }
 
@@ -103,16 +128,13 @@ class AgendaKegiatanController extends Controller
      */
     public function edit($id)
     {
-        $agenda = AgendaKegiatan::with(['pegawai', 'instansi'])->findOrFail($id);
-        $pegawai = Pegawai::all();
-        $instansi = Instansi::all();
+        $agenda          = AgendaKegiatan::with(['pegawai', 'instansi'])->findOrFail($id);
+        $pegawai         = Pegawai::all();
+        $instansi        = Instansi::all();
+        $statusList      = self::STATUS_LIST;
+        $jenisAgendaList = self::JENIS_AGENDA_LIST;
 
-        if (!$agenda) {
-            // Jika instansi dengan ID yang diberikan tidak ditemukan,
-            abort(404);
-        }
-
-        return view('backend.agenda.edit', compact('agenda', 'pegawai', 'instansi'));
+        return view('backend.agenda.edit', compact('agenda', 'pegawai', 'instansi', 'statusList', 'jenisAgendaList'));
     }
 
     /**
@@ -124,55 +146,63 @@ class AgendaKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $agenda = AgendaKegiatan::find($id);
-
-        if (!$agenda) {
-            // Jika instansi dengan ID yang diberikan tidak ditemukan,
-            abort(404);
-        }
+        $agenda = AgendaKegiatan::findOrFail($id);
 
         $request->validate([
-            'nmr_surat' => 'required',
-            'uraian' => 'required',
-            'tgl_mulai' => 'required',
-            'tgl_selesai' => 'required',
-            'pakaian' => 'required',
-            'pukul' => 'required',
-            'tempat' => 'required',
-            'pegawai_id' => 'required|array',
-            'instansi_id' => 'required',
+            'nmr_surat'    => 'required',
+            'uraian'       => 'required',
+            'tgl_mulai'    => 'required',
+            'tgl_selesai'  => 'required',
+            'pakaian'      => 'required',
+            'pukul'        => 'required',
+            'tempat'       => 'required',
+            'pegawai_id'   => 'required|array',
+            'instansi_id'  => 'required',
             'jenis_agenda' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required',
+            'status'       => 'required',
+            'keterangan'   => 'nullable',
         ]);
 
-        $agenda->nmr_surat = $request->nmr_surat;
-        $agenda->uraian = $request->uraian;
-        $agenda->tgl_mulai = $request->tgl_mulai;
-        $agenda->tgl_selesai = $request->tgl_selesai;
-        $agenda->pakaian = $request->pakaian;
-        $agenda->tempat = $request->tempat;
-        $agenda->instansi_id = $request->instansi_id;
+        // Jika instansi_id bukan angka (input teks baru), buat instansi baru
+        $instansiId = $request->instansi_id;
+        if (!is_numeric($instansiId)) {
+            $newInstansi = Instansi::firstOrCreate(
+                ['nama' => $instansiId],
+                [
+                    'alamat'  => '-',
+                    'telepon' => '-',
+                    'email'   => '-',
+                ]
+            );
+            $instansiId  = $newInstansi->id;
+        }
+
+        $agenda->nmr_surat    = $request->nmr_surat;
+        $agenda->uraian       = $request->uraian;
+        $agenda->tgl_mulai    = $request->tgl_mulai;
+        $agenda->tgl_selesai  = $request->tgl_selesai;
+        $agenda->pakaian      = $request->pakaian;
+        $agenda->pukul        = $request->pukul;
+        $agenda->tempat       = $request->tempat;
+        $agenda->instansi_id  = $instansiId;
         $agenda->jenis_agenda = $request->jenis_agenda;
-        $agenda->status = $request->status;
-        $agenda->keterangan = $request->keterangan;
+        $agenda->status       = $request->status;
+        $agenda->keterangan   = $request->keterangan;
         $agenda->save();
 
-        // Sinkronisasi pegawai_id jika ada relasi many-to-many
         $agenda->pegawai()->sync($request->pegawai_id);
 
-        return redirect()->route('agenda.index')->with('success',  'Data agenda berhasil diperbarui.');
+        return redirect()->route('agenda.index')->with('success', 'Data agenda berhasil diperbarui.');
     }
 
     public function updateStatus($id)
     {
-        $agendaKegiatan = AgendaKegiatan::findOrFail($id);
+        $agendaKegiatan         = AgendaKegiatan::findOrFail($id);
         $agendaKegiatan->status = 'Selesai';
         $agendaKegiatan->save();
 
-        return redirect()->route('dashboard')->with('success', 'Status agenda berhasil diubah menjadi Selesai');
+        return redirect()->route('agenda.index')->with('success', 'Status agenda berhasil diubah menjadi Selesai.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -196,8 +226,7 @@ class AgendaKegiatanController extends Controller
 
     public function countBelumSelesai()
     {
-        $jumlahBelumSelesai = AgendaKegiatan::where('status', 'Belum Selesai')->get();
-
+        $jumlahBelumSelesai = AgendaKegiatan::whereIn('status', ['In Progress', 'In Proses', 'Belum Selesai'])->get();
         return view('backend.status.countBelumSelesai', compact('jumlahBelumSelesai'));
     }
 }

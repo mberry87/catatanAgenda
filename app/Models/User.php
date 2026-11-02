@@ -30,6 +30,7 @@ class User extends Authenticatable
         'telepon',
         'agama',
         'photo_profil',
+        'role',
 
     ];
 

@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Status')
+@section('title', 'Agenda In Progress')
 
 @section('breadcrumb')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">Belum Selesai</h4>
+            <h4 class="m-0">Agenda In Progress</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Belum Selesai</li>
+                <li class="breadcrumb-item active">In Progress</li>
             </ol>
         </div>
     </div>
@@ -19,20 +19,23 @@
 @section('content')
     <div class="row">
         <div class="col col-md-12">
-            <div class="card">
+            <div class="card card-outline card-warning">
                 <div class="card-header">
-                    <h5 class="m-0">Tabel Belum Selesai</h5>
+                    <h5 class="m-0">Tabel Agenda In Progress</h5>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
-                        Tambah</a>
-                    <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">Kembali</a>
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped ">
+                    <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i> Tambah
+                    </a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                    <div class="table-responsive mt-3">
+                        <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>No.Surat</th>
+                                    <th>No. Surat</th>
                                     <th>Uraian Kegiatan</th>
                                     <th>Undangan Dari</th>
                                     <th>Jenis Agenda</th>
@@ -43,33 +46,37 @@
                             </thead>
                             <tbody>
                                 @foreach ($jumlahBelumSelesai as $data)
+                                    @php
+                                        $badge = $data->status_badge_info;
+                                    @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nmr_surat }}</td>
                                         <td>
-                                            {{ $data->uraian }} <br>
-                                            <span style="font-size: 14px">
+                                            <strong>{{ $data->uraian }}</strong> <br>
+                                            <span style="font-size: 13px">
                                                 * Menghadiri :
                                                 @foreach ($data->pegawai as $pegawai)
-                                                    <span class="badge text-bg-primary">{{ $pegawai->nama }} </span>
+                                                    <span class="badge badge-primary">{{ $pegawai->nama }}</span>
                                                 @endforeach
                                                 <br>
                                                 * Tanggal : {{ \Carbon\Carbon::parse($data->tgl_mulai)->format('d-m-Y') }}
-                                                s.d
-                                                {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}
+                                                s.d {{ \Carbon\Carbon::parse($data->tgl_selesai)->format('d-m-Y') }}
                                                 <br>
-                                                * Pukul : {{ $data->pukul }}
+                                                * Pukul : <strong>{{ $data->pukul }} WIB</strong>
                                                 <br>
                                                 * Tempat : {{ $data->tempat }}
                                                 <br>
                                                 * Pakaian : {{ $data->pakaian }}
                                             </span>
                                         </td>
-                                        <td>{{ $data->instansi->nama }}</td>
+                                        <td>{{ $data->instansi->nama ?? '-' }}</td>
                                         <td>{{ $data->jenis_agenda }}</td>
-                                        <td>{{ $data->keterangan }}</td>
+                                        <td>{{ $data->keterangan ?: '-' }}</td>
                                         <td>
-                                            <span class="badge text-bg-danger">{{ $data->status }}</span>
+                                            <span class="badge {{ $badge['class'] }} p-2">
+                                                <i class="{{ $badge['icon'] }} mr-1"></i> {{ $badge['label'] }}
+                                            </span>
                                         </td>
                                         <td>
                                             <div class="d-flex">
@@ -77,19 +84,21 @@
                                                     class="selesai-form">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button class="btn btn-info btn-sm mr-1 selesai-btn" type="submit"><i
-                                                            class="fas fa-check"></i></button>
+                                                    <button class="btn btn-success btn-sm mr-1 selesai-btn" type="submit"
+                                                        title="Tandai Selesai">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
                                                 </form>
                                                 <a href="{{ route('agenda.show', $data) }}"
-                                                    class="btn btn-warning btn-sm mr-1"><i class="fa fa-eye"></i></a>
+                                                    class="btn btn-warning btn-sm mr-1" title="Lihat"><i class="fa fa-eye"></i></a>
                                                 <a href="{{ route('agenda.edit', $data) }}"
-                                                    class="btn btn-primary btn-sm mr-1"><i class="fa fa-pen"></i></a>
-                                                @can('viewAny', App\User::class)
+                                                    class="btn btn-primary btn-sm mr-1" title="Edit"><i class="fa fa-pen"></i></a>
+                                                @can('viewAny', App\Models\User::class)
                                                     <form action="{{ route('agenda.destroy', $data->id) }}" method="POST"
                                                         class="delete-form" style="display: inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-sm delete-btn">
+                                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title="Hapus">
                                                             <i class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 @endcan
@@ -104,5 +113,4 @@
             </div>
         </div>
     </div>
-
 @endsection

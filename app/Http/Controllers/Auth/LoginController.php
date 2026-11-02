@@ -5,10 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use RealRashid\SweetAlert\Facades\Alert;
-
-
-
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -31,10 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-
     protected $redirectTo = RouteServiceProvider::HOME;
-
-
 
     /**
      * Create a new controller instance.
@@ -48,7 +41,23 @@ class LoginController extends Controller
 
     public function username()
     {
-        Alert::success('Selamat Datang', 'Anda Berhasil Login');
         return 'username';
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $login = $request->input($this->username());
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        return [
+            $field => $login,
+            'password' => $request->input('password'),
+        ];
     }
 }

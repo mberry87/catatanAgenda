@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('instansi', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('alamat');
-            $table->string('telepon');
-            $table->string('email');
+            $table->string('alamat')->nullable();
+            $table->string('telepon')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

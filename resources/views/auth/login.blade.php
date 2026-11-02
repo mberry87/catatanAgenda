@@ -21,7 +21,7 @@
             @csrf
             <div class="input-group mb-3">
                 <input id="username" type="text" name="username"
-                    class="form-control @error('username') is-invalid @enderror" placeholder="Username"
+                    class="form-control @error('username') is-invalid @enderror" placeholder="Username atau Email"
                     value="{{ old('username') }}">
                 <div class="input-group-append">
                     <div class="input-group-text">

@@ -37,11 +37,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>No. Surat</th>
-                            <td>:</td>
-                            <td>{{ $agendaShow->nmr_surat }}</td>
-                        </tr>
-                        <tr>
                             <th>Tempat</th>
                             <td>:</td>
                             <td>{{ $agendaShow->tempat }}</td>
@@ -90,6 +85,11 @@
                             <th>Keterangan</th>
                             <td>:</td>
                             <td>{{ $agendaShow->keterangan ?: '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Penginput</th>
+                            <td>:</td>
+                            <td>{{ $agendaShow->user->name ?? $agendaShow->user->email ?? '-' }}</td>
                         </tr>
                     </table>
                     <div class="mt-3">

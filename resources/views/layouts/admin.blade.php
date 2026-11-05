@@ -38,6 +38,221 @@
 
     <link rel="stylesheet" href="{{ asset('template') }}/dist/css/adminlte.min.css?v=3.2.0">
 
+    <style>
+        :root {
+            --navy: #0b2742;
+            --teal: #1098a3;
+            --soft-bg: #f4f7fb;
+        }
+
+        body {
+            background: var(--soft-bg);
+        }
+
+        .main-header {
+            border-bottom: 1px solid #e8eef5;
+            box-shadow: 0 2px 12px rgba(20, 50, 80, .04);
+        }
+
+        .main-sidebar {
+            background: linear-gradient(180deg, #092641 0%, #0a3857 62%, #08263e 100%);
+        }
+
+        .brand-link {
+            height: 64px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
+            display: flex !important;
+            align-items: center;
+        }
+
+        .brand-link .brand-image {
+            width: 38px;
+            height: 38px;
+            opacity: 1 !important;
+            background: #fff;
+            padding: 4px;
+            margin-left: 10px;
+        }
+
+        .brand-link .brand-text {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600 !important;
+            letter-spacing: .02em;
+        }
+
+        .sidebar {
+            padding: 0 10px;
+        }
+
+        .user-panel {
+            border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
+            padding: 17px 8px 14px !important;
+        }
+
+        .user-panel .info a {
+            color: rgba(255, 255, 255, .88) !important;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .nav-sidebar>.nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-sidebar .nav-link {
+            border-radius: 10px;
+            color: rgba(255, 255, 255, .7);
+            padding: 11px 12px;
+            font-size: 13px;
+            transition: .2s ease;
+        }
+
+        .nav-sidebar .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, .09);
+        }
+
+        .nav-sidebar .nav-link.active {
+            color: #fff;
+            background: linear-gradient(100deg, #108c9a, #12608b);
+            box-shadow: 0 7px 16px rgba(5, 20, 40, .18);
+        }
+
+        .nav-sidebar .nav-icon {
+            font-size: 14px !important;
+            margin-right: 7px;
+        }
+
+        .nav-sidebar .nav-treeview {
+            padding: 4px 0 4px 12px;
+        }
+
+        .nav-sidebar .nav-treeview .nav-link {
+            padding: 9px 12px;
+            font-size: 12px;
+        }
+
+        .nav-sidebar .nav-treeview .nav-icon {
+            font-size: 11px !important;
+        }
+
+        .nav-sidebar .menu-open>.nav-link:not(.active) {
+            color: #fff;
+            background: rgba(255, 255, 255, .06);
+        }
+
+        .content-wrapper {
+            background: var(--soft-bg);
+        }
+
+        .content-header {
+            padding: 22px 0 8px;
+        }
+
+        .content-header h4 {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .dashboard-welcome {
+            border: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            color: #fff;
+            background: linear-gradient(115deg, #092b4a, #117d91 65%, #18a7a1);
+            box-shadow: 0 12px 30px rgba(10, 73, 105, .16);
+        }
+
+        .dashboard-welcome .card-body {
+            padding: 26px 30px;
+        }
+
+        .dashboard-welcome h3 {
+            font-weight: 700;
+        }
+
+        .dashboard-welcome p {
+            color: rgba(255, 255, 255, .76);
+        }
+
+        .dashboard-stat {
+            border: 0;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 7px 24px rgba(25, 56, 88, .07);
+        }
+
+        .dashboard-stat .inner {
+            padding: 20px;
+        }
+
+        .dashboard-stat h3 {
+            color: var(--navy);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .dashboard-stat p {
+            margin: 0;
+            color: #7d8c9d;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+        }
+
+        .dashboard-stat .icon {
+            top: 14px;
+            right: 18px;
+            color: #dceff1;
+        }
+
+        .dashboard-stat .small-box-footer {
+            border-radius: 0 0 16px 16px;
+            color: #168b98;
+            background: #f8fbfc;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .dashboard-card {
+            border: 0;
+            border-radius: 16px;
+            box-shadow: 0 7px 24px rgba(25, 56, 88, .07);
+        }
+
+        .dashboard-card .card-header {
+            border-bottom: 1px solid #edf1f5;
+            background: #fff;
+            padding: 17px 20px;
+        }
+
+        .dashboard-card .card-title {
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .dashboard-card .card-body {
+            background: #fff;
+        }
+
+        .main-footer {
+            background: #fff;
+            border-top: 1px solid #e8eef5;
+        }
+
+        @media (max-width: 767.98px) {
+            .dashboard-welcome .card-body {
+                padding: 22px;
+            }
+
+            .content {
+                padding: 0 8px;
+            }
+        }
+    </style>
+
     <!-- fullCalendar -->
     <link rel="stylesheet" href="{{ asset('template') }}/plugins/fullcalendar/main.css">
 
@@ -125,7 +340,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#" title="Pengingat Agenda">
                         <i class="far fa-bell"></i>
-                        @if(isset($agendaReminders) && count($agendaReminders) > 0)
+                        @if (isset($agendaReminders) && count($agendaReminders) > 0)
                             <span class="badge badge-warning navbar-badge">{{ count($agendaReminders) }}</span>
                         @endif
                     </a>
@@ -138,7 +353,7 @@
                             <a href="{{ route('agenda.show', $rem['id']) }}" class="dropdown-item py-2">
                                 <div class="d-flex align-items-start">
                                     <div class="mr-2 mt-1">
-                                        @if($rem['tipe'] === 'H-1')
+                                        @if ($rem['tipe'] === 'H-1')
                                             <span class="badge badge-warning"><i class="fas fa-bell"></i> H-1</span>
                                         @else
                                             <span class="badge badge-info"><i class="fas fa-play"></i> Hari H</span>
@@ -146,8 +361,10 @@
                                     </div>
                                     <div style="line-height:1.2; max-width:210px;">
                                         <p class="mb-0 text-sm font-weight-bold text-truncate">{{ $rem['uraian'] }}</p>
-                                        <small class="text-muted d-block"><i class="far fa-clock"></i> {{ $rem['waktu'] }}</small>
-                                        <small class="text-muted text-truncate d-block"><i class="fas fa-map-marker-alt"></i> {{ $rem['tempat'] }}</small>
+                                        <small class="text-muted d-block"><i class="far fa-clock"></i>
+                                            {{ $rem['waktu'] }}</small>
+                                        <small class="text-muted text-truncate d-block"><i
+                                                class="fas fa-map-marker-alt"></i> {{ $rem['tempat'] }}</small>
                                     </div>
                                 </div>
                             </a>
@@ -157,7 +374,8 @@
                                 <small>Tidak ada agenda mendekati</small>
                             </a>
                         @endforelse
-                        <a href="{{ route('agenda.index') }}" class="dropdown-item dropdown-footer text-center">Lihat Semua Agenda</a>
+                        <a href="{{ route('agenda.index') }}" class="dropdown-item dropdown-footer text-center">Lihat
+                            Semua Agenda</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown user-menu">
@@ -220,9 +438,9 @@
                                 <p>DASHBOARD</p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('agenda', 'smrt') ? 'menu-open active' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('sespim', 'smrt') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-book"></i>
+                        <li class="nav-item {{ Request::is('agenda') ? 'menu-open active' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>
                                     AGENDA
                                     <i class="right fas fa-angle-left"></i>
@@ -232,16 +450,15 @@
                                 <li class="nav-item">
                                     <a href="{{ route('agenda.index') }}"
                                         class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
-                                        <i class="fas fa-check nav-icon"></i>
-                                        <p>SESPIM</p>
+                                        <i class="fas fa-clipboard-list nav-icon"></i>
+                                        <p>Daftar Agenda</p>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="#" class="nav-link {{ Request::is('smrt') ? 'active' : '' }}">
-                                        <i class="fas fa-check nav-icon"></i>
-                                        <p>SMRT</p>
+                                <li class="nav-item">
+                                    <a href="{{ route('agenda.create') }}"
+                                        class="nav-link {{ Request::is('agenda/create') ? 'active' : '' }}">
+                                        <i class="fas fa-plus-square nav-icon"></i>
+                                        <p>Agenda Baru</p>
                                     </a>
                                 </li>
                             </ul>
@@ -250,7 +467,7 @@
                         <li class="nav-item {{ Request::is('instansi', 'pegawai') ? 'menu-open active' : '' }}">
                             <a href="#"
                                 class="nav-link {{ Request::is('instansi', 'pegawai') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-anchor"></i>
+                                <i class="nav-icon fas fa-database"></i>
                                 <p>
                                     MASTER DATA
                                     <i class="right fas fa-angle-left"></i>
@@ -264,9 +481,7 @@
                                         <p>Instansi</p>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
+                                <li class="nav-item">
                                     <a href="{{ route('pegawai.index') }}"
                                         class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
                                         <i class="fas fa-id-card nav-icon"></i>
@@ -276,10 +491,10 @@
                             </ul>
                         </li>
 
-                        @can('viewAny', App\User::class)
-                            <li class="nav-item {{ Request::is('user') ? 'menu-open' : '' }}">
+                        @can('viewAny', App\Models\User::class)
+                            <li class="nav-item {{ Request::is('user') ? 'menu-open active' : '' }}">
                                 <a href="#" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <i class="nav-icon fas fa-users-cog"></i>
                                     <p>
                                         MANAGEMENT
                                         <i class="right fas fa-angle-left"></i>
@@ -289,8 +504,8 @@
                                     <li class="nav-item">
                                         <a href="{{ route('user.index') }}"
                                             class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-                                            <i class="fas fa-user nav-icon"></i>
-                                            <p>User</p>
+                                            <i class="fas fa-user-shield nav-icon"></i>
+                                            <p>Kelola User</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -331,7 +546,7 @@
                 <small>ver.1.0 beta</small>
             </div>
 
-            <small>Copyright &copy; 2023 | strawberry.dev | ksop tanjungpinang</small>
+            <small>Copyright &copy; bangbhe.dev | ksop tanjungpinang 2023</small>
         </footer>
     </div>
 
@@ -411,11 +626,11 @@
             });
 
             $('#tgl_mulai').datetimepicker({
-                format: 'L'
+                format: 'YYYY-MM-DD'
             });
 
             $('#tgl_selesai').datetimepicker({
-                format: 'L'
+                format: 'YYYY-MM-DD'
             });
 
             $('#pukul').datetimepicker({

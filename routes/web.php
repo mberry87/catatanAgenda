@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardCotroller;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\InstansiController;
-use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfilController;
 use App\Models\AgendaKegiatan;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -47,6 +47,15 @@ Route::middleware('islogin')->group(function () {
     Route::put('agenda/{id}', [AgendaKegiatanController::class, 'update'])->name('agenda.update');
     Route::patch('agenda/{id}/selesai', [AgendaKegiatanController::class, 'updateStatus'])->name('agenda.updateStatus');
     Route::delete('agenda/{id}', [AgendaKegiatanController::class, 'destroy'])->name('agenda.destroy');
+    Route::get('agenda-laporan/pdf', [AgendaKegiatanController::class, 'pdf'])->name('agenda.pdf');
+
+    Route::get('agenda/{id}/whatsapp', [AgendaKegiatanController::class, 'whatsapp'])->name('agenda.whatsapp');
+
+    // profil
+    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('profil/foto', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
+    Route::post('profil/update', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
+    Route::post('profil/password', [ProfilController::class, 'updatePassword'])->name('profil.updatePassword');
 
 
     // pegawai
@@ -74,12 +83,6 @@ Route::middleware('islogin')->group(function () {
     Route::put('user/{id}', [UserController::class, 'update'])->name('user.update');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::get('user/{id}', [UserController::class, 'show'])->name('user.show');
-
-    // profil
-    Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
-    Route::post('profil/updateFotoProfil', [ProfilController::class, 'updateFotoProfil'])->name('profil.updateFotoProfil');
-    Route::post('profil/updateProfil', [ProfilController::class, 'updateProfil'])->name('profil.updateProfil');
-    Route::post('profil/updatePassword', [ProfilController::class, 'updatePassword'])->name('profil.updatePassword');
 
     Route::get('status-selesai', [AgendaKegiatanController::class, 'countSelesai'])->name('status.countSelesai');
     Route::get('status-belum-selesai', [AgendaKegiatanController::class, 'countBelumSelesai'])->name('status.countBelumSelesai');

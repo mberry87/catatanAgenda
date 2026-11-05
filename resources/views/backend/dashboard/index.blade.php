@@ -16,11 +16,26 @@
 @endsection
 
 @section('content')
+    {{-- ==================== WELCOME BANNER ==================== --}}
+    <div class="card dashboard-welcome mb-4">
+        <div class="card-body d-flex flex-wrap justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-1">Halo, {{ Auth::user()->name }}</h3>
+                <p class="mb-0">Ringkasan agenda dan data pelayanan KSOP Tanjungpinang hari ini.</p>
+            </div>
+            {{-- <div class="mt-3 mt-md-0">
+                <a href="{{ route('agenda.create') }}" class="btn btn-light btn-sm font-weight-bold">
+                    <i class="fas fa-plus mr-1"></i> Agenda Baru
+                </a>
+            </div> --}}
+        </div>
+    </div>
+
     {{-- ==================== STAT BOXES (AGENDA) ==================== --}}
     <div class="row">
         {{-- In Progress --}}
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="small-box bg-warning">
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+            <div class="small-box dashboard-stat">
                 <div class="inner">
                     <h3>{{ $count_in_progress }}</h3>
                     <p>AGENDA IN PROGRESS</p>
@@ -33,8 +48,8 @@
         </div>
 
         {{-- Selesai --}}
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="small-box bg-success">
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+            <div class="small-box dashboard-stat">
                 <div class="inner">
                     <h3>{{ $count_selesai }}</h3>
                     <p>AGENDA SELESAI</p>
@@ -50,38 +65,38 @@
     {{-- Baris ke-2: User & Pegawai --}}
     <div class="row">
         @can('viewAny', App\Models\User::class)
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ \App\Models\User::whereNotNull('username')->count() }}</h3>
-                    <p>USER TERDAFTAR</p>
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="small-box dashboard-stat">
+                    <div class="inner">
+                        <h3>{{ \App\Models\User::whereNotNull('username')->count() }}</h3>
+                        <p>USER TERDAFTAR</p>
+                    </div>
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <a href="{{ route('user.index') }}" class="small-box-footer">
+                        Detail <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon"><i class="fas fa-users"></i></div>
-                <a href="{{ route('user.index') }}" class="small-box-footer">
-                    Detail <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-            <div class="small-box" style="background-color:#6f42c1; color:#fff;">
-                <div class="inner">
-                    <h3>{{ $jumlah_pegawai }}</h3>
-                    <p>PEGAWAI TERDAFTAR</p>
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="small-box dashboard-stat">
+                    <div class="inner">
+                        <h3>{{ $jumlah_pegawai }}</h3>
+                        <p>PEGAWAI TERDAFTAR</p>
+                    </div>
+                    <div class="icon"><i class="fas fa-id-card"></i></div>
+                    <a href="{{ route('pegawai.index') }}" class="small-box-footer">
+                        Detail <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon"><i class="fas fa-id-card"></i></div>
-                <a href="{{ route('pegawai.index') }}" class="small-box-footer">
-                    Detail <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
-        </div>
         @endcan
     </div>
 
     {{-- ==================== MAIN CONTENT ==================== --}}
     <div class="row">
         {{-- List Agenda Aktif --}}
-        <div class="col-md-4">
-            <div class="card card-outline card-warning">
+        <div class="col-md-4 mb-4">
+            <div class="card dashboard-card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-list-ul mr-1"></i> Agenda Aktif
@@ -101,9 +116,9 @@
                     @else
                         <ul class="list-group list-group-flush">
                             @foreach ($tanggal_agenda as $data)
-                                @php
-                                    $badge = $data->status_badge_info;
-                                @endphp
+                                <?php
+                                $badge = $data->status_badge_info;
+                                ?>
                                 <li class="list-group-item px-3 py-2">
                                     <div class="d-flex justify-content-between align-items-start mb-1">
                                         {{-- Badge Jenis --}}
@@ -144,7 +159,7 @@
                         </ul>
                     @endif
                 </div>
-                <div class="card-footer text-center py-2">
+                <div class="card-footer text-center py-2 bg-white border-top" style="border-color:#edf1f5 !important;">
                     <a href="{{ route('agenda.index') }}" class="text-sm">
                         Lihat semua agenda <i class="fas fa-arrow-right"></i>
                     </a>
@@ -153,8 +168,8 @@
         </div>
 
         {{-- Kalender --}}
-        <div class="col-md-8">
-            <div class="card card-primary card-outline">
+        <div class="col-md-8 mb-4">
+            <div class="card dashboard-card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-calendar mr-1"></i> Kalender Agenda

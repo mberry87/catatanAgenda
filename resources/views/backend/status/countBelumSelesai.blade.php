@@ -35,7 +35,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>No. Surat</th>
                                     <th>Uraian Kegiatan</th>
                                     <th>Undangan Dari</th>
                                     <th>Jenis Agenda</th>
@@ -51,7 +50,6 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nmr_surat }}</td>
                                         <td>
                                             <strong>{{ $data->uraian }}</strong> <br>
                                             <span style="font-size: 13px">

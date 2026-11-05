@@ -33,19 +33,8 @@
                             {{-- KOLOM KIRI --}}
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nmr_surat">No. Surat</label>
-                                    <input type="text" name="nmr_surat" id="nmr_surat"
-                                        class="form-control @error('nmr_surat') is-invalid @enderror"
-                                        value="{{ old('nmr_surat', $agenda->nmr_surat) }}">
-                                    @error('nmr_surat')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="uraian">Agenda Kegiatan</label>
-                                    <textarea class="form-control @error('uraian') is-invalid @enderror"
-                                        id="uraian" name="uraian" rows="3">{{ old('uraian', $agenda->uraian) }}</textarea>
+                                    <textarea class="form-control @error('uraian') is-invalid @enderror" id="uraian" name="uraian" rows="3">{{ old('uraian', $agenda->uraian) }}</textarea>
                                     @error('uraian')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -58,8 +47,7 @@
                                             <div class="input-group date" id="tgl_mulai" data-target-input="nearest">
                                                 <input type="text"
                                                     class="form-control datetimepicker-input @error('tgl_mulai') is-invalid @enderror"
-                                                    name="tgl_mulai"
-                                                    value="{{ old('tgl_mulai', $agenda->tgl_mulai) }}"
+                                                    name="tgl_mulai" value="{{ old('tgl_mulai', $agenda->tgl_mulai) }}"
                                                     data-target="#tgl_mulai" placeholder="YYYY-MM-DD">
                                                 <div class="input-group-append" data-target="#tgl_mulai"
                                                     data-toggle="datetimepicker">
@@ -106,7 +94,8 @@
                                                     <div class="input-group-text"><i class="fa fa-clock"></i></div>
                                                 </div>
                                             </div>
-                                            <small class="text-muted">Gunakan format 24 jam (misal 14:30 untuk 2:30 siang)</small>
+                                            <small class="text-muted">Gunakan format 24 jam (misal 14:30 untuk 2:30
+                                                siang)</small>
                                             @error('pukul')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -117,7 +106,7 @@
                                             <label>Pakaian</label>
                                             <select class="form-control select2 @error('pakaian') is-invalid @enderror"
                                                 name="pakaian" style="width: 100%;">
-                                                @foreach(['PDH (Pakaian Dinas Harian)', 'PDL (Pakaian Dinas Lapangan)', 'PDU (Pakaian Dinas Upacara)', 'Batik', 'Bebas Rapi'] as $pakaian)
+                                                @foreach (['PDH (Pakaian Dinas Harian)', 'PDL (Pakaian Dinas Lapangan)', 'PDU (Pakaian Dinas Upacara)', 'Batik', 'Bebas Rapi'] as $pakaian)
                                                     <option value="{{ $pakaian }}"
                                                         {{ old('pakaian', $agenda->pakaian) == $pakaian ? 'selected' : '' }}>
                                                         {{ $pakaian }}</option>
@@ -145,16 +134,18 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="pegawai_id">Disposisi (Pegawai)</label>
-                                    <select class="select2 @error('pegawai_id') is-invalid @enderror" multiple="multiple"
-                                        id="pegawai_id" name="pegawai_id[]" data-placeholder="Pilih Pegawai"
+                                    <select class="form-control select2-pegawai @error('pegawai_id') is-invalid @enderror"
+                                        multiple="multiple" id="pegawai_id" name="pegawai_id[]"
+                                        data-placeholder="Ketik nama pegawai untuk mencari / tambah baru"
                                         style="width: 100%;">
                                         @foreach ($pegawai as $p)
                                             <option value="{{ $p->id }}"
                                                 {{ in_array($p->id, old('pegawai_id', $agenda->pegawai->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                                {{ $p->nama }}
-                                            </option>
+                                                {{ $p->nama }}</option>
                                         @endforeach
                                     </select>
+                                    <small class="text-muted"><i class="fas fa-info-circle"></i> Ketik nama pegawai baru
+                                        lalu tekan Enter.</small>
                                     @error('pegawai_id')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -229,8 +220,7 @@
 
                                 <div class="form-group">
                                     <label for="keterangan">Keterangan</label>
-                                    <textarea class="form-control @error('keterangan') is-invalid @enderror"
-                                        id="keterangan" name="keterangan"
+                                    <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan"
                                         rows="3">{{ old('keterangan', $agenda->keterangan) }}</textarea>
                                     @error('keterangan')
                                         <div class="text-danger">{{ $message }}</div>
@@ -254,23 +244,42 @@
     </div>
 
     @push('scripts')
-    <script>
-        $(function() {
-            $('.select2-tags').select2({
-                tags: true,
-                tokenSeparators: [','],
-                createTag: function(params) {
-                    var term = $.trim(params.term);
-                    if (term === '') return null;
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true
-                    };
-                },
-                allowClear: true
+        <script>
+            $(function() {
+                $('.select2-tags').select2({
+                    tags: true,
+                    tokenSeparators: [','],
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
+                        if (term === '') return null;
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true
+                        };
+                    },
+                    placeholder: 'Ketik untuk mencari atau tambah baru...',
+                    allowClear: true
+                });
+
+                // PEGAWAI: multi-select dengan area pencarian
+                $('#pegawai_id').select2({
+                    placeholder: 'Ketik nama pegawai untuk mencari / tambah baru',
+                    tags: true,
+                    tokenSeparators: [','],
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
+                        if (term === '') return null;
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true
+                        };
+                    },
+                    allowClear: true,
+                    width: '100%'
+                });
             });
-        });
-    </script>
+        </script>
     @endpush
 @endsection

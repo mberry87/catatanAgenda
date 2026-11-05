@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Carbon\Carbon;
 
 class AgendaKegiatan extends Model
@@ -17,8 +18,8 @@ class AgendaKegiatan extends Model
     ];
 
     protected $fillable = [
-        'nmr_surat',
         'uraian',
+        'user_id',
         'tgl_mulai',
         'tgl_selesai',
         'pakaian',
@@ -33,6 +34,11 @@ class AgendaKegiatan extends Model
     public function instansi()
     {
         return $this->belongsTo(Instansi::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function pegawai()

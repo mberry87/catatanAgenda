@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'username';
+        return 'login';
     }
 
     /**
@@ -53,7 +53,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         $login = $request->input($this->username());
-        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'nip';
 
         return [
             $field => $login,

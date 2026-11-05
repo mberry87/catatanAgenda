@@ -60,9 +60,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="confirm_password">Konfirmasi Password baru</label>
-                                <input class="form-control" type="password" id="confirm_password" name="confirm_password">
-                                @error('confirm_password')
+                                <label for="new_password_confirmation">Konfirmasi Password baru</label>
+                                <input class="form-control" type="password" id="new_password_confirmation" name="new_password_confirmation">
+                                @error('new_password_confirmation')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

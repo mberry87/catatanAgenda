@@ -103,7 +103,8 @@ class ProfilController extends Controller
         ]);
 
         $file = $request->file('photo_profil');
-        $fileName = $file->getClientOriginalName(); // Menggunakan nama file asli
+        // Nama file unik agar tidak menimpa foto user lain
+        $fileName = time() . '_' . Auth::user()->username . '.' . $file->getClientOriginalExtension();
 
         $id = Auth::user()->id;
         $user = User::find($id);
@@ -155,19 +156,19 @@ class ProfilController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $user = User::find(auth()->user()->id);
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed',
+        ], [
+            'new_password.confirmed' => 'Konfirmasi password baru tidak sesuai.',
+        ]);
 
-        // Validasi input password saat ini
+        $user = User::findOrFail(auth()->id());
+
         if (!Hash::check($request->input('current_password'), $user->password)) {
-            return redirect()->back()->with('error', 'Password saat ini tidak sesuai.');
+            return redirect()->back()->withErrors(['current_password' => 'Password saat ini tidak sesuai.']);
         }
 
-        // Validasi konfirmasi password baru
-        if ($request->input('new_password') !== $request->input('confirm_password')) {
-            return redirect()->back()->with('error', 'Konfirmasi password baru tidak sesuai.');
-        }
-
-        // Update password baru
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
 

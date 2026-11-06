@@ -48,10 +48,15 @@
                                             <a href="{{ route('pegawai.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            @can('viewAny', App\User::class)
-                                                <a href="{{ route('pegawai.destroy', $data) }}" class="btn btn-danger btn-sm"
-                                                    data-confirm-delete="true"><i class="fas fa-trash-alt">
-                                                    </i> Hapus</a>
+                                            @can('viewAny', App\Models\User::class)
+                                                <form action="{{ route('pegawai.destroy', $data->id) }}" method="POST"
+                                                    class="delete-form" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm delete-btn">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </button>
+                                                </form>
                                             @endcan
                                         </td>
                                     </tr>

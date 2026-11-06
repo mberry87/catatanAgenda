@@ -32,7 +32,6 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Instansi</th>
-                                    <th>Status</th>
                                     <th>Alamat</th>
                                     <th>Telepon</th>
                                     <th>Email</th>
@@ -44,7 +43,6 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $data->nama }}</td>
-                                        <td>{{ $data->status }}</td>
                                         <td>{{ $data->alamat }}</td>
                                         <td>{{ $data->telepon }}</td>
                                         <td>{{ $data->email }}</td>
@@ -52,7 +50,7 @@
                                             <a href="{{ route('instansi.edit', $data) }}" class="btn btn-primary btn-sm"><i
                                                     class="fa fa-pen"></i>
                                                 Edit</a>
-                                            @can('viewAny', App\User::class)
+                                            @can('viewAny', App\Models\User::class)
                                                 <form action="{{ route('instansi.destroy', $data->id) }}" method="POST"
                                                     class="delete-form" style="display: inline;">
                                                     @csrf

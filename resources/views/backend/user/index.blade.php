@@ -18,57 +18,63 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="m-0">Tabel Data</h5>
+        <div class="col-12">
+            <div class="card dashboard-card">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-people me-2 text-primary"></i>Daftar Data User
+                    </h5>
+                    <a href="{{ route('user.create') }}" class="btn btn-ksop btn-sm px-3">
+                        <i class="bi bi-plus-lg me-1"></i> Tambah User
+                    </a>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
-                        Tambah</a>
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-hover table-modern">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th style="width: 50px;">No.</th>
                                     <th>Nama</th>
                                     <th>Username</th>
                                     <th>NIP</th>
                                     <th>Role</th>
                                     <th>Email</th>
-                                    <th>Aksi</th>
+                                    <th style="width: 140px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($users as $data)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->name }}</td>
+                                        <td class="text-center fw-semibold">{{ $loop->iteration }}</td>
+                                        <td class="fw-semibold text-dark">{{ $data->name }}</td>
                                         <td>{{ $data->username }}</td>
-                                        <td>{{ $data->nip }}</td>
+                                        <td>{{ $data->nip ?: '-' }}</td>
                                         <td>
                                             @if ($data->role === 'superadmin')
-                                                Super Admin
+                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">Super Admin</span>
                                             @elseif($data->role === 'admin')
-                                                Admin
+                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Admin</span>
                                             @elseif($data->role === 'user')
-                                                User
+                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1">User</span>
                                             @endif
                                         </td>
                                         <td>{{ $data->email }}</td>
                                         <td>
-                                            <a href="{{ route('user.edit', $data) }}" class="btn btn-primary btn-sm"><i
-                                                    class="fa fa-pen"></i>
-                                                Edit</a>
-                                            @if (auth()->user()->id !== $data->id)
-                                                <form action="{{ route('user.destroy', $data->id) }}" method="POST"
-                                                    class="delete-form" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm delete-btn">
-                                                        <i class="fas fa-trash-alt"></i> Hapus</button>
-                                                </form>
-                                            @endif
+                                            <div class="d-flex flex-wrap gap-1">
+                                                <a href="{{ route('user.edit', $data) }}" class="btn btn-outline-primary btn-sm" title="Edit">
+                                                    <i class="bi bi-pencil me-1"></i> Edit
+                                                </a>
+                                                @if (auth()->user()->id !== $data->id)
+                                                    <form action="{{ route('user.destroy', $data->id) }}" method="POST"
+                                                        class="delete-form d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger btn-sm delete-btn" title="Hapus">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -79,5 +85,4 @@
             </div>
         </div>
     </div>
-
 @endsection

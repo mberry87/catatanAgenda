@@ -1,4 +1,4 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('title', 'Dashboard')
 
@@ -123,11 +123,11 @@
                                     <div class="d-flex justify-content-between align-items-start mb-1">
                                         {{-- Badge Jenis --}}
                                         @if ($data->jenis_agenda == 'Hadir Fisik')
-                                            <span class="badge badge-primary">Hadir Fisik</span>
+                                            <span class="badge bg-primary">Hadir Fisik</span>
                                         @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                            <span class="badge badge-danger">Zoom Meet</span>
+                                            <span class="badge bg-danger">Zoom Meet</span>
                                         @else
-                                            <span class="badge badge-secondary">{{ $data->jenis_agenda }}</span>
+                                            <span class="badge bg-secondary">{{ $data->jenis_agenda }}</span>
                                         @endif
 
                                         {{-- Badge Status Dinamis --}}

@@ -18,46 +18,57 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="m-0">Tabel Data</h5>
+        <div class="col-12">
+            <div class="card dashboard-card">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-person-badge me-2 text-primary"></i>Daftar Data Pegawai
+                    </h5>
+                    <a href="{{ route('pegawai.create') }}" class="btn btn-ksop btn-sm px-3">
+                        <i class="bi bi-plus-lg me-1"></i> Tambah Pegawai
+                    </a>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
-                        Tambah</a>
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-hover table-modern">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th style="width: 50px;">No.</th>
                                     <th>Nama Pegawai</th>
                                     <th>NIP</th>
                                     <th>Golongan</th>
-                                    <th>Aksi</th>
+                                    <th style="width: 140px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($pegawai as $data)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nama }}</td>
-                                        <td>{{ $data->nip }}</td>
-                                        <td>{{ $data->gol }}</td>
+                                        <td class="text-center fw-semibold">{{ $loop->iteration }}</td>
+                                        <td class="fw-semibold text-dark">{{ $data->nama }}</td>
+                                        <td>{{ $data->nip ?: '-' }}</td>
                                         <td>
-                                            <a href="{{ route('pegawai.edit', $data) }}" class="btn btn-primary btn-sm"><i
-                                                    class="fa fa-pen"></i>
-                                                Edit</a>
-                                            @can('viewAny', App\Models\User::class)
-                                                <form action="{{ route('pegawai.destroy', $data->id) }}" method="POST"
-                                                    class="delete-form" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm delete-btn">
-                                                        <i class="fas fa-trash-alt"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            @endcan
+                                            @if ($data->gol)
+                                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-2 py-1">{{ $data->gol }}</span>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-1">
+                                                <a href="{{ route('pegawai.edit', $data) }}" class="btn btn-outline-primary btn-sm" title="Edit">
+                                                    <i class="bi bi-pencil me-1"></i> Edit
+                                                </a>
+                                                @can('viewAny', App\Models\User::class)
+                                                    <form action="{{ route('pegawai.destroy', $data->id) }}" method="POST"
+                                                        class="delete-form d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger btn-sm delete-btn" title="Hapus">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -68,5 +79,4 @@
             </div>
         </div>
     </div>
-
 @endsection

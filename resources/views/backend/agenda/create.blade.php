@@ -18,10 +18,15 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="m-0">Tambah Data Agenda</h5>
+        <div class="col-12">
+            <div class="card dashboard-card">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-calendar-plus me-2 text-primary"></i>Tambah Data Agenda
+                    </h5>
+                    <a href="{{ route('agenda.index') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali
+                    </a>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('agenda.store') }}" method="POST" class="form-horizontal form-label-left">
@@ -217,15 +222,15 @@
                                     @enderror
                                 </div>
 
-                                <div class="d-flex gap-2 mt-3">
-                                    <a href="{{ route('agenda.index') }}" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-arrow-left"></i> Kembali
+                                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                                    <a href="{{ route('agenda.index') }}" class="btn btn-outline-secondary btn-sm px-3">
+                                        <i class="bi bi-arrow-left me-1"></i> Kembali
                                     </a>
-                                    <button class="btn btn-secondary btn-sm" type="reset">
-                                        <i class="fas fa-redo"></i> Reset
+                                    <button class="btn btn-outline-warning btn-sm px-3" type="reset">
+                                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
                                     </button>
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        <i class="fas fa-save"></i> Simpan
+                                    <button type="submit" class="btn btn-ksop btn-sm px-4">
+                                        <i class="bi bi-check-lg me-1"></i> Simpan
                                     </button>
                                 </div>
                             </div>

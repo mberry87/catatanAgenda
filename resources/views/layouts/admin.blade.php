@@ -1,167 +1,204 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Admin Panel') | Catatan Qu - KSOP Tg. Pinang</title>
 
+    <!-- Google Font: Source Sans 3 (AdminLTE v4 Standard) -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/fontawesome-free/css/all.min.css">
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=fallback">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte-v4/css/bootstrap-icons.min.css') }}">
 
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="{{ asset('template') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- OverlayScrollbars -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte-v4/css/overlayscrollbars.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet"
-        href="{{ asset('template') }}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet"
-        href="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- AdminLTE v4 CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte-v4/css/adminlte.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- DataTables Plugins -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
-    <link rel="stylesheet"
-        href="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Select2 & Themes -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
+    <!-- Date/Time Pickers -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+
+    <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.min.css">
 
-    <link rel="stylesheet" href="{{ asset('template') }}/dist/css/adminlte.min.css?v=3.2.0">
+    <!-- FullCalendar -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/fullcalendar/main.css') }}">
 
     <style>
         :root {
-            --navy: #0b2742;
-            --teal: #1098a3;
-            --soft-bg: #f4f7fb;
+            --ksop-navy-dark: #07233b;
+            --ksop-navy-mid: #0a3857;
+            --ksop-teal: #1098a3;
+            --ksop-teal-light: #20c5d2;
+            --ksop-bg-soft: #f4f7fb;
         }
 
         body {
-            background: var(--soft-bg);
+            background-color: var(--ksop-bg-soft);
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        .main-header {
+        /* App Header / Navbar */
+        .app-header {
+            background-color: #ffffff !important;
             border-bottom: 1px solid #e8eef5;
-            box-shadow: 0 2px 12px rgba(20, 50, 80, .04);
+            box-shadow: 0 2px 10px rgba(10, 37, 64, 0.04);
+            height: 60px;
         }
 
-        .main-sidebar {
-            background: linear-gradient(180deg, #092641 0%, #0a3857 62%, #08263e 100%);
+        .hover-bg:hover {
+            background-color: rgba(16, 152, 163, 0.08);
         }
 
-        .brand-link {
-            height: 64px;
-            border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
-            display: flex !important;
+        /* App Sidebar */
+        .app-sidebar {
+            background: linear-gradient(180deg, #072238 0%, #0a3857 60%, #072034 100%) !important;
+            box-shadow: 2px 0 16px rgba(4, 22, 38, 0.15);
+        }
+
+        .sidebar-brand {
+            height: 60px;
+            display: flex;
             align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
 
-        .brand-link .brand-image {
-            width: 38px;
-            height: 38px;
-            opacity: 1 !important;
-            background: #fff;
-            padding: 4px;
-            margin-left: 10px;
-        }
-
-        .brand-link .brand-text {
-            color: #fff;
+        .sidebar-brand .brand-link {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 700;
             font-size: 15px;
-            font-weight: 600 !important;
             letter-spacing: .02em;
         }
 
-        .sidebar {
-            padding: 0 10px;
+        .sidebar-brand .brand-image {
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            padding: 3px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .sidebar-wrapper {
+            padding: 0 8px;
         }
 
         .user-panel {
-            border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
-            padding: 17px 8px 14px !important;
+            padding: 14px 10px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
 
-        .user-panel .info a {
-            color: rgba(255, 255, 255, .88) !important;
-            font-size: 13px;
+        .sidebar-menu .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-menu .nav-link {
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 10px 14px;
+            font-size: 13.5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all .2s ease;
+        }
+
+        .sidebar-menu .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu .nav-link.active {
+            color: #ffffff !important;
+            background: linear-gradient(100deg, #108c9a 0%, #12608b 100%) !important;
+            box-shadow: 0 6px 16px rgba(5, 20, 40, 0.28);
             font-weight: 600;
         }
 
-        .nav-sidebar>.nav-item {
-            margin-bottom: 5px;
+        .sidebar-menu .nav-link .nav-icon {
+            font-size: 17px;
+            margin-right: 10px;
+            width: 22px;
+            text-align: center;
         }
 
-        .nav-sidebar .nav-link {
-            border-radius: 10px;
-            color: rgba(255, 255, 255, .7);
-            padding: 11px 12px;
+        .sidebar-menu .nav-treeview {
+            padding: 4px 0 4px 14px;
+            list-style: none;
+        }
+
+        .sidebar-menu .nav-treeview .nav-link {
+            padding: 8px 12px;
             font-size: 13px;
-            transition: .2s ease;
+            color: rgba(255, 255, 255, 0.68);
         }
 
-        .nav-sidebar .nav-link:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, .09);
+        .sidebar-menu .nav-treeview .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
-        .nav-sidebar .nav-link.active {
-            color: #fff;
-            background: linear-gradient(100deg, #108c9a, #12608b);
-            box-shadow: 0 7px 16px rgba(5, 20, 40, .18);
+        .sidebar-menu .nav-treeview .nav-link.active {
+            color: #ffffff !important;
+            background: rgba(16, 140, 154, 0.45) !important;
+            box-shadow: none;
         }
 
-        .nav-sidebar .nav-icon {
-            font-size: 14px !important;
-            margin-right: 7px;
-        }
-
-        .nav-sidebar .nav-treeview {
-            padding: 4px 0 4px 12px;
-        }
-
-        .nav-sidebar .nav-treeview .nav-link {
-            padding: 9px 12px;
+        .sidebar-menu .nav-arrow {
+            margin-left: auto;
+            transition: transform .3s ease;
             font-size: 12px;
         }
 
-        .nav-sidebar .nav-treeview .nav-icon {
-            font-size: 11px !important;
+        .sidebar-menu .menu-open > .nav-link .nav-arrow {
+            transform: rotate(90deg);
         }
 
-        .nav-sidebar .menu-open>.nav-link:not(.active) {
-            color: #fff;
-            background: rgba(255, 255, 255, .06);
+        /* Main Content */
+        .app-main {
+            background-color: var(--ksop-bg-soft);
+            min-height: calc(100vh - 115px);
         }
 
-        .content-wrapper {
-            background: var(--soft-bg);
+        .app-content-header {
+            padding: 20px 0 10px;
         }
 
-        .content-header {
-            padding: 22px 0 8px;
-        }
-
-        .content-header h4 {
-            color: var(--navy);
+        .app-content-header h4 {
+            color: var(--ksop-navy-dark);
             font-weight: 700;
+            margin: 0;
         }
 
+        /* Dashboard & Card Styles */
         .dashboard-welcome {
             border: 0;
             border-radius: 18px;
             overflow: hidden;
-            color: #fff;
-            background: linear-gradient(115deg, #092b4a, #117d91 65%, #18a7a1);
-            box-shadow: 0 12px 30px rgba(10, 73, 105, .16);
+            color: #ffffff;
+            background: linear-gradient(115deg, #072540 0%, #0d5c7c 60%, #129aa2 100%);
+            box-shadow: 0 12px 30px rgba(10, 73, 105, 0.16);
         }
 
         .dashboard-welcome .card-body {
@@ -173,487 +210,599 @@
         }
 
         .dashboard-welcome p {
-            color: rgba(255, 255, 255, .76);
+            color: rgba(255, 255, 255, 0.82);
         }
 
         .dashboard-stat {
             border: 0;
             border-radius: 16px;
-            background: #fff;
-            box-shadow: 0 7px 24px rgba(25, 56, 88, .07);
+            background: #ffffff;
+            box-shadow: 0 6px 20px rgba(25, 56, 88, 0.07);
+            position: relative;
+            display: block;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .dashboard-stat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(25, 56, 88, 0.12);
         }
 
         .dashboard-stat .inner {
-            padding: 20px;
+            padding: 20px 22px;
         }
 
         .dashboard-stat h3 {
-            color: var(--navy);
-            font-size: 28px;
-            font-weight: 700;
+            color: var(--ksop-navy-dark);
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 6px;
         }
 
         .dashboard-stat p {
             margin: 0;
-            color: #7d8c9d;
+            color: #728498;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: .06em;
+            text-transform: uppercase;
         }
 
         .dashboard-stat .icon {
-            top: 14px;
-            right: 18px;
-            color: #dceff1;
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 42px;
+            color: #dbeaf0;
+            transition: transform .3s ease;
+        }
+
+        .dashboard-stat:hover .icon {
+            transform: scale(1.1);
+            color: #c7e1eb;
         }
 
         .dashboard-stat .small-box-footer {
             border-radius: 0 0 16px 16px;
-            color: #168b98;
-            background: #f8fbfc;
-            text-align: left;
-            padding-left: 20px;
+            color: #128291;
+            background: #f7fafc;
+            display: block;
+            padding: 8px 22px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            border-top: 1px solid #edf2f7;
+            transition: background .2s ease;
+        }
+
+        .dashboard-stat .small-box-footer:hover {
+            background: #edf6f8;
+            color: #0b5963;
         }
 
         .dashboard-card {
             border: 0;
             border-radius: 16px;
-            box-shadow: 0 7px 24px rgba(25, 56, 88, .07);
+            box-shadow: 0 6px 20px rgba(25, 56, 88, 0.07);
+            background: #ffffff;
+            overflow: hidden;
         }
 
         .dashboard-card .card-header {
             border-bottom: 1px solid #edf1f5;
-            background: #fff;
-            padding: 17px 20px;
+            background: #ffffff;
+            padding: 16px 22px;
         }
 
         .dashboard-card .card-title {
-            color: var(--navy);
+            color: var(--ksop-navy-dark);
             font-size: 15px;
             font-weight: 700;
         }
 
-        .dashboard-card .card-body {
-            background: #fff;
+        /* Modern Table & Form Polish */
+        .table-modern {
+            border-color: #e6edf5;
+            margin-bottom: 0;
+        }
+        .table-modern thead th {
+            background-color: #f4f7fb;
+            color: var(--ksop-navy-dark);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+            border-bottom: 2px solid #dce5ef;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .table-modern tbody td {
+            vertical-align: middle;
+            font-size: 13.5px;
+            border-color: #edf2f7;
+        }
+        .table-modern tbody tr:hover {
+            background-color: #f8fbfd;
+        }
+        .btn-ksop {
+            background: linear-gradient(100deg, #108c9a 0%, #12608b 100%);
+            border: 0;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: opacity .2s ease, transform .15s ease;
+        }
+        .btn-ksop:hover {
+            color: #ffffff;
+            opacity: .92;
+            transform: translateY(-1px);
+        }
+        .dashboard-card .form-label {
+            font-weight: 600;
+            color: #334e68;
+            font-size: 13.5px;
+            margin-bottom: 6px;
+        }
+        .dashboard-card .form-control,
+        .dashboard-card .form-select {
+            border-radius: 10px;
+            border-color: #dce5ef;
+            font-size: 14px;
+        }
+        .dashboard-card .form-control:focus,
+        .dashboard-card .form-select:focus {
+            border-color: var(--ksop-teal);
+            box-shadow: 0 0 0 0.2rem rgba(16, 152, 163, 0.15);
         }
 
-        .main-footer {
-            background: #fff;
+        /* App Footer */
+        .app-footer {
+            background-color: #ffffff;
             border-top: 1px solid #e8eef5;
+            padding: 14px 24px;
+            color: #6c7c8c;
+            font-size: 13px;
+        }
+
+        /* Compatibility Helpers for Bootstrap 4 -> Bootstrap 5 */
+        .float-right, .float-sm-right { float: right !important; }
+        .float-left, .float-sm-left { float: left !important; }
+        .ml-auto { margin-left: auto !important; }
+        .mr-auto { margin-right: auto !important; }
+        .mr-1 { margin-right: .25rem !important; }
+        .mr-2 { margin-right: .5rem !important; }
+        .mr-3 { margin-right: 1rem !important; }
+        .ml-1 { margin-left: .25rem !important; }
+        .ml-2 { margin-left: .5rem !important; }
+        .ml-3 { margin-left: 1rem !important; }
+        .btn-block { display: block; width: 100%; }
+        .form-group { margin-bottom: 1rem; }
+
+        /* Input Group Append & Prepend Compatibility */
+        .input-group-append, .input-group-prepend {
+            display: flex;
+        }
+        .input-group-append .input-group-text {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .input-group-prepend .input-group-text {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        /* Badges Compatibility */
+        .badge-primary { background-color: #0d6efd !important; color: #ffffff !important; }
+        .badge-secondary { background-color: #6c757d !important; color: #ffffff !important; }
+        .badge-success { background-color: #198754 !important; color: #ffffff !important; }
+        .badge-danger { background-color: #dc3545 !important; color: #ffffff !important; }
+        .badge-warning { background-color: #ffc107 !important; color: #000000 !important; }
+        .badge-info { background-color: #0dcaf0 !important; color: #000000 !important; }
+        .badge-dark { background-color: #212529 !important; color: #ffffff !important; }
+
+        .btn-xs {
+            padding: 2px 8px;
+            font-size: 12px;
+            border-radius: 6px;
         }
 
         @media (max-width: 767.98px) {
             .dashboard-welcome .card-body {
-                padding: 22px;
-            }
-
-            .content {
-                padding: 0 8px;
+                padding: 20px;
             }
         }
     </style>
-
-    <!-- fullCalendar -->
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/fullcalendar/main.css">
-
-    <script nonce="860543f9-e2cc-4eef-8734-25719429198f">
-        (function(w, d) {
-            ! function(a, b, c, d) {
-                a[c] = a[c] || {};
-                a[c].executed = [];
-                a.zaraz = {
-                    deferred: [],
-                    listeners: []
-                };
-                a.zaraz.q = [];
-                a.zaraz._f = function(e) {
-                    return function() {
-                        var f = Array.prototype.slice.call(arguments);
-                        a.zaraz.q.push({
-                            m: e,
-                            a: f
-                        })
-                    }
-                };
-                for (const g of ["track", "set", "debug"]) a.zaraz[g] = a.zaraz._f(g);
-                a.zaraz.init = () => {
-                    var h = b.getElementsByTagName(d)[0],
-                        i = b.createElement(d),
-                        j = b.getElementsByTagName("title")[0];
-                    j && (a[c].t = b.getElementsByTagName("title")[0].text);
-                    a[c].x = Math.random();
-                    a[c].w = a.screen.width;
-                    a[c].h = a.screen.height;
-                    a[c].j = a.innerHeight;
-                    a[c].e = a.innerWidth;
-                    a[c].l = a.location.href;
-                    a[c].r = b.referrer;
-                    a[c].k = a.screen.colorDepth;
-                    a[c].n = b.characterSet;
-                    a[c].o = (new Date).getTimezoneOffset();
-                    if (a.dataLayer)
-                        for (const n of Object.entries(Object.entries(dataLayer).reduce(((o, p) => ({
-                                ...o[1],
-                                ...p[1]
-                            })), {}))) zaraz.set(n[0], n[1], {
-                            scope: "page"
-                        });
-                    a[c].q = [];
-                    for (; a.zaraz.q.length;) {
-                        const q = a.zaraz.q.shift();
-                        a[c].q.push(q)
-                    }
-                    i.defer = !0;
-                    for (const r of [localStorage, sessionStorage]) Object.keys(r || {}).filter((t => t.startsWith(
-                        "_zaraz_"))).forEach((s => {
-                        try {
-                            a[c]["z_" + s.slice(7)] = JSON.parse(r.getItem(s))
-                        } catch {
-                            a[c]["z_" + s.slice(7)] = r.getItem(s)
-                        }
-                    }));
-                    i.referrerPolicy = "origin";
-                    i.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(a[c])));
-                    h.parentNode.insertBefore(i, h)
-                };
-                ["complete", "interactive"].includes(b.readyState) ? zaraz.init() : a.addEventListener(
-                    "DOMContentLoaded", zaraz.init)
-            }(w, d, "zarazData", "script");
-        })(window, document);
-    </script>
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
 
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
-                </li>
-            </ul>
-            {{-- notification --}}
-            <ul class="navbar-nav ml-auto">
-                {{-- Notification Bell --}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#" title="Pengingat Agenda">
-                        <i class="far fa-bell"></i>
-                        @if (isset($agendaReminders) && count($agendaReminders) > 0)
-                            <span class="badge badge-warning navbar-badge">{{ count($agendaReminders) }}</span>
-                        @endif
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow">
-                        <span class="dropdown-header font-weight-bold">
-                            {{ count($agendaReminders ?? []) }} Pengingat Agenda
+        <!-- ==================== HEADER (NAVBAR) ==================== -->
+        <nav class="app-header navbar navbar-expand bg-body shadow-sm">
+            <div class="container-fluid">
+                <!-- Left: Sidebar Toggle -->
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-body" data-lte-toggle="sidebar" href="#" role="button" aria-label="Toggle Navigation">
+                            <i class="bi bi-list fs-4"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-flex align-items-center ms-2">
+                        <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 fw-medium">
+                            <i class="bi bi-calendar2-week me-1"></i> Catatan Qu &bull; KSOP Kelas II Tanjungpinang
                         </span>
-                        <div class="dropdown-divider"></div>
-                        @forelse($agendaReminders ?? [] as $rem)
-                            <a href="{{ route('agenda.show', $rem['id']) }}" class="dropdown-item py-2">
-                                <div class="d-flex align-items-start">
-                                    <div class="mr-2 mt-1">
-                                        @if ($rem['tipe'] === 'H-1')
-                                            <span class="badge badge-warning"><i class="fas fa-bell"></i> H-1</span>
-                                        @else
-                                            <span class="badge badge-info"><i class="fas fa-play"></i> Hari H</span>
-                                        @endif
-                                    </div>
-                                    <div style="line-height:1.2; max-width:210px;">
-                                        <p class="mb-0 text-sm font-weight-bold text-truncate">{{ $rem['uraian'] }}</p>
-                                        <small class="text-muted d-block"><i class="far fa-clock"></i>
-                                            {{ $rem['waktu'] }}</small>
-                                        <small class="text-muted text-truncate d-block"><i
-                                                class="fas fa-map-marker-alt"></i> {{ $rem['tempat'] }}</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                        @empty
-                            <a href="#" class="dropdown-item text-center text-muted py-3">
-                                <small>Tidak ada agenda mendekati</small>
-                            </a>
-                        @endforelse
-                        <a href="{{ route('agenda.index') }}" class="dropdown-item dropdown-footer text-center">Lihat
-                            Semua Agenda</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown user-menu">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
-                            class="user-image img-circle elevation-2" alt="User Image">
-                    </a>
+                    </li>
+                </ul>
 
-                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <!-- Right: Notifications, Fullscreen, User Menu -->
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Notification Bell (Pengingat Agenda) -->
+                    <li class="nav-item dropdown me-2">
+                        <a class="nav-link position-relative text-body" data-bs-toggle="dropdown" href="#" role="button" title="Pengingat Agenda">
+                            <i class="bi bi-bell fs-5"></i>
+                            @if (isset($agendaReminders) && count($agendaReminders) > 0)
+                                <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                                    {{ count($agendaReminders) }}
+                                    <span class="visually-hidden">pengingat agenda</span>
+                                </span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 p-0 rounded-3 overflow-hidden">
+                            <div class="px-3 py-2 text-white d-flex justify-content-between align-items-center"
+                                 style="background: linear-gradient(135deg, #072540 0%, #108c9a 100%);">
+                                <span class="fw-bold small mb-0"><i class="bi bi-bell-fill me-1"></i> Pengingat Agenda</span>
+                                <span class="badge bg-white text-dark small">{{ count($agendaReminders ?? []) }} Kegiatan</span>
+                            </div>
+                            <div class="list-group list-group-flush" style="max-height: 320px; overflow-y: auto;">
+                                @forelse($agendaReminders ?? [] as $rem)
+                                    <a href="{{ route('agenda.show', $rem['id']) }}" class="list-group-item list-group-item-action p-2 border-bottom">
+                                        <div class="d-flex align-items-start">
+                                            <div class="me-2 mt-1">
+                                                @if ($rem['tipe'] === 'H-1')
+                                                    <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle-fill"></i> H-1</span>
+                                                @else
+                                                    <span class="badge bg-danger"><i class="bi bi-play-circle-fill"></i> Hari H</span>
+                                                @endif
+                                            </div>
+                                            <div class="flex-grow-1 overflow-hidden" style="max-width: 230px;">
+                                                <div class="small fw-bold text-truncate text-dark">{{ $rem['uraian'] }}</div>
+                                                <div class="text-muted" style="font-size: 11px;"><i class="bi bi-clock me-1"></i>{{ $rem['waktu'] }}</div>
+                                                <div class="text-muted text-truncate" style="font-size: 11px;"><i class="bi bi-geo-alt me-1"></i>{{ $rem['tempat'] }}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="text-center text-muted py-4 small">
+                                        <i class="bi bi-calendar-check text-success fs-3 d-block mb-1"></i>
+                                        Tidak ada agenda mendekati saat ini.
+                                    </div>
+                                @endforelse
+                            </div>
+                            <a href="{{ route('agenda.index') }}" class="dropdown-item text-center small text-primary fw-semibold py-2 bg-light border-top">
+                                Lihat Semua Agenda &raquo;
+                            </a>
+                        </div>
+                    </li>
 
-                        <li class="user-header bg-primary">
-                            <img src="{{ $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
-                                class="img-circle elevation-2" alt="User Image">
-                            <p>
-                                <small>
-                                    Nama : {{ Auth::user()->name }} <br>
-                                    Email : {{ Auth::user()->email }} <br>
-                                    Member sejak {{ Auth::user()->created_at->format('d F Y') }}
+                    <!-- Fullscreen Toggle -->
+                    <li class="nav-item me-2 d-none d-sm-block">
+                        <a class="nav-link text-body" data-lte-toggle="fullscreen" href="#" role="button" title="Layar Penuh">
+                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen fs-5"></i>
+                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit fs-5" style="display: none;"></i>
+                        </a>
+                    </li>
+
+                    <!-- User Profile Dropdown -->
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle d-flex align-items-center text-body py-1 px-2 rounded-pill hover-bg" data-bs-toggle="dropdown">
+                            <img src="{{ $userData && $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
+                                class="user-image rounded-circle shadow-sm me-2" alt="Foto Profil"
+                                style="width: 32px; height: 32px; object-fit: cover;">
+                            <span class="d-none d-md-inline fw-semibold small text-truncate" style="max-width: 140px;">
+                                {{ Auth::user()->name }}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 rounded-3 p-0 overflow-hidden">
+                            <li class="user-header text-white text-center p-3"
+                                style="background: linear-gradient(135deg, #07233b 0%, #0b4b75 60%, #1098a5 100%);">
+                                <img src="{{ $userData && $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
+                                    class="rounded-circle shadow border border-2 border-white mb-2" alt="Foto Profil"
+                                    style="width: 72px; height: 72px; object-fit: cover;">
+                                <p class="mb-0 fw-bold fs-6">{{ Auth::user()->name }}</p>
+                                <small class="text-white-50 d-block">{{ Auth::user()->email }}</small>
+                                <small class="text-white-50" style="font-size: 11px;">
+                                    Bergabung: {{ Auth::user()->created_at ? Auth::user()->created_at->format('d M Y') : '-' }}
                                 </small>
-                            </p>
-                        </li>
-
-                        <li class="user-footer">
-                            <a href="{{ route('profil.index') }}" class="btn btn-default btn-flat">Profil</a>
-                            <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right">Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-            </ul>
+                            </li>
+                            <li class="user-footer d-flex justify-content-between p-3 bg-light border-top">
+                                <a href="{{ route('profil.index') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                    <i class="bi bi-person me-1"></i> Profil
+                                </a>
+                                <a href="{{ route('logout') }}" class="btn btn-danger btn-sm rounded-pill px-3">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <a href="{{ route('dashboard') }}" class="brand-link text-decoration-none d-flex align-items-center">
+                    <img src="{{ asset('image/logo-kemenhub.png') }}" alt="Logo Kemenhub" class="brand-image rounded shadow-sm">
+                    <span class="brand-text fw-semibold ms-2">KSOP Tg.Pinang</span>
+                </a>
+            </div>
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-            <a href="#" class="brand-link">
-                <img src="{{ asset('image') }}/logo-kemenhub.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">KSOP Tg.Pinang</span>
-            </a>
-
-            <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            <!-- Sidebar Wrapper -->
+            <div class="sidebar-wrapper">
+                <!-- User Panel -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center px-2">
+                    <div class="image">
+                        <img src="{{ $userData && $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
+                            class="rounded-circle shadow-sm" style="width: 38px; height: 38px; object-fit: cover;" alt="User">
+                    </div>
+                    <div class="info ms-2 overflow-hidden">
+                        <a href="{{ route('profil.index') }}" class="d-block text-white fw-semibold small text-truncate text-decoration-none">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <small class="text-success d-flex align-items-center" style="font-size: 11px;">
+                            <span class="badge bg-success rounded-circle p-1 me-1" style="width: 6px; height: 6px;"></span>
+                            Petugas Aktif
+                        </small>
                     </div>
                 </div>
 
+                <!-- Navigation Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <li class="nav-item ">
-                            <a href="{{ route('dashboard') }}"
-                                class="nav-link nav-link {{ Request::is('dashboard') ? 'active' : 'inactive' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                        <!-- Dashboard -->
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>DASHBOARD</p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('agenda') ? 'menu-open active' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
+
+                        <!-- Agenda -->
+                        <li class="nav-item {{ Request::is('agenda*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-calendar3"></i>
                                 <p>
                                     AGENDA
-                                    <i class="right fas fa-angle-left"></i>
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('agenda.index') }}"
-                                        class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
-                                        <i class="fas fa-clipboard-list nav-icon"></i>
+                                    <a href="{{ route('agenda.index') }}" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-card-checklist"></i>
                                         <p>Daftar Agenda</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('agenda.create') }}"
-                                        class="nav-link {{ Request::is('agenda/create') ? 'active' : '' }}">
-                                        <i class="fas fa-plus-square nav-icon"></i>
+                                    <a href="{{ route('agenda.create') }}" class="nav-link {{ Request::is('agenda/create') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-plus-circle"></i>
                                         <p>Agenda Baru</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item {{ Request::is('instansi', 'pegawai') ? 'menu-open active' : '' }}">
-                            <a href="#"
-                                class="nav-link {{ Request::is('instansi', 'pegawai') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-database"></i>
+                        <!-- Master Data -->
+                        <li class="nav-item {{ Request::is('instansi*', 'pegawai*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('instansi*', 'pegawai*') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-database-fill"></i>
                                 <p>
                                     MASTER DATA
-                                    <i class="right fas fa-angle-left"></i>
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('instansi.index') }}"
-                                        class="nav-link {{ Request::is('instansi') ? 'active' : '' }}">
-                                        <i class="fas fa-building nav-icon"></i>
+                                    <a href="{{ route('instansi.index') }}" class="nav-link {{ Request::is('instansi*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-building"></i>
                                         <p>Instansi</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('pegawai.index') }}"
-                                        class="nav-link {{ Request::is('pegawai') ? 'active' : '' }}">
-                                        <i class="fas fa-id-card nav-icon"></i>
+                                    <a href="{{ route('pegawai.index') }}" class="nav-link {{ Request::is('pegawai*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-person-badge"></i>
                                         <p>Pegawai</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
+                        <!-- Management (Admin) -->
                         @can('viewAny', App\Models\User::class)
-                            <li class="nav-item {{ Request::is('user') ? 'menu-open active' : '' }}">
-                                <a href="#" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-users-cog"></i>
+                            <li class="nav-item {{ Request::is('user*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                                    <i class="nav-icon bi bi-person-gear"></i>
                                     <p>
                                         MANAGEMENT
-                                        <i class="right fas fa-angle-left"></i>
+                                        <i class="nav-arrow bi bi-chevron-right"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('user.index') }}"
-                                            class="nav-link {{ Request::is('user') ? 'active' : '' }}">
-                                            <i class="fas fa-user-shield nav-icon"></i>
+                                        <a href="{{ route('user.index') }}" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                                            <i class="nav-icon bi bi-shield-lock"></i>
                                             <p>Kelola User</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                         @endcan
-
                     </ul>
                 </nav>
-
             </div>
-
         </aside>
 
-        <div class="content-wrapper">
-            <div class="content-header">
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="app-main">
+            <div class="app-content-header">
                 <div class="container-fluid">
                     @yield('breadcrumb')
                 </div>
             </div>
 
-            <div class="content">
+            <div class="app-content">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
             </div>
-        </div>
+        </main>
 
-        <aside class="control-sidebar control-sidebar-dark">
-
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="app-footer">
+            <div class="float-end d-none d-sm-inline">
+                <small class="text-muted fw-semibold">AdminLTE v4 &bull; Catatan Qu</small>
             </div>
-        </aside>
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                <small>ver.1.0 beta</small>
-            </div>
-
-            <small>Copyright &copy; bangbhe.dev | ksop tanjungpinang 2023</small>
+            <small class="text-muted">
+                Copyright &copy; {{ date('Y') }} &bull; <strong>KSOP Kelas II Tanjungpinang</strong> &bull; Ditjen Perhubungan Laut &bull; Developer: <strong>bangbhe</strong>
+            </small>
         </footer>
     </div>
 
-    <script src="{{ asset('template') }}/plugins/jquery/jquery.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- jQuery (Needed for DataTables, Select2, DateTimePicker, FullCalendar) -->
+    <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-    <script src="{{ asset('template') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- OverlayScrollbars JS -->
+    <script src="{{ asset('vendor/adminlte-v4/js/overlayscrollbars.browser.es6.min.js') }}"></script>
 
-    <script src="{{ asset('template') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="{{ asset('vendor/adminlte-v4/js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ asset('template') }}/plugins/select2/js/select2.full.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- AdminLTE v4 JS -->
+    <script src="{{ asset('vendor/adminlte-v4/js/adminlte.min.js') }}"></script>
 
-    <script src="{{ asset('template') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-
-    <script src="{{ asset('template') }}/plugins/moment/moment.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/inputmask/jquery.inputmask.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="{{ asset('template') }}/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/dropzone/min/dropzone.min.js"></script>
-
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
 
-    <script src="{{ asset('template') }}/dist/js/adminlte.min.js?v=3.2.0"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
 
-    <script src="{{ asset('template') }}/plugins/chart.js/Chart.min.js"></script>
+    <!-- DataTables & Plugins -->
+    <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 
-    <!-- fullCalendar 2.2.5 -->
-    <script src="{{ asset('template') }}/plugins/moment/moment.min.js"></script>
-    <script src="{{ asset('template') }}/plugins/fullcalendar/main.js"></script>
+    <!-- Moment & DateTimePicker -->
+    <script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('template/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
+    <!-- FullCalendar -->
+    <script src="{{ asset('template/plugins/fullcalendar/main.js') }}"></script>
 
+    <!-- Sidebar Scrollbar Initialization -->
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebarWrapper = document.querySelector(".sidebar-wrapper");
+            if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined") {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: "os-theme-light",
+                        autoHide: "leave",
+                        clickScroll: true,
+                    },
+                });
+            }
         });
     </script>
 
+    <!-- DataTables Config -->
     <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-        })
-    </script>
-
-    <script>
-        $(function() {
-            $('#tgl_lahir').datetimepicker({
-                format: 'L'
-            });
-
-            $('#tgl_mulai').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
-
-            $('#tgl_selesai').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
-
-            $('#pukul').datetimepicker({
-                format: 'HH:mm'
-
-            });
+        $(function () {
+            if ($("#example1").length) {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            }
+            if ($("#example2").length) {
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            }
         });
     </script>
 
-    {{-- alert tombol hapus --}}
+    <!-- Select2 Initialization -->
+    <script>
+        $(function () {
+            if ($('.select2').length) {
+                $('.select2').select2();
+            }
+            if ($('.select2bs4').length) {
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                });
+            }
+        });
+    </script>
+
+    <!-- DateTimePicker Initialization -->
+    <script>
+        $(function () {
+            if ($('#tgl_lahir').length) {
+                $('#tgl_lahir').datetimepicker({
+                    format: 'L'
+                });
+            }
+            if ($('#tgl_mulai').length) {
+                $('#tgl_mulai').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            }
+            if ($('#tgl_selesai').length) {
+                $('#tgl_selesai').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            }
+            if ($('#pukul').length) {
+                $('#pukul').datetimepicker({
+                    format: 'HH:mm'
+                });
+            }
+        });
+    </script>
+
+    <!-- SweetAlert Tombol Hapus -->
     <script>
         document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 event.preventDefault();
                 const form = button.closest('.delete-form');
                 Swal.fire({
                     title: 'Hapus Data!',
-                    text: "Anda yakin ingin hapus data?",
+                    text: "Anda yakin ingin menghapus data ini?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Hapus!'
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
@@ -663,20 +812,21 @@
         });
     </script>
 
-    {{-- alert tombol selesai --}}
+    <!-- SweetAlert Tombol Selesai -->
     <script>
         document.querySelectorAll('.selesai-btn').forEach(button => {
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 event.preventDefault();
                 const form = button.closest('.selesai-form');
                 Swal.fire({
                     title: 'Agenda Selesai!',
-                    text: "Anda yakin agenda kegiatan selesai?",
+                    text: "Anda yakin agenda kegiatan telah selesai?",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Selesai!'
+                    confirmButtonColor: '#198754',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Selesai!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
@@ -686,56 +836,53 @@
         });
     </script>
 
-    {{-- calender --}}
-
+    <!-- FullCalendar Initialization -->
     <script>
-        $(function() {
-            var Calendar = FullCalendar.Calendar;
+        $(function () {
             var calendarEl = document.getElementById('calendar');
-
-            var calendar = new Calendar(calendarEl, {
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                themeSystem: 'bootstrap',
-                events: [
-                    @isset($tanggal_agenda)
-                        @foreach ($tanggal_agenda as $data)
-                            @if ($data->id) // Validasi bahwa id ada
-                                {
-                                    title: 'Agenda {{ $data->jenis_agenda }}',
-                                    start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
-                                    end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
-                                    allDay: true,
-                                    backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                        '#0073b7'
-                                    @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                        '#f56954'
-                                    @endif ,
-                                    borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                        '#0073b7'
-                                    @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                        '#f56954'
-                                    @endif ,
-                                    url: '{{ route('agenda.show', $data->id) }}'
-                                }
-                                @if (!$loop->last)
-                                    ,
+            if (calendarEl && typeof FullCalendar !== "undefined") {
+                var Calendar = FullCalendar.Calendar;
+                var calendar = new Calendar(calendarEl, {
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    themeSystem: 'bootstrap5',
+                    events: [
+                        @isset($tanggal_agenda)
+                            @foreach ($tanggal_agenda as $data)
+                                @if ($data->id)
+                                    {
+                                        title: 'Agenda {{ $data->jenis_agenda }}',
+                                        start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
+                                        end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
+                                        allDay: true,
+                                        backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                            '#0073b7'
+                                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                            '#f56954'
+                                        @else
+                                            '#6c757d'
+                                        @endif ,
+                                        borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                            '#0073b7'
+                                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                            '#f56954'
+                                        @else
+                                            '#6c757d'
+                                        @endif ,
+                                        url: '{{ route('agenda.show', $data->id) }}'
+                                    }@if (!$loop->last),@endif
                                 @endif
-                            @endif
-                        @endforeach
-                    @endisset
-                ]
-            });
-
-            calendar.render();
+                            @endforeach
+                        @endisset
+                    ]
+                });
+                calendar.render();
+            }
         });
     </script>
-
-
-
 
     @stack('scripts')
 </body>

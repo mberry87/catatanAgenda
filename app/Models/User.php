@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +10,17 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public const AVAILABLE_PERMISSIONS = [
+        'agenda.view'     => 'Lihat Daftar Agenda',
+        'agenda.create'   => 'Tambah Agenda Baru',
+        'agenda.edit'     => 'Edit & Tandai Selesai Agenda',
+        'agenda.delete'   => 'Hapus Agenda',
+        'agenda.pdf'      => 'Export Laporan PDF',
+        'instansi.manage' => 'Kelola Data Instansi',
+        'pegawai.manage'  => 'Kelola Data Pegawai',
+        'user.manage'     => 'Kelola User & Hak Akses',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -28,10 +38,9 @@ class User extends Authenticatable
         'tmp_lahir',
         'alamat',
         'telepon',
-        'agama',
         'photo_profil',
         'role',
-
+        'permissions',
     ];
 
     /**
@@ -51,5 +60,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'permissions'       => 'array',
     ];
+
+    /**
+     * Check whether the user has a given permission.
+     */
+    public function hasPermission(string $permission): bool
+    {
+        if (is_array($this->permissions)) {
+            return in_array($permission, $this->permissions, true);
+        }
+
+        // Backward compatibility for existing users before permissions were configured
+        if (in_array($this->role, ['admin', 'superadmin'], true)) {
+            return true;
+        }
+
+        return in_array($permission, ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf'], true);
+    }
 }

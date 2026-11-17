@@ -78,18 +78,16 @@
     <div class="row">
         {{-- List Agenda Aktif --}}
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-header">
+            <div class="card card-outline card-primary dashboard-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-list-ul mr-1"></i> Agenda Aktif
+                        <i class="bi bi-list-ul me-1 text-primary"></i> Agenda Aktif
                     </h5>
-                    <div class="card-tools">
-                        <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-xs">
-                            <i class="fas fa-plus"></i> Tambah
-                        </a>
-                    </div>
+                    <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-xs">
+                        <i class="bi bi-plus-lg"></i> Tambah
+                    </a>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0" style="max-height: 520px; overflow-y: auto;">
                     @if ($tanggal_agenda->isEmpty())
                         <div class="text-center text-muted py-4">
                             <i class="fas fa-inbox fa-2x mb-2"></i>
@@ -151,22 +149,20 @@
 
         {{-- Kalender --}}
         <div class="col-lg-8 col-12 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-header">
+            <div class="card card-outline card-primary dashboard-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-calendar mr-1"></i> Kalender Agenda
+                        <i class="bi bi-calendar3 me-1 text-primary"></i> Kalender Agenda
                     </h5>
-                    <div class="card-tools">
-                        <div class="d-flex align-items-center flex-wrap" style="font-size:12px; gap: 8px;">
-                            <span><span class="badge" style="background:#0073b7;">&nbsp;</span> Hadir Fisik</span>
-                            <span><span class="badge bg-success">&nbsp;</span> Daring</span>
-                            <span><span class="badge bg-secondary">&nbsp;</span> Lainnya</span>
-                            <span><span class="badge bg-danger">&nbsp;</span> Hari Nasional</span>
-                        </div>
+                    <div class="d-flex align-items-center flex-wrap" style="font-size:12px; gap: 10px;">
+                        <span class="d-inline-flex align-items-center gap-1"><span class="rounded-circle d-inline-block" style="width:10px;height:10px;background:#0073b7;"></span> Hadir Fisik</span>
+                        <span class="d-inline-flex align-items-center gap-1"><span class="rounded-circle d-inline-block bg-success" style="width:10px;height:10px;"></span> Daring</span>
+                        <span class="d-inline-flex align-items-center gap-1"><span class="rounded-circle d-inline-block bg-secondary" style="width:10px;height:10px;"></span> Lainnya</span>
+                        <span class="d-inline-flex align-items-center gap-1"><span class="rounded-circle d-inline-block bg-danger" style="width:10px;height:10px;"></span> Hari Nasional</span>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <div id="calendar" style="min-height: 400px; padding: 10px;"></div>
+                <div class="card-body p-2">
+                    <div id="calendar" style="min-height: 450px;"></div>
                 </div>
             </div>
         </div>

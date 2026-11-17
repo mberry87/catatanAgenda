@@ -47,7 +47,39 @@
             font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* Default AdminLTE v4 Card & Table Polish */
+        /* Default AdminLTE v4 Card, Small-Box & Table Polish */
+        .small-box {
+            position: relative;
+            border-radius: .5rem;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        .small-box .inner {
+            position: relative;
+            z-index: 1;
+            padding: 16px 18px;
+        }
+        .small-box .inner h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .small-box .inner p {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 0;
+            letter-spacing: .02em;
+        }
+        .small-box .small-box-icon {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            z-index: 0;
+            font-size: 52px;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+        }
         .dashboard-welcome {
             border-radius: .5rem;
         }
@@ -126,7 +158,7 @@
         }
 
         /* Responsive Fixes for All Menus (Mobile & Tablet) */
-        html, body {
+        .app-content {
             overflow-x: hidden;
         }
         .select2-container {

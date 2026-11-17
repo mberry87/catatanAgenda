@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgendaKegiatanController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardCotroller;
 use App\Http\Controllers\PegawaiController;
@@ -87,6 +88,15 @@ Route::middleware('islogin')->group(function () {
     Route::get('status-selesai', [AgendaKegiatanController::class, 'countSelesai'])->name('status.countSelesai');
     Route::get('status-belum-selesai', [AgendaKegiatanController::class, 'countBelumSelesai'])->name('status.countBelumSelesai');
 
+    // chat
+    Route::get('chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('chat/users-status', [ChatController::class, 'usersStatus'])->name('chat.usersStatus');
+    Route::get('chat/messages/{user}', [ChatController::class, 'messages'])->name('chat.messages');
+    Route::post('chat/send/{user}', [ChatController::class, 'send'])->name('chat.send');
+    Route::post('chat/typing/{user}', [ChatController::class, 'typing'])->name('chat.typing');
+    Route::delete('chat/message/{chatMessage}', [ChatController::class, 'destroyMessage'])->name('chat.destroyMessage');
+    Route::delete('chat/conversation/{user}', [ChatController::class, 'clearConversation'])->name('chat.clearConversation');
+    Route::get('chat/attachment/{chatMessage}', [ChatController::class, 'attachment'])->name('chat.attachment');
 
     //signout
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');

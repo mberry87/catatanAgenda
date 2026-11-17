@@ -147,8 +147,56 @@
                     </li>
                 </ul>
 
-                <!-- Right: Notifications, Fullscreen, User Menu -->
+                <!-- Right: Messages, Notifications, Fullscreen, User Menu -->
                 <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Chat Messages Dropdown -->
+                    @if (auth()->user()->hasPermission('chat.access'))
+                        <li class="nav-item dropdown me-2">
+                            <a class="nav-link position-relative text-body" data-bs-toggle="dropdown" href="#" role="button" title="Pesan Masuk">
+                                <i class="bi bi-chat-dots fs-5"></i>
+                                @if (!empty($unreadChatCount) && $unreadChatCount > 0)
+                                    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                                        {{ $unreadChatCount }}
+                                        <span class="visually-hidden">pesan masuk</span>
+                                    </span>
+                                @endif
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 p-0 rounded-3 overflow-hidden">
+                                <div class="px-3 py-2 text-bg-primary d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold small mb-0"><i class="bi bi-chat-dots-fill me-1"></i> Pesan Masuk</span>
+                                    <span class="badge bg-white text-dark small">{{ $unreadChatCount ?? 0 }} Baru</span>
+                                </div>
+                                <div class="list-group list-group-flush" style="max-height: 320px; overflow-y: auto;">
+                                    @forelse($recentUnreadChats ?? [] as $chatMsg)
+                                        <a href="{{ route('chat.index', ['user' => $chatMsg->sender_id]) }}" class="list-group-item list-group-item-action p-2 border-bottom">
+                                            <div class="d-flex align-items-start gap-2">
+                                                <img src="{{ $chatMsg->sender && $chatMsg->sender->photo_profil ? asset('storage/photo_profil/' . $chatMsg->sender->photo_profil) : asset('template/dist/img/avatar5.png') }}"
+                                                    class="rounded-circle border flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;" alt="Avatar">
+                                                <div class="flex-grow-1 overflow-hidden" style="max-width: 220px;">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="small fw-bold text-truncate text-dark">{{ $chatMsg->sender->name ?? 'User' }}</span>
+                                                        <small class="text-muted ms-1" style="font-size: 10px;">{{ $chatMsg->created_at->format('H:i') }}</small>
+                                                    </div>
+                                                    <div class="text-muted text-truncate" style="font-size: 12px;">
+                                                        {{ $chatMsg->message ?: ('📎 ' . $chatMsg->attachment_name) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    @empty
+                                        <div class="text-center text-muted py-4 small">
+                                            <i class="bi bi-chat-check text-success fs-3 d-block mb-1"></i>
+                                            Tidak ada pesan baru saat ini.
+                                        </div>
+                                    @endforelse
+                                </div>
+                                <a href="{{ route('chat.index') }}" class="dropdown-item text-center small text-primary fw-semibold py-2 bg-light border-top">
+                                    Buka Semua Pesan &raquo;
+                                </a>
+                            </div>
+                        </li>
+                    @endif
+
                     <!-- Notification Bell (Pengingat Agenda) -->
                     <li class="nav-item dropdown me-2">
                         <a class="nav-link position-relative text-body" data-bs-toggle="dropdown" href="#" role="button" title="Pengingat Agenda">
@@ -311,6 +359,21 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <!-- Chat -->
+                        @if (auth()->user()->hasPermission('chat.access'))
+                            <li class="nav-item">
+                                <a href="{{ route('chat.index') }}" class="nav-link {{ Request::is('chat*') ? 'active' : '' }}">
+                                    <i class="nav-icon bi bi-chat-dots"></i>
+                                    <p>
+                                        CHAT
+                                        @if (!empty($unreadChatCount))
+                                            <span class="nav-badge badge text-bg-danger">{{ $unreadChatCount }}</span>
+                                        @endif
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
 
                         <!-- Management (Admin) -->
                         @can('viewAny', App\Models\User::class)

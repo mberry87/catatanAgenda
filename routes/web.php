@@ -38,6 +38,7 @@ Route::get('/', function () {
 
 Route::middleware('islogin')->group(function () {
     Route::get('/dashboard', [DashboardCotroller::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/holidays', [DashboardCotroller::class, 'holidays'])->name('dashboard.holidays');
 
     // agenda
     Route::get('agenda', [AgendaKegiatanController::class, 'index'])->name('agenda.index');
@@ -61,6 +62,7 @@ Route::middleware('islogin')->group(function () {
 
     // pegawai
     Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
+    Route::post('pegawai/import-csv', [PegawaiController::class, 'importCsv'])->name('pegawai.importCsv');
     Route::get('create/pegawai', [PegawaiController::class, 'create'])->name('pegawai.create');
     Route::post('pegawai', [PegawaiController::class, 'store'])->name('pegawai.store');
     Route::get('pegawai/{id}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');

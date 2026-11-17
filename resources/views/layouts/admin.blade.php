@@ -124,6 +124,48 @@
             font-size: 12px;
             border-radius: 4px;
         }
+
+        /* Responsive Fixes for All Menus (Mobile & Tablet) */
+        html, body {
+            overflow-x: hidden;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+        .dataTables_wrapper .dt-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .dataTables_wrapper .dataTables_filter input {
+            max-width: 100%;
+        }
+        @media (max-width: 767.98px) {
+            .app-content-header {
+                padding: 12px 0 6px;
+            }
+            .breadcrumb {
+                float: none !important;
+                margin-top: 4px;
+                margin-bottom: 0;
+            }
+            .dataTables_wrapper .dataTables_filter {
+                text-align: left !important;
+                margin-top: 6px;
+            }
+            .fc .fc-header-toolbar {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .fc .fc-toolbar-title {
+                font-size: 1.05rem !important;
+            }
+            .navbar-nav .dropdown-menu-lg {
+                min-width: 260px;
+                max-width: calc(100vw - 24px);
+            }
+        }
     </style>
 </head>
 
@@ -543,44 +585,47 @@
         });
     </script>
 
-    <!-- SweetAlert Tombol Hapus -->
+    <!-- SweetAlert Tombol Hapus (Event Delegation untuk DataTables Responsive & Pagination) -->
     <script>
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                const form = button.closest('.delete-form');
-                Swal.fire({
-                    title: 'Hapus Data!',
-                    text: "Anda yakin ingin menghapus data ini?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
+        document.addEventListener('click', function (event) {
+            const button = event.target.closest('.delete-btn');
+            if (!button) return;
+            event.preventDefault();
+            const form = button.closest('.delete-form');
+            if (!form) return;
+            Swal.fire({
+                title: 'Hapus Data!',
+                text: "Anda yakin ingin menghapus data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
     </script>
 
-    <!-- SweetAlert Tombol Selesai -->
+    <!-- SweetAlert Tombol Selesai (Event Delegation untuk DataTables Responsive & Pagination) -->
     <script>
-        document.querySelectorAll('.selesai-btn').forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                const form = button.closest('.selesai-form');
-                Swal.fire({
-                    title: 'Agenda Selesai!',
-                    text: "Anda yakin agenda kegiatan telah selesai?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#198754',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Ya, Selesai!',
+        document.addEventListener('click', function (event) {
+            const button = event.target.closest('.selesai-btn');
+            if (!button) return;
+            event.preventDefault();
+            const form = button.closest('.selesai-form');
+            if (!form) return;
+            Swal.fire({
+                title: 'Agenda Selesai!',
+                text: "Anda yakin agenda kegiatan telah selesai?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Selesai!',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -604,34 +649,44 @@
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
                     themeSystem: 'bootstrap5',
-                    events: [
-                        @isset($tanggal_agenda)
-                            @foreach ($tanggal_agenda as $data)
-                                @if ($data->id)
-                                    {
-                                        title: 'Agenda {{ $data->jenis_agenda }}',
-                                        start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
-                                        end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
-                                        allDay: true,
-                                        backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                            '#0073b7'
-                                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                            '#f56954'
-                                        @else
-                                            '#6c757d'
-                                        @endif ,
-                                        borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
-                                            '#0073b7'
-                                        @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
-                                            '#f56954'
-                                        @else
-                                            '#6c757d'
-                                        @endif ,
-                                        url: '{{ route('agenda.show', $data->id) }}'
-                                    }@if (!$loop->last),@endif
-                                @endif
-                            @endforeach
-                        @endisset
+                    eventSources: [
+                        {
+                            events: [
+                                @isset($tanggal_agenda)
+                                    @foreach ($tanggal_agenda as $data)
+                                        @if ($data->id)
+                                            {
+                                                title: 'Agenda {{ $data->jenis_agenda }}',
+                                                start: '{{ \Carbon\Carbon::parse($data->tgl_mulai)->format('Y-m-d') }}',
+                                                end: '{{ \Carbon\Carbon::parse($data->tgl_selesai)->addDay()->format('Y-m-d') }}',
+                                                allDay: true,
+                                                backgroundColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                                    '#0073b7'
+                                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                                    '#198754'
+                                                @else
+                                                    '#6c757d'
+                                                @endif ,
+                                                borderColor: @if ($data->jenis_agenda == 'Hadir Fisik')
+                                                    '#0073b7'
+                                                @elseif ($data->jenis_agenda == 'Zoom Meet (Daring)')
+                                                    '#198754'
+                                                @else
+                                                    '#6c757d'
+                                                @endif ,
+                                                url: '{{ route('agenda.show', $data->id) }}'
+                                            }@if (!$loop->last),@endif
+                                        @endif
+                                    @endforeach
+                                @endisset
+                            ]
+                        },
+                        {
+                            url: '{{ route('dashboard.holidays') }}',
+                            failure: function () {
+                                // Abaikan jika koneksi offline
+                            }
+                        }
                     ]
                 });
                 calendar.render();

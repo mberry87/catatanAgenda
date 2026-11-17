@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\AgendaKegiatan;
 use App\Models\Pegawai;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class DashboardCotroller extends Controller
 {
@@ -64,5 +67,78 @@ class DashboardCotroller extends Controller
             'chartSelesai',
             'jenisCounts'
         ));
+    }
+
+    /**
+     * Ambil daftar Hari Libur Nasional / Hari Besar dari API gratis (dengan cache 24 jam).
+     */
+    public function holidays(Request $request)
+    {
+        $startYear = $request->filled('start')
+            ? Carbon::parse($request->input('start'))->year
+            : Carbon::now()->year;
+        $endYear = $request->filled('end')
+            ? Carbon::parse($request->input('end'))->year
+            : $startYear;
+
+        $years = range(min($startYear, $endYear), max($startYear, $endYear));
+        $events = [];
+
+        foreach ($years as $year) {
+            $yearEvents = Cache::remember("national_holidays_{$year}", now()->addHours(24), function () use ($year) {
+                $items = [];
+
+                // Primary: API Hari Libur Indonesia
+                try {
+                    $response = Http::timeout(5)->get("https://api-harilibur.vercel.app/api?year={$year}");
+                    if ($response->successful() && is_array($response->json())) {
+                        foreach ($response->json() as $row) {
+                            if (!empty($row['holiday_date']) && !empty($row['holiday_name'])) {
+                                $items[] = [
+                                    'date' => Carbon::parse($row['holiday_date'])->format('Y-m-d'),
+                                    'name' => $row['holiday_name'],
+                                ];
+                            }
+                        }
+                    }
+                } catch (\Throwable $e) {
+                    // Fallback ke Nager.Date di bawah
+                }
+
+                // Fallback: Nager.Date Public Holidays API (ID)
+                if (empty($items)) {
+                    try {
+                        $response = Http::timeout(5)->get("https://date.nager.at/api/v3/PublicHolidays/{$year}/ID");
+                        if ($response->successful() && is_array($response->json())) {
+                            foreach ($response->json() as $row) {
+                                if (!empty($row['date']) && (!empty($row['localName']) || !empty($row['name']))) {
+                                    $items[] = [
+                                        'date' => Carbon::parse($row['date'])->format('Y-m-d'),
+                                        'name' => $row['localName'] ?? $row['name'],
+                                    ];
+                                }
+                            }
+                        }
+                    } catch (\Throwable $e) {
+                        // Abaikan jika offline
+                    }
+                }
+
+                return $items;
+            });
+
+            foreach ($yearEvents as $item) {
+                $events[] = [
+                    'title'           => $item['name'],
+                    'start'           => $item['date'],
+                    'allDay'          => true,
+                    'backgroundColor' => '#dc3545',
+                    'borderColor'     => '#dc3545',
+                    'textColor'       => '#ffffff',
+                ];
+            }
+        }
+
+        return response()->json($events);
     }
 }

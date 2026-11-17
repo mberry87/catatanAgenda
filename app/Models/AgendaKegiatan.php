@@ -91,8 +91,7 @@ class AgendaKegiatan extends Model
     {
         $start = $this->parsed_tgl_mulai;
         if (!$start) return false;
-        $today = Carbon::today();
-        return $today->diffInDays($start, false) === 1;
+        return $start->isTomorrow();
     }
 
     /**
@@ -140,7 +139,7 @@ class AgendaKegiatan extends Model
         // Jika belum hari H (mendatang)
         $start = $this->parsed_tgl_mulai;
         if ($start && Carbon::today()->lt($start)) {
-            $days = Carbon::today()->diffInDays($start, false);
+            $days = (int) round(Carbon::today()->diffInDays($start, false));
             return [
                 'label' => "Terjadwal (H-$days)",
                 'class' => 'badge-primary',

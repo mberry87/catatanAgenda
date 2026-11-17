@@ -22,7 +22,7 @@
             <div class="card card-outline card-primary dashboard-card overflow-hidden">
                 <div class="row g-0" style="min-height: 580px;">
                     {{-- KOLOM KIRI: DAFTAR KONTAK --}}
-                    <div class="col-md-4 col-lg-3 border-end d-flex flex-column bg-light-subtle">
+                    <div id="chatContactsCol" class="col-md-4 col-lg-3 border-end d-flex flex-column bg-light-subtle">
                         <div class="p-3 border-bottom bg-white">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
@@ -68,7 +68,7 @@
                     </div>
 
                     {{-- KOLOM KANAN: AREA CHAT --}}
-                    <div class="col-md-8 col-lg-9 d-flex flex-column bg-white">
+                    <div id="chatPaneCol" class="col-md-8 col-lg-9 d-none d-md-flex flex-column bg-white">
                         {{-- Empty State --}}
                         <div id="chatEmptyState" class="d-flex flex-column align-items-center justify-content-center flex-grow-1 text-muted p-4">
                             <i class="bi bi-chat-square-text fs-1 text-primary mb-3"></i>
@@ -83,6 +83,9 @@
                             {{-- Header --}}
                             <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
                                 <div class="d-flex align-items-center gap-2">
+                                    <button type="button" id="mobileBackToContactsBtn" class="btn btn-outline-secondary btn-sm d-md-none" title="Daftar Kontak">
+                                        <i class="bi bi-arrow-left"></i>
+                                    </button>
                                     <div class="position-relative">
                                         <img id="activeUserAvatar" src="{{ asset('template/dist/img/avatar5.png') }}"
                                             class="rounded-circle border" style="width: 40px; height: 40px; object-fit: cover;" alt="Avatar">
@@ -186,6 +189,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const emojiGrid = document.getElementById('emojiGrid');
     const clearChatBtn = document.getElementById('clearChatBtn');
     const canDeleteMessage = @json($canDeleteMessage);
+    const chatContactsCol = document.getElementById('chatContactsCol');
+    const chatPaneCol = document.getElementById('chatPaneCol');
+    const mobileBackToContactsBtn = document.getElementById('mobileBackToContactsBtn');
 
     let activeUserId = null;
     let lastRenderedHash = '';
@@ -260,7 +266,23 @@ document.addEventListener('DOMContentLoaded', function () {
         chatEmptyState.classList.add('d-none');
         chatActivePane.classList.remove('d-none');
         chatActivePane.classList.add('d-flex');
+        if (chatContactsCol && chatPaneCol) {
+            chatContactsCol.classList.add('d-none', 'd-md-flex');
+            chatPaneCol.classList.remove('d-none');
+            chatPaneCol.classList.add('d-flex');
+        }
         loadMessages(true);
+    }
+
+    if (mobileBackToContactsBtn) {
+        mobileBackToContactsBtn.addEventListener('click', function () {
+            if (chatContactsCol && chatPaneCol) {
+                chatContactsCol.classList.remove('d-none');
+                chatContactsCol.classList.add('d-flex');
+                chatPaneCol.classList.add('d-none', 'd-md-flex');
+                chatPaneCol.classList.remove('d-flex');
+            }
+        });
     }
 
     function escapeHtml(text) {

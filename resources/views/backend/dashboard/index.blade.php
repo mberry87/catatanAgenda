@@ -77,7 +77,7 @@
     {{-- ==================== MAIN CONTENT ==================== --}}
     <div class="row">
         {{-- List Agenda Aktif --}}
-        <div class="col-md-4 mb-4">
+        <div class="col-lg-4 col-12 mb-4">
             <div class="card dashboard-card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
@@ -150,17 +150,18 @@
         </div>
 
         {{-- Kalender --}}
-        <div class="col-md-8 mb-4">
+        <div class="col-lg-8 col-12 mb-4">
             <div class="card dashboard-card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-calendar mr-1"></i> Kalender Agenda
                     </h5>
                     <div class="card-tools">
-                        <div class="d-flex align-items-center" style="font-size:12px; gap: 8px;">
+                        <div class="d-flex align-items-center flex-wrap" style="font-size:12px; gap: 8px;">
                             <span><span class="badge" style="background:#0073b7;">&nbsp;</span> Hadir Fisik</span>
-                            <span><span class="badge badge-danger">&nbsp;</span> Daring</span>
-                            <span><span class="badge badge-secondary">&nbsp;</span> Lainnya</span>
+                            <span><span class="badge bg-success">&nbsp;</span> Daring</span>
+                            <span><span class="badge bg-secondary">&nbsp;</span> Lainnya</span>
+                            <span><span class="badge bg-danger">&nbsp;</span> Hari Nasional</span>
                         </div>
                     </div>
                 </div>
@@ -173,7 +174,7 @@
 
     {{-- ==================== CHARTS ROW ==================== --}}
     <div class="row">
-        <div class="col-md-7 mb-4">
+        <div class="col-lg-7 col-12 mb-4">
             <div class="card card-outline card-primary dashboard-card h-100">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
@@ -187,7 +188,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 mb-4">
+        <div class="col-lg-5 col-12 mb-4">
             <div class="card card-outline card-info dashboard-card h-100">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
@@ -251,7 +252,7 @@
                         labels: @json(array_keys($jenisCounts)),
                         datasets: [{
                             data: @json(array_values($jenisCounts)),
-                            backgroundColor: ['#0d6efd', '#dc3545', '#6c757d'],
+                            backgroundColor: ['#0d6efd', '#198754', '#6c757d'],
                             borderWidth: 2
                         }]
                     },

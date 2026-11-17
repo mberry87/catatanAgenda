@@ -43,11 +43,13 @@ class PegawaiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
-            'nip' => 'required',
-            'gol' => 'required',
+            'nama'       => 'required|string|max:255',
+            'nip'        => 'required|string|max:255',
+            'gol'        => 'nullable|string|max:255',
+            'jabatan'    => 'nullable|string|max:255',
+            'unit_kerja' => 'nullable|string|max:255',
+            'status'     => 'nullable|string|max:255',
         ]);
-
 
         Pegawai::create($validatedData);
 
@@ -100,14 +102,20 @@ class PegawaiController extends Controller
         }
 
         $request->validate([
-            'nama' => 'required',
-            'nip' => 'required',
-            'gol' => 'required',
+            'nama'       => 'required|string|max:255',
+            'nip'        => 'required|string|max:255',
+            'gol'        => 'nullable|string|max:255',
+            'jabatan'    => 'nullable|string|max:255',
+            'unit_kerja' => 'nullable|string|max:255',
+            'status'     => 'nullable|string|max:255',
         ]);
 
         $pegawai->nama = $request->nama;
         $pegawai->nip = $request->nip;
         $pegawai->gol = $request->gol;
+        $pegawai->jabatan = $request->jabatan;
+        $pegawai->unit_kerja = $request->unit_kerja;
+        $pegawai->status = $request->status;
         $pegawai->save();
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil diperbarui.');

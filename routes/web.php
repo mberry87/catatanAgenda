@@ -39,6 +39,7 @@ Route::get('/', function () {
 Route::middleware('islogin')->group(function () {
     Route::get('/dashboard', [DashboardCotroller::class, 'index'])->name('dashboard');
     Route::get('/dashboard/holidays', [DashboardCotroller::class, 'holidays'])->name('dashboard.holidays');
+    Route::post('/notifications/mark-read', [DashboardCotroller::class, 'markNotificationsRead'])->name('notifications.markRead');
 
     // agenda
     Route::get('agenda', [AgendaKegiatanController::class, 'index'])->name('agenda.index');

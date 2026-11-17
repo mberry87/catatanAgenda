@@ -19,7 +19,7 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="card dashboard-card">
+            <div class="card card-outline card-primary dashboard-card">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <h5 class="card-title mb-0">
                         <i class="bi bi-calendar2-event me-2 text-primary"></i>Daftar Agenda Kegiatan

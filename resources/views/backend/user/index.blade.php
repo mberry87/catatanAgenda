@@ -19,12 +19,12 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="card dashboard-card">
+            <div class="card card-outline card-primary dashboard-card">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <h5 class="card-title mb-0">
-                        <i class="bi bi-people me-2 text-primary"></i>Daftar Data User
+                        <i class="bi bi-people me-2 text-primary"></i>Daftar Data User &amp; Hak Akses
                     </h5>
-                    <a href="{{ route('user.create') }}" class="btn btn-ksop btn-sm px-3">
+                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm px-3">
                         <i class="bi bi-plus-lg me-1"></i> Tambah User
                     </a>
                 </div>
@@ -38,6 +38,7 @@
                                     <th>Username</th>
                                     <th>NIP</th>
                                     <th>Role</th>
+                                    <th>Hak Akses</th>
                                     <th>Email</th>
                                     <th style="width: 140px;">Aksi</th>
                                 </tr>
@@ -51,11 +52,34 @@
                                         <td>{{ $data->nip ?: '-' }}</td>
                                         <td>
                                             @if ($data->role === 'superadmin')
-                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">Super Admin</span>
+                                                <span class="badge bg-danger">Super Admin</span>
                                             @elseif($data->role === 'admin')
-                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Admin</span>
+                                                <span class="badge bg-primary">Admin</span>
                                             @elseif($data->role === 'user')
-                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1">User</span>
+                                                <span class="badge bg-secondary">User</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @php
+                                                $allPerms = \App\Models\User::AVAILABLE_PERMISSIONS;
+                                                $perms = is_array($data->permissions) ? $data->permissions : null;
+                                            @endphp
+                                            @if ($perms === null)
+                                                <span class="badge bg-info text-dark">
+                                                    {{ $data->role === 'admin' ? 'Semua Akses (Default)' : 'Akses Standar User' }}
+                                                </span>
+                                            @elseif (count($perms) === count($allPerms))
+                                                <span class="badge bg-success">Semua Akses ({{ count($perms) }})</span>
+                                            @elseif (count($perms) === 0)
+                                                <span class="badge bg-light text-muted border">Tidak ada akses</span>
+                                            @else
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    @foreach ($perms as $perm)
+                                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                                            {{ $allPerms[$perm] ?? $perm }}
+                                                        </span>
+                                                    @endforeach
+                                                </div>
                                             @endif
                                         </td>
                                         <td>{{ $data->email }}</td>

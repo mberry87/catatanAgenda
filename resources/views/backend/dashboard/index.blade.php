@@ -16,76 +16,58 @@
 @endsection
 
 @section('content')
-    {{-- ==================== WELCOME BANNER ==================== --}}
-    <div class="card dashboard-welcome mb-4">
-        <div class="card-body d-flex flex-wrap justify-content-between align-items-center">
-            <div>
-                <h3 class="mb-1">Halo, {{ Auth::user()->name }}</h3>
-                <p class="mb-0">Ringkasan agenda dan data pelayanan KSOP Tanjungpinang hari ini.</p>
-            </div>
-            {{-- <div class="mt-3 mt-md-0">
-                <a href="{{ route('agenda.create') }}" class="btn btn-light btn-sm font-weight-bold">
-                    <i class="fas fa-plus mr-1"></i> Agenda Baru
-                </a>
-            </div> --}}
-        </div>
-    </div>
-
-    {{-- ==================== STAT BOXES (AGENDA) ==================== --}}
+    {{-- ==================== STAT BOXES (AGENDA, USER, PEGAWAI) ==================== --}}
     <div class="row">
         {{-- In Progress --}}
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-            <div class="small-box dashboard-stat">
+        <div class="col-lg col-md-6 col-sm-12 mb-4">
+            <div class="small-box text-bg-warning">
                 <div class="inner">
                     <h3>{{ $count_in_progress }}</h3>
                     <p>AGENDA IN PROGRESS</p>
                 </div>
-                <div class="icon"><i class="fas fa-spinner"></i></div>
-                <a href="{{ route('status.countBelumSelesai') }}" class="small-box-footer">
-                    Detail <i class="fas fa-arrow-circle-right"></i>
+                <div class="small-box-icon"><i class="bi bi-hourglass-split"></i></div>
+                <a href="{{ route('status.countBelumSelesai') }}" class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover">
+                    Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
 
         {{-- Selesai --}}
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-            <div class="small-box dashboard-stat">
+        <div class="col-lg col-md-6 col-sm-12 mb-4">
+            <div class="small-box text-bg-success">
                 <div class="inner">
                     <h3>{{ $count_selesai }}</h3>
                     <p>AGENDA SELESAI</p>
                 </div>
-                <div class="icon"><i class="fas fa-check-circle"></i></div>
-                <a href="{{ route('status.countSelesai') }}" class="small-box-footer">
-                    Detail <i class="fas fa-arrow-circle-right"></i>
+                <div class="small-box-icon"><i class="bi bi-check-circle"></i></div>
+                <a href="{{ route('status.countSelesai') }}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                    Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
-    </div>
 
-    {{-- Baris ke-2: User & Pegawai --}}
-    <div class="row">
         @can('viewAny', App\Models\User::class)
-            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div class="small-box dashboard-stat">
+            <div class="col-lg col-md-6 col-sm-12 mb-4">
+                <div class="small-box text-bg-info">
                     <div class="inner">
                         <h3>{{ \App\Models\User::whereNotNull('username')->count() }}</h3>
                         <p>USER TERDAFTAR</p>
                     </div>
-                    <div class="icon"><i class="fas fa-users"></i></div>
-                    <a href="{{ route('user.index') }}" class="small-box-footer">
-                        Detail <i class="fas fa-arrow-circle-right"></i>
+                    <div class="small-box-icon"><i class="bi bi-people"></i></div>
+                    <a href="{{ route('user.index') }}" class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover">
+                        Detail <i class="bi bi-arrow-right-circle"></i>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div class="small-box dashboard-stat">
+            <div class="col-lg col-md-6 col-sm-12 mb-4">
+                <div class="small-box text-bg-primary">
                     <div class="inner">
                         <h3>{{ $jumlah_pegawai }}</h3>
                         <p>PEGAWAI TERDAFTAR</p>
                     </div>
-                    <div class="icon"><i class="fas fa-id-card"></i></div>
-                    <a href="{{ route('pegawai.index') }}" class="small-box-footer">
-                        Detail <i class="fas fa-arrow-circle-right"></i>
+                    <div class="small-box-icon"><i class="bi bi-person-badge"></i></div>
+                    <a href="{{ route('pegawai.index') }}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                        Detail <i class="bi bi-arrow-right-circle"></i>
                     </a>
                 </div>
             </div>
@@ -188,4 +170,100 @@
             </div>
         </div>
     </div>
+
+    {{-- ==================== CHARTS ROW ==================== --}}
+    <div class="row">
+        <div class="col-md-7 mb-4">
+            <div class="card card-outline card-primary dashboard-card h-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-bar-chart-fill me-2 text-primary"></i>Grafik Agenda 6 Bulan Terakhir
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div style="height: 260px;">
+                        <canvas id="agendaMonthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mb-4">
+            <div class="card card-outline card-info dashboard-card h-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-pie-chart-fill me-2 text-info"></i>Distribusi Jenis Agenda
+                    </h5>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div style="height: 260px; width: 100%;">
+                        <canvas id="agendaTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('template/plugins/chart.js/Chart.min.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthlyCtx = document.getElementById('agendaMonthlyChart');
+            if (monthlyCtx && typeof Chart !== 'undefined') {
+                new Chart(monthlyCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: @json($chartMonths),
+                        datasets: [
+                            {
+                                label: 'In Progress',
+                                backgroundColor: '#ffc107',
+                                borderColor: '#e0a800',
+                                borderWidth: 1,
+                                data: @json($chartInProgress)
+                            },
+                            {
+                                label: 'Selesai',
+                                backgroundColor: '#198754',
+                                borderColor: '#157347',
+                                borderWidth: 1,
+                                data: @json($chartSelesai)
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: { beginAtZero: true, precision: 0 }
+                            }]
+                        }
+                    }
+                });
+            }
+
+            const typeCtx = document.getElementById('agendaTypeChart');
+            if (typeCtx && typeof Chart !== 'undefined') {
+                new Chart(typeCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: @json(array_keys($jenisCounts)),
+                        datasets: [{
+                            data: @json(array_values($jenisCounts)),
+                            backgroundColor: ['#0d6efd', '#dc3545', '#6c757d'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+@endpush

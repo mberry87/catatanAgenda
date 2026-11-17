@@ -27,7 +27,8 @@ class UserController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('backend.user.create', compact('users'));
+        $availablePermissions = User::AVAILABLE_PERMISSIONS;
+        return view('backend.user.create', compact('users', 'availablePermissions'));
     }
 
     /**
@@ -38,15 +39,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:users,username',
-            'nip' => 'required',
-            'email' => 'required|unique:users,email',
-            'role' => 'required|in:admin,user',
+        $permissionKeys = implode(',', array_keys(User::AVAILABLE_PERMISSIONS));
 
+        $validatedData = $request->validate([
+            'name'          => 'required',
+            'username'      => 'required|unique:users,username',
+            'nip'           => 'required',
+            'email'         => 'required|unique:users,email',
+            'role'          => 'required|in:admin,user',
+            'permissions'   => 'nullable|array',
+            'permissions.*' => 'string|in:' . $permissionKeys,
         ]);
 
+        $validatedData['permissions'] = $request->input('permissions', []);
         $validatedData['password'] = bcrypt('password'); // membuat password tersimpan otomatis
 
         User::create($validatedData);
@@ -80,7 +85,9 @@ class UserController extends Controller
             abort(404);
         }
 
-        return view('backend.user.edit', compact('users'));
+        $availablePermissions = User::AVAILABLE_PERMISSIONS;
+
+        return view('backend.user.edit', compact('users', 'availablePermissions'));
     }
 
     /**
@@ -99,12 +106,16 @@ class UserController extends Controller
             abort(404);
         }
 
+        $permissionKeys = implode(',', array_keys(User::AVAILABLE_PERMISSIONS));
+
         $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:users,username,' . $users->id,
-            'nip' => 'required',
-            'email' => 'required|unique:users,email,' . $users->id,
-            'role' => 'required|in:admin,user',
+            'name'          => 'required',
+            'username'      => 'required|unique:users,username,' . $users->id,
+            'nip'           => 'required',
+            'email'         => 'required|unique:users,email,' . $users->id,
+            'role'          => 'required|in:admin,user',
+            'permissions'   => 'nullable|array',
+            'permissions.*' => 'string|in:' . $permissionKeys,
         ]);
 
         $users->name = $request->name;
@@ -112,6 +123,7 @@ class UserController extends Controller
         $users->nip = $request->nip;
         $users->email = $request->email;
         $users->role = $request->role;
+        $users->permissions = $request->input('permissions', []);
         $users->save();
 
         return redirect()->route('user.index')->with('success', 'user berhasil diperbarui.');

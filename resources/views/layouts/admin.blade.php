@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Panel') | Catatan Qu - KSOP Tg. Pinang</title>
+    <title>@yield('title', 'Admin Panel') | SeAgenda (Semua Agenda)</title>
 
     <!-- Google Font: Source Sans 3 (AdminLTE v4 Standard) -->
     <link rel="stylesheet"
@@ -43,327 +43,44 @@
     <link rel="stylesheet" href="{{ asset('template/plugins/fullcalendar/main.css') }}">
 
     <style>
-        :root {
-            --ksop-navy-dark: #07233b;
-            --ksop-navy-mid: #0a3857;
-            --ksop-teal: #1098a3;
-            --ksop-teal-light: #20c5d2;
-            --ksop-bg-soft: #f4f7fb;
-        }
-
         body {
-            background-color: var(--ksop-bg-soft);
             font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* App Header / Navbar */
-        .app-header {
-            background-color: #ffffff !important;
-            border-bottom: 1px solid #e8eef5;
-            box-shadow: 0 2px 10px rgba(10, 37, 64, 0.04);
-            height: 60px;
-        }
-
-        .hover-bg:hover {
-            background-color: rgba(16, 152, 163, 0.08);
-        }
-
-        /* App Sidebar */
-        .app-sidebar {
-            background: linear-gradient(180deg, #072238 0%, #0a3857 60%, #072034 100%) !important;
-            box-shadow: 2px 0 16px rgba(4, 22, 38, 0.15);
-        }
-
-        .sidebar-brand {
-            height: 60px;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .sidebar-brand .brand-link {
-            display: flex;
-            align-items: center;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 15px;
-            letter-spacing: .02em;
-        }
-
-        .sidebar-brand .brand-image {
-            width: 36px;
-            height: 36px;
-            background: #ffffff;
-            padding: 3px;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .sidebar-wrapper {
-            padding: 0 8px;
-        }
-
-        .user-panel {
-            padding: 14px 10px !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .sidebar-menu .nav-item {
-            margin-bottom: 4px;
-        }
-
-        .sidebar-menu .nav-link {
-            border-radius: 10px;
-            color: rgba(255, 255, 255, 0.75);
-            padding: 10px 14px;
-            font-size: 13.5px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            transition: all .2s ease;
-        }
-
-        .sidebar-menu .nav-link:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-menu .nav-link.active {
-            color: #ffffff !important;
-            background: linear-gradient(100deg, #108c9a 0%, #12608b 100%) !important;
-            box-shadow: 0 6px 16px rgba(5, 20, 40, 0.28);
-            font-weight: 600;
-        }
-
-        .sidebar-menu .nav-link .nav-icon {
-            font-size: 17px;
-            margin-right: 10px;
-            width: 22px;
-            text-align: center;
-        }
-
-        .sidebar-menu .nav-treeview {
-            padding: 4px 0 4px 14px;
-            list-style: none;
-        }
-
-        .sidebar-menu .nav-treeview .nav-link {
-            padding: 8px 12px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.68);
-        }
-
-        .sidebar-menu .nav-treeview .nav-link:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .sidebar-menu .nav-treeview .nav-link.active {
-            color: #ffffff !important;
-            background: rgba(16, 140, 154, 0.45) !important;
-            box-shadow: none;
-        }
-
-        .sidebar-menu .nav-arrow {
-            margin-left: auto;
-            transition: transform .3s ease;
-            font-size: 12px;
-        }
-
-        .sidebar-menu .menu-open > .nav-link .nav-arrow {
-            transform: rotate(90deg);
-        }
-
-        /* Main Content */
-        .app-main {
-            background-color: var(--ksop-bg-soft);
-            min-height: calc(100vh - 115px);
-        }
-
-        .app-content-header {
-            padding: 20px 0 10px;
-        }
-
-        .app-content-header h4 {
-            color: var(--ksop-navy-dark);
-            font-weight: 700;
-            margin: 0;
-        }
-
-        /* Dashboard & Card Styles */
+        /* Default AdminLTE v4 Card & Table Polish */
         .dashboard-welcome {
-            border: 0;
-            border-radius: 18px;
-            overflow: hidden;
-            color: #ffffff;
-            background: linear-gradient(115deg, #072540 0%, #0d5c7c 60%, #129aa2 100%);
-            box-shadow: 0 12px 30px rgba(10, 73, 105, 0.16);
-        }
-
-        .dashboard-welcome .card-body {
-            padding: 26px 30px;
-        }
-
-        .dashboard-welcome h3 {
-            font-weight: 700;
-        }
-
-        .dashboard-welcome p {
-            color: rgba(255, 255, 255, 0.82);
-        }
-
-        .dashboard-stat {
-            border: 0;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 6px 20px rgba(25, 56, 88, 0.07);
-            position: relative;
-            display: block;
-            margin-bottom: 20px;
-            overflow: hidden;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-
-        .dashboard-stat:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(25, 56, 88, 0.12);
-        }
-
-        .dashboard-stat .inner {
-            padding: 20px 22px;
-        }
-
-        .dashboard-stat h3 {
-            color: var(--ksop-navy-dark);
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .dashboard-stat p {
-            margin: 0;
-            color: #728498;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-        }
-
-        .dashboard-stat .icon {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            font-size: 42px;
-            color: #dbeaf0;
-            transition: transform .3s ease;
-        }
-
-        .dashboard-stat:hover .icon {
-            transform: scale(1.1);
-            color: #c7e1eb;
-        }
-
-        .dashboard-stat .small-box-footer {
-            border-radius: 0 0 16px 16px;
-            color: #128291;
-            background: #f7fafc;
-            display: block;
-            padding: 8px 22px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            border-top: 1px solid #edf2f7;
-            transition: background .2s ease;
-        }
-
-        .dashboard-stat .small-box-footer:hover {
-            background: #edf6f8;
-            color: #0b5963;
+            border-radius: .5rem;
         }
 
         .dashboard-card {
-            border: 0;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(25, 56, 88, 0.07);
-            background: #ffffff;
-            overflow: hidden;
+            border-radius: .5rem;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
         }
 
-        .dashboard-card .card-header {
-            border-bottom: 1px solid #edf1f5;
-            background: #ffffff;
-            padding: 16px 22px;
-        }
-
-        .dashboard-card .card-title {
-            color: var(--ksop-navy-dark);
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        /* Modern Table & Form Polish */
         .table-modern {
-            border-color: #e6edf5;
             margin-bottom: 0;
         }
+
         .table-modern thead th {
-            background-color: #f4f7fb;
-            color: var(--ksop-navy-dark);
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: .03em;
-            border-bottom: 2px solid #dce5ef;
             vertical-align: middle;
             white-space: nowrap;
         }
+
         .table-modern tbody td {
             vertical-align: middle;
-            font-size: 13.5px;
-            border-color: #edf2f7;
-        }
-        .table-modern tbody tr:hover {
-            background-color: #f8fbfd;
-        }
-        .btn-ksop {
-            background: linear-gradient(100deg, #108c9a 0%, #12608b 100%);
-            border: 0;
-            color: #ffffff;
-            font-weight: 600;
-            border-radius: 10px;
-            transition: opacity .2s ease, transform .15s ease;
-        }
-        .btn-ksop:hover {
-            color: #ffffff;
-            opacity: .92;
-            transform: translateY(-1px);
-        }
-        .dashboard-card .form-label {
-            font-weight: 600;
-            color: #334e68;
-            font-size: 13.5px;
-            margin-bottom: 6px;
-        }
-        .dashboard-card .form-control,
-        .dashboard-card .form-select {
-            border-radius: 10px;
-            border-color: #dce5ef;
-            font-size: 14px;
-        }
-        .dashboard-card .form-control:focus,
-        .dashboard-card .form-select:focus {
-            border-color: var(--ksop-teal);
-            box-shadow: 0 0 0 0.2rem rgba(16, 152, 163, 0.15);
         }
 
-        /* App Footer */
-        .app-footer {
-            background-color: #ffffff;
-            border-top: 1px solid #e8eef5;
-            padding: 14px 24px;
-            color: #6c7c8c;
-            font-size: 13px;
+        .btn-ksop {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        .btn-ksop:hover,
+        .btn-ksop:focus {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+            color: #ffffff;
         }
 
         /* Compatibility Helpers for Bootstrap 4 -> Bootstrap 5 */
@@ -405,13 +122,7 @@
         .btn-xs {
             padding: 2px 8px;
             font-size: 12px;
-            border-radius: 6px;
-        }
-
-        @media (max-width: 767.98px) {
-            .dashboard-welcome .card-body {
-                padding: 20px;
-            }
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -431,7 +142,7 @@
                     </li>
                     <li class="nav-item d-none d-md-flex align-items-center ms-2">
                         <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 fw-medium">
-                            <i class="bi bi-calendar2-week me-1"></i> Catatan Qu &bull; KSOP Kelas II Tanjungpinang
+                            <i class="bi bi-calendar2-week me-1"></i> SeAgenda (Semua Agenda)
                         </span>
                     </li>
                 </ul>
@@ -450,8 +161,7 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 p-0 rounded-3 overflow-hidden">
-                            <div class="px-3 py-2 text-white d-flex justify-content-between align-items-center"
-                                 style="background: linear-gradient(135deg, #072540 0%, #108c9a 100%);">
+                            <div class="px-3 py-2 text-bg-primary d-flex justify-content-between align-items-center">
                                 <span class="fw-bold small mb-0"><i class="bi bi-bell-fill me-1"></i> Pengingat Agenda</span>
                                 <span class="badge bg-white text-dark small">{{ count($agendaReminders ?? []) }} Kegiatan</span>
                             </div>
@@ -505,8 +215,7 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 rounded-3 p-0 overflow-hidden">
-                            <li class="user-header text-white text-center p-3"
-                                style="background: linear-gradient(135deg, #07233b 0%, #0b4b75 60%, #1098a5 100%);">
+                            <li class="user-header text-bg-primary text-center p-3">
                                 <img src="{{ $userData && $userData->photo_profil ? asset('storage/photo_profil/' . $userData->photo_profil) : asset('template/dist/img/avatar5.png') }}"
                                     class="rounded-circle shadow border border-2 border-white mb-2" alt="Foto Profil"
                                     style="width: 72px; height: 72px; object-fit: cover;">
@@ -535,8 +244,8 @@
             <!-- Brand -->
             <div class="sidebar-brand">
                 <a href="{{ route('dashboard') }}" class="brand-link text-decoration-none d-flex align-items-center">
-                    <img src="{{ asset('image/logo-kemenhub.png') }}" alt="Logo Kemenhub" class="brand-image rounded shadow-sm">
-                    <span class="brand-text fw-semibold ms-2">KSOP Tg.Pinang</span>
+                    <img src="{{ asset('image/logo-perhubungan.png') }}" alt="Logo Perhubungan" class="brand-image rounded shadow-sm">
+                    <span class="brand-text fw-semibold ms-2">SeAgenda</span>
                 </a>
             </div>
 
@@ -571,28 +280,11 @@
                         </li>
 
                         <!-- Agenda -->
-                        <li class="nav-item {{ Request::is('agenda*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{ route('agenda.index') }}" class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-calendar3"></i>
-                                <p>
-                                    AGENDA
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
+                                <p>AGENDA</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('agenda.index') }}" class="nav-link {{ Request::is('agenda') ? 'active' : '' }}">
-                                        <i class="nav-icon bi bi-card-checklist"></i>
-                                        <p>Daftar Agenda</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('agenda.create') }}" class="nav-link {{ Request::is('agenda/create') ? 'active' : '' }}">
-                                        <i class="nav-icon bi bi-plus-circle"></i>
-                                        <p>Agenda Baru</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
 
                         <!-- Master Data -->
@@ -663,10 +355,10 @@
         <!-- ==================== FOOTER ==================== -->
         <footer class="app-footer">
             <div class="float-end d-none d-sm-inline">
-                <small class="text-muted fw-semibold">AdminLTE v4 &bull; Catatan Qu</small>
+                <small class="text-muted fw-semibold">AdminLTE v4 &bull; SeAgenda</small>
             </div>
             <small class="text-muted">
-                Copyright &copy; {{ date('Y') }} &bull; <strong>KSOP Kelas II Tanjungpinang</strong> &bull; Ditjen Perhubungan Laut &bull; Developer: <strong>bangbhe</strong>
+                Copyright &copy; {{ date('Y') }} &bull; <strong>SeAgenda</strong> (Semua Agenda) &bull; Developer: <strong>bangbhe</strong>
             </small>
         </footer>
     </div>

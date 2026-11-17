@@ -196,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let activeUserId = null;
     let lastRenderedHash = '';
     let lastTypingSentAt = 0;
+    let lastIncomingMsgId = null;
 
     // Populate Emoji Grid
     emojis.forEach(emoji => {
@@ -260,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function selectContact(userId) {
         activeUserId = userId;
         lastRenderedHash = '';
+        lastIncomingMsgId = null;
         document.querySelectorAll('.contact-item').forEach(el => {
             el.classList.toggle('active', parseInt(el.getAttribute('data-user-id'), 10) === userId);
         });
@@ -400,7 +402,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 typingIndicatorBar.classList.add('d-none');
             }
 
+            const incomingMsgs = (data.messages || []).filter(m => !m.is_mine);
+            const maxIncomingId = incomingMsgs.length > 0 ? incomingMsgs[incomingMsgs.length - 1].id : 0;
+            if (lastIncomingMsgId !== null && maxIncomingId > lastIncomingMsgId) {
+                if (typeof window.playChatNotificationSound === 'function') {
+                    window.playChatNotificationSound();
+                }
+            }
+            lastIncomingMsgId = maxIncomingId;
+
             renderMessages(data.messages, scrollToBottom);
+            refreshContacts();
         } catch (e) {
             // silent retry on next poll
         }
@@ -438,6 +450,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     unreadEl.classList.toggle('d-none', c.unread_count <= 0 || c.id === activeUserId);
                 }
             });
+
+            const totalUnread = (data.contacts || []).reduce((sum, c) => sum + (c.unread_count || 0), 0);
+            if (typeof window.updateChatBadges === 'function') {
+                window.updateChatBadges(totalUnread);
+            }
         } catch (e) {
             // silent
         }

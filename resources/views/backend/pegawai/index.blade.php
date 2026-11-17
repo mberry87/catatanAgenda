@@ -43,6 +43,7 @@
                                     <th>NIP</th>
                                     <th>Golongan</th>
                                     <th>Jabatan</th>
+                                    <th>Unit Kerja</th>
                                     <th>Status</th>
                                     <th style="width: 140px;">Aksi</th>
                                 </tr>
@@ -51,12 +52,7 @@
                                 @foreach ($pegawai as $data)
                                     <tr>
                                         <td class="text-center fw-semibold">{{ $loop->iteration }}</td>
-                                        <td class="fw-semibold text-dark">
-                                            {{ $data->nama }}
-                                            @if ($data->unit_kerja)
-                                                <div class="small text-muted fw-normal">{{ $data->unit_kerja }}</div>
-                                            @endif
-                                        </td>
+                                        <td class="fw-semibold text-dark">{{ $data->nama }}</td>
                                         <td>{{ $data->nip ?: '-' }}</td>
                                         <td>
                                             @if ($data->gol)
@@ -66,6 +62,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $data->jabatan ?: '-' }}</td>
+                                        <td>{{ $data->unit_kerja ?: '-' }}</td>
                                         <td>
                                             @if ($data->status === 'Aktif')
                                                 <span class="badge bg-success">Aktif</span>

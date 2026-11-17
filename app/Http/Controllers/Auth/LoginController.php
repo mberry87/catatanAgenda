@@ -20,7 +20,29 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
+
+    public function logout(Request $request)
+    {
+        if ($user = $request->user()) {
+            $user->timestamps = false;
+            $user->last_seen_at = null;
+            $user->save();
+            $user->timestamps = true;
+        }
+
+        return $this->performLogout($request);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $user->timestamps = false;
+        $user->last_seen_at = now();
+        $user->save();
+        $user->timestamps = true;
+    }
 
     /**
      * Where to redirect users after login.

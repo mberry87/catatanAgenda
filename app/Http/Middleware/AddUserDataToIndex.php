@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AgendaKegiatan;
+use App\Models\ChatMessage;
 use Carbon\Carbon;
 
 class AddUserDataToIndex
@@ -58,6 +59,36 @@ class AddUserDataToIndex
             }
 
             view()->share('agendaReminders', $agendaReminders);
+
+            if ($userData) {
+                if (!$userData->last_seen_at || $userData->last_seen_at->lt(now()->subSeconds(30))) {
+                    $userData->timestamps = false;
+                    $userData->last_seen_at = now();
+                    $userData->save();
+                    $userData->timestamps = true;
+                }
+
+                $hasChatAccess = $userData->hasPermission('chat.access');
+                $unreadChatCount = $hasChatAccess
+                    ? ChatMessage::where('receiver_id', $userData->id)
+                        ->whereNull('read_at')
+                        ->where('deleted_by_receiver', false)
+                        ->count()
+                    : 0;
+
+                $recentUnreadChats = $hasChatAccess
+                    ? ChatMessage::with('sender')
+                        ->where('receiver_id', $userData->id)
+                        ->whereNull('read_at')
+                        ->where('deleted_by_receiver', false)
+                        ->latest('id')
+                        ->take(5)
+                        ->get()
+                    : collect();
+
+                view()->share('unreadChatCount', $unreadChatCount);
+                view()->share('recentUnreadChats', $recentUnreadChats);
+            }
         }
 
         return $next($request);

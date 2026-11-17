@@ -193,9 +193,18 @@
             .fc .fc-toolbar-title {
                 font-size: 1.05rem !important;
             }
-            .navbar-nav .dropdown-menu-lg {
-                min-width: 260px;
-                max-width: calc(100vw - 24px);
+            .app-header .navbar-nav .nav-item.dropdown {
+                position: static;
+            }
+            .app-header .navbar-nav .dropdown-menu-lg {
+                position: fixed !important;
+                top: 58px !important;
+                left: 12px !important;
+                right: 12px !important;
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                transform: none !important;
             }
         }
     </style>
@@ -228,12 +237,10 @@
                         <li class="nav-item dropdown me-2">
                             <a class="nav-link position-relative text-body" data-bs-toggle="dropdown" href="#" role="button" title="Pesan Masuk">
                                 <i class="bi bi-chat-dots fs-5"></i>
-                                @if (!empty($unreadChatCount) && $unreadChatCount > 0)
-                                    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
-                                        {{ $unreadChatCount }}
-                                        <span class="visually-hidden">pesan masuk</span>
-                                    </span>
-                                @endif
+                                <span id="navbarChatBadge" class="position-absolute translate-middle badge rounded-pill bg-danger {{ (!empty($unreadChatCount) && $unreadChatCount > 0) ? '' : 'd-none' }}" style="font-size: 10px; top: 8px; left: 82%;">
+                                    {{ $unreadChatCount ?? 0 }}
+                                    <span class="visually-hidden">pesan masuk</span>
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 p-0 rounded-3 overflow-hidden">
                                 <div class="px-3 py-2 text-bg-primary d-flex justify-content-between align-items-center">
@@ -246,7 +253,7 @@
                                             <div class="d-flex align-items-start gap-2">
                                                 <img src="{{ $chatMsg->sender && $chatMsg->sender->photo_profil ? asset('storage/photo_profil/' . $chatMsg->sender->photo_profil) : asset('template/dist/img/avatar5.png') }}"
                                                     class="rounded-circle border flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;" alt="Avatar">
-                                                <div class="flex-grow-1 overflow-hidden" style="max-width: 220px;">
+                                                <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <span class="small fw-bold text-truncate text-dark">{{ $chatMsg->sender->name ?? 'User' }}</span>
                                                         <small class="text-muted ms-1" style="font-size: 10px;">{{ $chatMsg->created_at->format('H:i') }}</small>
@@ -276,7 +283,7 @@
                         <a class="nav-link position-relative text-body" id="bellDropdownToggle" data-bs-toggle="dropdown" href="#" role="button" title="Pengingat Agenda">
                             <i class="bi bi-bell fs-5"></i>
                             @if (!empty($unreadReminderCount) && $unreadReminderCount > 0)
-                                <span id="bellBadgeCount" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                                <span id="bellBadgeCount" class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size: 10px; top: 8px; left: 82%;">
                                     {{ $unreadReminderCount }}
                                     <span class="visually-hidden">pengingat agenda</span>
                                 </span>
@@ -305,7 +312,7 @@
                                                     <span class="badge bg-danger"><i class="bi bi-play-circle-fill"></i> Hari H</span>
                                                 @endif
                                             </div>
-                                            <div class="flex-grow-1 overflow-hidden" style="max-width: 230px;">
+                                            <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
                                                 <div class="small fw-bold text-truncate text-dark">{{ $rem['uraian'] }}</div>
                                                 <div class="text-muted" style="font-size: 11px;"><i class="bi bi-clock me-1"></i>{{ $rem['waktu'] }}</div>
                                                 <div class="text-muted text-truncate" style="font-size: 11px;"><i class="bi bi-geo-alt me-1"></i>{{ $rem['tempat'] }}</div>
@@ -448,9 +455,7 @@
                                     <i class="nav-icon bi bi-chat-dots"></i>
                                     <p>
                                         CHAT
-                                        @if (!empty($unreadChatCount))
-                                            <span class="nav-badge badge text-bg-danger">{{ $unreadChatCount }}</span>
-                                        @endif
+                                        <span id="sidebarChatBadge" class="nav-badge badge text-bg-danger {{ !empty($unreadChatCount) ? '' : 'd-none' }}">{{ $unreadChatCount ?? 0 }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -734,6 +739,91 @@
     </script>
 
     @stack('scripts')
+
+    @if (auth()->check() && auth()->user()->hasPermission('chat.access'))
+        <script>
+            (function () {
+                window.chatSoundEnabled = @json(auth()->user()->hasPermission('chat.sound'));
+                let audioCtx = null;
+
+                function unlockAudio() {
+                    if (!window.chatSoundEnabled) return;
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContextClass && !audioCtx) {
+                        audioCtx = new AudioContextClass();
+                    }
+                    if (audioCtx && audioCtx.state === 'suspended') {
+                        audioCtx.resume().catch(() => {});
+                    }
+                }
+
+                document.addEventListener('click', unlockAudio, { once: true });
+                document.addEventListener('keydown', unlockAudio, { once: true });
+
+                window.playChatNotificationSound = function () {
+                    if (!window.chatSoundEnabled) return;
+                    try {
+                        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                        if (!AudioContextClass) return;
+                        if (!audioCtx) audioCtx = new AudioContextClass();
+                        if (audioCtx.state === 'suspended') {
+                            audioCtx.resume().catch(() => {});
+                        }
+
+                        const now = audioCtx.currentTime;
+                        const notes = [659.25, 880]; // E5 -> A5 chime
+
+                        notes.forEach((freq, idx) => {
+                            const osc = audioCtx.createOscillator();
+                            const gain = audioCtx.createGain();
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+
+                            gain.gain.setValueAtTime(0.001, now + idx * 0.12);
+                            gain.gain.exponentialRampToValueAtTime(0.15, now + idx * 0.12 + 0.02);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.28);
+
+                            osc.connect(gain);
+                            gain.connect(audioCtx.destination);
+                            osc.start(now + idx * 0.12);
+                            osc.stop(now + idx * 0.12 + 0.3);
+                        });
+                    } catch (e) {}
+                };
+
+                let lastGlobalUnread = {{ (int) ($unreadChatCount ?? 0) }};
+
+                window.updateChatBadges = function (total) {
+                    const navBadge = document.getElementById('navbarChatBadge');
+                    const sideBadge = document.getElementById('sidebarChatBadge');
+                    [navBadge, sideBadge].forEach(el => {
+                        if (!el) return;
+                        el.textContent = total;
+                        el.classList.toggle('d-none', total <= 0);
+                    });
+                };
+
+                // Poll global unread chat count every 4 seconds (outside /chat page)
+                if (!window.location.pathname.startsWith('/chat')) {
+                    setInterval(async function () {
+                        try {
+                            const res = await fetch('{{ route('chat.usersStatus') }}', {
+                                headers: { 'Accept': 'application/json' }
+                            });
+                            if (!res.ok) return;
+                            const data = await res.json();
+                            const totalUnread = (data.contacts || []).reduce((sum, c) => sum + (c.unread_count || 0), 0);
+                            if (totalUnread > lastGlobalUnread) {
+                                window.playChatNotificationSound();
+                            }
+                            lastGlobalUnread = totalUnread;
+                            window.updateChatBadges(totalUnread);
+                        } catch (e) {}
+                    }, 4000);
+                }
+            })();
+        </script>
+    @endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

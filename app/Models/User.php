@@ -21,6 +21,7 @@ class User extends Authenticatable
         'pegawai.manage'          => 'Kelola Data Pegawai',
         'user.manage'             => 'Kelola User & Hak Akses',
         'chat.access'             => 'Akses Fitur Chat',
+        'chat.sound'              => 'Notifikasi Suara Chat (Aktif/Nonaktif)',
         'chat.delete_message'     => 'Hapus Pesan Chat',
         'chat.clear_conversation' => 'Hapus Seluruh Pesan Chat',
     ];
@@ -105,6 +106,6 @@ class User extends Authenticatable
             return true;
         }
 
-        return in_array($permission, ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf', 'chat.access'], true);
+        return in_array($permission, ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf', 'chat.access', 'chat.sound'], true);
     }
 }

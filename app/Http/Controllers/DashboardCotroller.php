@@ -6,6 +6,7 @@ use App\Models\AgendaKegiatan;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -140,5 +141,35 @@ class DashboardCotroller extends Controller
         }
 
         return response()->json($events);
+    }
+
+    /**
+     * Tandai notifikasi lonceng agenda sudah dibaca.
+     */
+    public function markNotificationsRead(Request $request)
+    {
+        $userId = Auth::id();
+        $cacheKey = 'user_' . $userId . '_read_reminders';
+        $readKeys = Cache::get($cacheKey, []);
+
+        $keys = $request->input('keys', []);
+        if (is_array($keys) && count($keys) > 0) {
+            $readKeys = array_values(array_unique(array_merge($readKeys, $keys)));
+        } else {
+            // Tandai semua agenda aktif Hari H dan H-1 saat ini sebagai sudah dibaca
+            $activeAgendas = AgendaKegiatan::where('status', '!=', 'Selesai')->get();
+            foreach ($activeAgendas as $agenda) {
+                if ($agenda->isHariH()) {
+                    $readKeys[] = $agenda->id . '_Hari H';
+                } elseif ($agenda->isHMinus1()) {
+                    $readKeys[] = $agenda->id . '_H-1';
+                }
+            }
+            $readKeys = array_values(array_unique($readKeys));
+        }
+
+        Cache::forever($cacheKey, $readKeys);
+
+        return response()->json(['ok' => true, 'unread_count' => 0]);
     }
 }

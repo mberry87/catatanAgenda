@@ -272,24 +272,31 @@
                     @endif
 
                     <!-- Notification Bell (Pengingat Agenda) -->
-                    <li class="nav-item dropdown me-2">
-                        <a class="nav-link position-relative text-body" data-bs-toggle="dropdown" href="#" role="button" title="Pengingat Agenda">
+                    <li class="nav-item dropdown me-2" id="bellDropdownItem">
+                        <a class="nav-link position-relative text-body" id="bellDropdownToggle" data-bs-toggle="dropdown" href="#" role="button" title="Pengingat Agenda">
                             <i class="bi bi-bell fs-5"></i>
-                            @if (isset($agendaReminders) && count($agendaReminders) > 0)
-                                <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
-                                    {{ count($agendaReminders) }}
+                            @if (!empty($unreadReminderCount) && $unreadReminderCount > 0)
+                                <span id="bellBadgeCount" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                                    {{ $unreadReminderCount }}
                                     <span class="visually-hidden">pengingat agenda</span>
                                 </span>
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end shadow-lg border-0 p-0 rounded-3 overflow-hidden">
-                            <div class="px-3 py-2 text-bg-primary d-flex justify-content-between align-items-center">
+                            <div class="px-3 py-2 text-bg-primary d-flex justify-content-between align-items-center gap-2">
                                 <span class="fw-bold small mb-0"><i class="bi bi-bell-fill me-1"></i> Pengingat Agenda</span>
                                 <span class="badge bg-white text-dark small">{{ count($agendaReminders ?? []) }} Kegiatan</span>
                             </div>
+                            @if (!empty($agendaReminders) && count($agendaReminders) > 0)
+                                <div class="px-3 py-1 bg-light border-bottom d-flex justify-content-end">
+                                    <button type="button" id="markAllNotifReadBtn" class="btn btn-link btn-sm p-0 text-decoration-none small fw-semibold">
+                                        <i class="bi bi-check2-all me-1"></i>Tandai semua sudah dibaca
+                                    </button>
+                                </div>
+                            @endif
                             <div class="list-group list-group-flush" style="max-height: 320px; overflow-y: auto;">
                                 @forelse($agendaReminders ?? [] as $rem)
-                                    <a href="{{ route('agenda.show', $rem['id']) }}" class="list-group-item list-group-item-action p-2 border-bottom">
+                                    <a href="{{ route('agenda.show', $rem['id']) }}" class="list-group-item list-group-item-action p-2 border-bottom bell-reminder-item {{ empty($rem['is_read']) ? 'bg-primary-subtle' : '' }}">
                                         <div class="d-flex align-items-start">
                                             <div class="me-2 mt-1">
                                                 @if ($rem['tipe'] === 'H-1')
@@ -727,6 +734,52 @@
     </script>
 
     @stack('scripts')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bellDropdownItem = document.getElementById('bellDropdownItem');
+            const bellBadgeCount = document.getElementById('bellBadgeCount');
+            const markAllBtn = document.getElementById('markAllNotifReadBtn');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            async function markBellNotificationsRead() {
+                if (!csrfToken) return;
+                try {
+                    const res = await fetch('{{ route('notifications.markRead') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({})
+                    });
+                    if (res.ok) {
+                        if (bellBadgeCount) {
+                            bellBadgeCount.remove();
+                        }
+                        document.querySelectorAll('.bell-reminder-item.bg-primary-subtle').forEach(el => {
+                            el.classList.remove('bg-primary-subtle');
+                        });
+                    }
+                } catch (e) {}
+            }
+
+            if (bellDropdownItem && bellBadgeCount) {
+                bellDropdownItem.addEventListener('shown.bs.dropdown', function () {
+                    markBellNotificationsRead();
+                });
+            }
+
+            if (markAllBtn) {
+                markAllBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    markBellNotificationsRead();
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

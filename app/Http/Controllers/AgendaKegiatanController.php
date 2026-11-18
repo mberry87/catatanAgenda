@@ -66,6 +66,11 @@ class AgendaKegiatanController extends Controller
         $labelStatus = $status !== null ? str_replace(' ', '-', strtolower($status)) : 'semua';
         $rentang = str_replace('-', '', $dari) . '-sd-' . str_replace('-', '', $sampai);
 
+        if (!is_dir(storage_path('fonts'))) {
+            @mkdir(storage_path('fonts'), 0755, true);
+        }
+        @ini_set('memory_limit', '256M');
+
         return Pdf::loadView('backend.agenda.pdf', compact('agendaKegiatan', 'status', 'bulan', 'tahun', 'dari', 'sampai'))
             ->setPaper('a4', 'landscape')
             ->download('laporan-agenda-' . $labelStatus . '-' . $rentang . '.pdf');

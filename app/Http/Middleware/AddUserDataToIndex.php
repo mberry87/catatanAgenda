@@ -24,7 +24,7 @@ class AddUserDataToIndex
         $userData = Auth::user();
         view()->share('userData', $userData);
 
-        if (Auth::check()) {
+        if (Auth::check() && !$request->expectsJson() && !$request->ajax()) {
             $today = Carbon::today();
 
             // Ambil semua agenda yang belum selesai

@@ -59,22 +59,26 @@
             @forelse ($agendaKegiatan as $agenda)
                 <tr>
                     <td style="text-align:center">{{ $loop->iteration }}</td>
-                    <td>{{ \Carbon\Carbon::parse($agenda->tgl_mulai)->translatedFormat('l, d F Y') }}<br>
-                        s.d. {{ \Carbon\Carbon::parse($agenda->tgl_selesai)->translatedFormat('l, d F Y') }}</td>
+                    <td>
+                        {{ $agenda->tgl_mulai ? \Carbon\Carbon::parse($agenda->tgl_mulai)->translatedFormat('l, d F Y') : '-' }}
+                        @if (!empty($agenda->tgl_selesai))
+                            <br>s.d. {{ \Carbon\Carbon::parse($agenda->tgl_selesai)->translatedFormat('l, d F Y') }}
+                        @endif
+                    </td>
                     <td>{{ $agenda->pukul }} WIB<br>{{ $agenda->tempat }}</td>
                     <td>{{ $agenda->uraian }}</td>
                     <td>
                         @forelse ($agenda->pegawai as $pegawai)
-                            {{ $pegawai->nama }}@if (!$loop->last)
-                                ,
-                            @endif @empty -
+                            {{ $pegawai->nama }}@if (!$loop->last), @endif
+                        @empty
+                            -
                         @endforelse
                     </td>
                     <td>{{ $agenda->keterangan ?: '-' }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" style="text-align:center">Data agenda tidak ditemukan</td>
+                    <td colspan="6" style="text-align:center">Data agenda tidak ditemukan</td>
                 </tr>
             @endforelse
         </tbody>

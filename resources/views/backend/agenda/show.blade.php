@@ -29,9 +29,11 @@
                         <a href="{{ url()->previous() ?: route('agenda.index') }}" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
                         </a>
-                        <a href="{{ route('agenda.edit', $agendaShow->id) }}" class="btn btn-ksop btn-sm px-3">
-                            <i class="bi bi-pencil me-1"></i> Edit Agenda
-                        </a>
+                        @if (auth()->user()->hasPermission('agenda.edit'))
+                            <a href="{{ route('agenda.edit', $agendaShow->id) }}" class="btn btn-ksop btn-sm px-3">
+                                <i class="bi bi-pencil me-1"></i> Edit Agenda
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">

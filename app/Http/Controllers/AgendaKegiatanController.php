@@ -23,6 +23,15 @@ class AgendaKegiatanController extends Controller
         'Zoom Meet (Daring)',
     ];
 
+    private function ensurePermission(string $permission): void
+    {
+        abort_unless(
+            Auth::user() && Auth::user()->hasPermission($permission),
+            403,
+            'Anda tidak memiliki hak akses untuk fitur ini.'
+        );
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +39,7 @@ class AgendaKegiatanController extends Controller
      */
     public function index()
     {
+        $this->ensurePermission('agenda.view');
         $agendaKegiatan = AgendaKegiatan::with(['pegawai', 'instansi', 'user'])->orderBy('tgl_mulai', 'desc')->get();
 
         return view('backend.agenda.index', compact('agendaKegiatan'));
@@ -37,6 +47,7 @@ class AgendaKegiatanController extends Controller
 
     public function pdf(Request $request)
     {
+        $this->ensurePermission('agenda.pdf');
         $validated = $request->validate([
             'dari'   => ['required', 'date'],
             'sampai' => ['required', 'date', 'after_or_equal:dari'],
@@ -86,6 +97,7 @@ class AgendaKegiatanController extends Controller
      */
     public function whatsapp($id)
     {
+        $this->ensurePermission('agenda.view');
         $agenda = AgendaKegiatan::with(['pegawai', 'instansi'])->findOrFail($id);
 
         $tanggal = \Carbon\Carbon::parse($agenda->tgl_mulai)->translatedFormat('l, d F Y');
@@ -123,6 +135,7 @@ class AgendaKegiatanController extends Controller
      */
     public function create()
     {
+        $this->ensurePermission('agenda.create');
         $pegawai         = Pegawai::all();
         $instansi        = Instansi::all();
         $statusList      = self::STATUS_LIST;
@@ -139,6 +152,7 @@ class AgendaKegiatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->ensurePermission('agenda.create');
         $validatedData = $request->validate([
             'uraian'       => 'required',
             'tgl_mulai'    => 'required',
@@ -197,6 +211,7 @@ class AgendaKegiatanController extends Controller
      */
     public function show($id)
     {
+        $this->ensurePermission('agenda.view');
         return view('backend.agenda.show', [
             'agendaShow' => AgendaKegiatan::with('pegawai', 'instansi')->findOrFail($id)
         ]);
@@ -210,6 +225,7 @@ class AgendaKegiatanController extends Controller
      */
     public function edit($id)
     {
+        $this->ensurePermission('agenda.edit');
         $agenda          = AgendaKegiatan::with(['pegawai', 'instansi'])->findOrFail($id);
         $pegawai         = Pegawai::all();
         $instansi        = Instansi::all();
@@ -228,6 +244,7 @@ class AgendaKegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->ensurePermission('agenda.edit');
         $agenda = AgendaKegiatan::findOrFail($id);
 
         $request->validate([
@@ -281,6 +298,7 @@ class AgendaKegiatanController extends Controller
 
     public function updateStatus($id)
     {
+        $this->ensurePermission('agenda.edit');
         $agendaKegiatan         = AgendaKegiatan::findOrFail($id);
         $agendaKegiatan->status = 'Selesai';
         $agendaKegiatan->save();
@@ -296,6 +314,7 @@ class AgendaKegiatanController extends Controller
      */
     public function destroy($id)
     {
+        $this->ensurePermission('agenda.delete');
         $agendaKegiatan = AgendaKegiatan::with('pegawai')->findOrFail($id);
         $agendaKegiatan->delete();
 
@@ -304,12 +323,14 @@ class AgendaKegiatanController extends Controller
 
     public function countSelesai()
     {
+        $this->ensurePermission('agenda.view');
         $jumlahSelesai = AgendaKegiatan::where('status', 'Selesai')->get();
         return view('backend.status.countSelesai', compact('jumlahSelesai'));
     }
 
     public function countBelumSelesai()
     {
+        $this->ensurePermission('agenda.view');
         $jumlahBelumSelesai = AgendaKegiatan::whereIn('status', ['In Progress', 'In Proses', 'Belum Selesai'])->get();
         return view('backend.status.countBelumSelesai', compact('jumlahBelumSelesai'));
     }

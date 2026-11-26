@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        @can('viewAny', App\Models\User::class)
+        @if (auth()->user()->hasPermission('user.manage'))
             <div class="col-lg col-md-6 col-sm-12 mb-4">
                 <div class="small-box text-bg-info">
                     <div class="inner">
@@ -59,6 +59,8 @@
                     </a>
                 </div>
             </div>
+        @endif
+        @if (auth()->user()->hasPermission('pegawai.manage'))
             <div class="col-lg col-md-6 col-sm-12 mb-4">
                 <div class="small-box text-bg-primary">
                     <div class="inner">
@@ -71,7 +73,7 @@
                     </a>
                 </div>
             </div>
-        @endcan
+        @endif
     </div>
 
     {{-- ==================== MAIN CONTENT ==================== --}}
@@ -83,9 +85,11 @@
                     <h5 class="card-title mb-0">
                         <i class="bi bi-list-ul me-1 text-primary"></i> Agenda Aktif
                     </h5>
-                    <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-xs">
-                        <i class="bi bi-plus-lg"></i> Tambah
-                    </a>
+                    @if (auth()->user()->hasPermission('agenda.create'))
+                        <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-xs">
+                            <i class="bi bi-plus-lg"></i> Tambah
+                        </a>
+                    @endif
                 </div>
                 <div class="card-body p-0" style="max-height: 520px; overflow-y: auto;">
                     @if ($tanggal_agenda->isEmpty())

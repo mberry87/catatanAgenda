@@ -28,9 +28,11 @@
                         <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
                         </a>
-                        <a href="{{ route('agenda.create') }}" class="btn btn-ksop btn-sm px-3">
-                            <i class="bi bi-plus-lg me-1"></i> Tambah Agenda
-                        </a>
+                        @if (auth()->user()->hasPermission('agenda.create'))
+                            <a href="{{ route('agenda.create') }}" class="btn btn-ksop btn-sm px-3">
+                                <i class="bi bi-plus-lg me-1"></i> Tambah Agenda
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -85,24 +87,28 @@
                                         </td>
                                         <td>
                                             <div class="d-flex flex-wrap gap-1">
-                                                <form action="{{ route('agenda.updateStatus', $data->id) }}" method="POST"
-                                                    class="selesai-form">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button class="btn btn-success btn-sm selesai-btn" type="submit"
-                                                        title="Tandai Selesai">
-                                                        <i class="bi bi-check-lg"></i>
-                                                    </button>
-                                                </form>
+                                                @if (auth()->user()->hasPermission('agenda.edit'))
+                                                    <form action="{{ route('agenda.updateStatus', $data->id) }}" method="POST"
+                                                        class="selesai-form">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button class="btn btn-success btn-sm selesai-btn" type="submit"
+                                                            title="Tandai Selesai">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                                 <a href="{{ route('agenda.show', $data) }}"
                                                     class="btn btn-outline-warning btn-sm" title="Lihat">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
-                                                <a href="{{ route('agenda.edit', $data) }}"
-                                                    class="btn btn-outline-primary btn-sm" title="Edit">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                @can('viewAny', App\Models\User::class)
+                                                @if (auth()->user()->hasPermission('agenda.edit'))
+                                                    <a href="{{ route('agenda.edit', $data) }}"
+                                                        class="btn btn-outline-primary btn-sm" title="Edit">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                @endif
+                                                @if (auth()->user()->hasPermission('agenda.delete'))
                                                     <form action="{{ route('agenda.destroy', $data->id) }}" method="POST"
                                                         class="delete-form d-inline">
                                                         @csrf
@@ -111,7 +117,7 @@
                                                             <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
-                                                @endcan
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

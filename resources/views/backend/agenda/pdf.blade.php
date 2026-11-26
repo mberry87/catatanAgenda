@@ -6,7 +6,7 @@
     <title>Laporan Agenda Kegiatan</title>
     <style>
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 10px;
         }
 

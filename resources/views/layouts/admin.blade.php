@@ -416,37 +416,45 @@
                         </li>
 
                         <!-- Agenda -->
-                        <li class="nav-item">
-                            <a href="{{ route('agenda.index') }}" class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-calendar3"></i>
-                                <p>AGENDA</p>
-                            </a>
-                        </li>
+                        @if (auth()->user()->hasPermission('agenda.view'))
+                            <li class="nav-item">
+                                <a href="{{ route('agenda.index') }}" class="nav-link {{ Request::is('agenda*') ? 'active' : '' }}">
+                                    <i class="nav-icon bi bi-calendar3"></i>
+                                    <p>AGENDA</p>
+                                </a>
+                            </li>
+                        @endif
 
                         <!-- Master Data -->
-                        <li class="nav-item {{ Request::is('instansi*', 'pegawai*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('instansi*', 'pegawai*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-database-fill"></i>
-                                <p>
-                                    MASTER DATA
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('instansi.index') }}" class="nav-link {{ Request::is('instansi*') ? 'active' : '' }}">
-                                        <i class="nav-icon bi bi-building"></i>
-                                        <p>Instansi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('pegawai.index') }}" class="nav-link {{ Request::is('pegawai*') ? 'active' : '' }}">
-                                        <i class="nav-icon bi bi-person-badge"></i>
-                                        <p>Pegawai</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (auth()->user()->hasPermission('instansi.manage') || auth()->user()->hasPermission('pegawai.manage'))
+                            <li class="nav-item {{ Request::is('instansi*', 'pegawai*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ Request::is('instansi*', 'pegawai*') ? 'active' : '' }}">
+                                    <i class="nav-icon bi bi-database-fill"></i>
+                                    <p>
+                                        MASTER DATA
+                                        <i class="nav-arrow bi bi-chevron-right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (auth()->user()->hasPermission('instansi.manage'))
+                                        <li class="nav-item">
+                                            <a href="{{ route('instansi.index') }}" class="nav-link {{ Request::is('instansi*') ? 'active' : '' }}">
+                                                <i class="nav-icon bi bi-building"></i>
+                                                <p>Instansi</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (auth()->user()->hasPermission('pegawai.manage'))
+                                        <li class="nav-item">
+                                            <a href="{{ route('pegawai.index') }}" class="nav-link {{ Request::is('pegawai*') ? 'active' : '' }}">
+                                                <i class="nav-icon bi bi-person-badge"></i>
+                                                <p>Pegawai</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                        @endif
 
                         <!-- Chat -->
                         @if (auth()->user()->hasPermission('chat.access'))

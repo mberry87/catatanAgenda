@@ -4,116 +4,86 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private function ensureManageAccess(): void
+    {
+        abort_unless(
+            Auth::user() && Auth::user()->hasPermission('user.manage'),
+            403,
+            'Anda tidak memiliki hak akses untuk mengelola user.'
+        );
+    }
+
     public function index()
     {
+        $this->ensureManageAccess();
         $users = User::all();
 
         return view('backend.user.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $users = User::all();
+        $this->ensureManageAccess();
         $availablePermissions = User::AVAILABLE_PERMISSIONS;
-        return view('backend.user.create', compact('users', 'availablePermissions'));
+
+        return view('backend.user.create', compact('availablePermissions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->ensureManageAccess();
         $permissionKeys = implode(',', array_keys(User::AVAILABLE_PERMISSIONS));
 
         $validatedData = $request->validate([
-            'name'          => 'required',
-            'username'      => 'required|unique:users,username',
-            'nip'           => 'required',
-            'email'         => 'required|unique:users,email',
-            'role'          => 'required|in:admin,user',
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users,username',
+            'nip'           => 'required|string|max:255',
+            'email'         => 'required|email|max:255|unique:users,email',
+            'role'          => 'required|in:superadmin,admin,user',
             'permissions'   => 'nullable|array',
             'permissions.*' => 'string|in:' . $permissionKeys,
         ]);
 
         $validatedData['permissions'] = $request->input('permissions', []);
-        $validatedData['password'] = bcrypt('password'); // membuat password tersimpan otomatis
+        $validatedData['password'] = bcrypt('password');
 
         User::create($validatedData);
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil ditambah, password awal : password.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $this->ensureManageAccess();
+        return redirect()->route('user.edit', $id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $users = User::find($id);
-
-        if (!$users) {
-            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
-            abort(404);
-        }
-
+        $this->ensureManageAccess();
+        $users = User::findOrFail($id);
         $availablePermissions = User::AVAILABLE_PERMISSIONS;
 
         return view('backend.user.edit', compact('users', 'availablePermissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $users = User::find($id);
-
-        if (!$users) {
-            // Jika pegawai dengan ID yang diberikan tidak ditemukan,
-            abort(404);
-        }
+        $this->ensureManageAccess();
+        $users = User::findOrFail($id);
 
         $permissionKeys = implode(',', array_keys(User::AVAILABLE_PERMISSIONS));
 
         $request->validate([
-            'name'          => 'required',
-            'username'      => 'required|unique:users,username,' . $users->id,
-            'nip'           => 'required',
-            'email'         => 'required|unique:users,email,' . $users->id,
-            'role'          => 'required|in:admin,user',
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users,username,' . $users->id,
+            'nip'           => 'required|string|max:255',
+            'email'         => 'required|email|max:255|unique:users,email,' . $users->id,
+            'role'          => 'required|in:superadmin,admin,user',
             'permissions'   => 'nullable|array',
             'permissions.*' => 'string|in:' . $permissionKeys,
         ]);
@@ -126,18 +96,18 @@ class UserController extends Controller
         $users->permissions = $request->input('permissions', []);
         $users->save();
 
-        return redirect()->route('user.index')->with('success', 'user berhasil diperbarui.');
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $this->ensureManageAccess();
         $users = User::findOrFail($id);
+
+        if (Auth::id() === $users->id) {
+            return redirect()->route('user.index')->with('error', 'Tidak dapat menghapus akun yang sedang digunakan.');
+        }
+
         $users->delete();
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');

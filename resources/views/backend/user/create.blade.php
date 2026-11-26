@@ -98,7 +98,7 @@
                                     <div class="card-body">
                                         <p class="text-muted small mb-3">Centang hak akses yang diberikan kepada user ini:</p>
                                         @php
-                                            $oldPerms = old('permissions', ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf']);
+                                            $oldPerms = old('permissions', ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf', 'chat.access', 'chat.sound']);
                                         @endphp
                                         <div class="row g-2">
                                             @foreach ($availablePermissions as $key => $label)

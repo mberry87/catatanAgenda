@@ -51,7 +51,7 @@ class AgendaKegiatanController extends Controller
         $sampai = $validated['sampai'];
         $status = $validated['status'] ?? null;
 
-        $agendaKegiatan = AgendaKegiatan::with(['pegawai', 'user'])
+        $agendaKegiatan = AgendaKegiatan::with('pegawai:id,nama')
             ->when($status !== null, fn ($q) => $q->where('status', $status))
             ->whereDate('tgl_mulai', '>=', $dari)
             ->whereDate('tgl_mulai', '<=', $sampai)
@@ -72,6 +72,11 @@ class AgendaKegiatanController extends Controller
         @ini_set('memory_limit', '256M');
 
         return Pdf::loadView('backend.agenda.pdf', compact('agendaKegiatan', 'status', 'bulan', 'tahun', 'dari', 'sampai'))
+            ->setOptions([
+                'defaultFont'             => 'Helvetica',
+                'isRemoteEnabled'         => false,
+                'isFontSubsettingEnabled' => false,
+            ])
             ->setPaper('a4', 'landscape')
             ->download('laporan-agenda-' . $labelStatus . '-' . $rentang . '.pdf');
     }

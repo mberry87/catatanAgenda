@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role === 'admin' || $user->hasPermission('user.manage');
+        return $user->hasPermission('user.manage');
     }
 
     /**

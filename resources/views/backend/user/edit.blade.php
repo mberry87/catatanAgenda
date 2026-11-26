@@ -60,15 +60,19 @@
                                     @enderror
                                 </div>
 
-                                @if (auth()->user()->role === 'admin' || auth()->user()->hasPermission('user.manage'))
-                                    <div class="mb-3">
-                                        <label for="role" class="form-label">Role</label>
-                                        <select class="form-select" id="role" name="role">
-                                            <option value="admin" {{ old('role', $users->role) === 'admin' ? 'selected' : '' }}>Admin</option>
-                                            <option value="user" {{ old('role', $users->role) === 'user' ? 'selected' : '' }}>User</option>
-                                        </select>
-                                    </div>
-                                @endif
+                                <div class="mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
+                                        @if ($users->role === 'superadmin')
+                                            <option value="superadmin" {{ old('role', $users->role) === 'superadmin' ? 'selected' : '' }}>Super Admin</option>
+                                        @endif
+                                        <option value="admin" {{ old('role', $users->role) === 'admin' ? 'selected' : '' }}>Admin</option>
+                                        <option value="user" {{ old('role', $users->role) === 'user' ? 'selected' : '' }}>User</option>
+                                    </select>
+                                    @error('role')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
@@ -96,9 +100,9 @@
                                     <div class="card-body">
                                         <p class="text-muted small mb-3">Centang hak akses yang diberikan kepada user ini:</p>
                                         @php
-                                            $defaultPerms = $users->role === 'admin'
+                                            $defaultPerms = in_array($users->role, ['admin', 'superadmin'], true)
                                                 ? array_keys($availablePermissions)
-                                                : ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf'];
+                                                : ['agenda.view', 'agenda.create', 'agenda.edit', 'agenda.pdf', 'chat.access', 'chat.sound'];
                                             $currentPerms = old('permissions', is_array($users->permissions) ? $users->permissions : $defaultPerms);
                                         @endphp
                                         <div class="row g-2">

@@ -537,6 +537,51 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
 
+    <!-- Flash Notification Popups -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Swal === 'undefined') return;
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: @json(session('success')),
+                    timer: 3000,
+                    showConfirmButton: true,
+                    confirmButtonColor: '#0d6efd'
+                });
+            @elseif (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: @json(session('error')),
+                    confirmButtonColor: '#dc3545'
+                });
+            @elseif (session('warning'))
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Perhatian!',
+                    text: @json(session('warning')),
+                    confirmButtonColor: '#ffc107'
+                });
+            @elseif (session('info'))
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Informasi',
+                    text: @json(session('info')),
+                    confirmButtonColor: '#0dcaf0'
+                });
+            @elseif ($errors->any())
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal!',
+                    text: @json($errors->first()),
+                    confirmButtonColor: '#dc3545'
+                });
+            @endif
+        });
+    </script>
+
     <!-- Select2 -->
     <script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
 

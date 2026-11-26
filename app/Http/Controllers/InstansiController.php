@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstansiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            abort_unless(
+                Auth::user() && Auth::user()->hasPermission('instansi.manage'),
+                403,
+                'Anda tidak memiliki hak akses untuk mengelola data instansi.'
+            );
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

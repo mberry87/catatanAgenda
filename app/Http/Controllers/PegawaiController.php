@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PegawaiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            abort_unless(
+                Auth::user() && Auth::user()->hasPermission('pegawai.manage'),
+                403,
+                'Anda tidak memiliki hak akses untuk mengelola data pegawai.'
+            );
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
